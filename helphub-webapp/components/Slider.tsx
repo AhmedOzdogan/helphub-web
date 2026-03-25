@@ -67,7 +67,7 @@ function Slider() {
     }, [activeIndex]);
 
     return (
-        <View className="relative h-[520px] w-full overflow-hidden bg-gray-200">
+        <View className="relative h-[520px] w-full overflow-hidden bg-gray-200 -z-10">
             {incomingIndex !== null ? (
                 <Animated.View
                     className="absolute inset-0 flex-row"
