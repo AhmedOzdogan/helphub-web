@@ -1,28 +1,18 @@
-import "../../global.css"
-import React from "react";
-import { Text, View, Pressable } from "react-native";
-import { verifyInstallation } from "nativewind";
+import { Text, View } from 'react-native';
+import Navbar from '../../components/ui/Navbar';
 
-export default function App() {
-  verifyInstallation();
-
+export default function HomeScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-black px-6">
-      <View className="w-full max-w-sm rounded-3xl bg-white p-6 shadow">
-        <Text className="text-3xl font-bold text-blue-600">
-          NativeWind Test
-        </Text>
+    <View className="flex-1 bg-white gap-y-96">
+      <Navbar />
 
-        <Text className="mt-3 text-base text-gray-700">
-          If you see a white card, blue title, gray text, rounded corners, and spacing,
-          NativeWind is working.
+      <View className="items-center px-6 ">
+        <Text className="text-3xl font-bold text-gray-800">
+          Welcome to HelpHub
         </Text>
-
-        <Pressable className="mt-6 rounded-2xl bg-green-500 px-4 py-3 active:opacity-80">
-          <Text className="text-center font-semibold text-white">
-            Test Button
-          </Text>
-        </Pressable>
+        <Text className="mt-3 text-base text-gray-600">
+          Step 1: Navbar base created successfully.
+        </Text>
       </View>
     </View>
   );
