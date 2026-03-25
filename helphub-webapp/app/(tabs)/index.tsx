@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native';
-import Navbar from '../../components/ui/Navbar';
+import Navbar from '../../components/Navbar';
 
 export default function HomeScreen() {
   return (
