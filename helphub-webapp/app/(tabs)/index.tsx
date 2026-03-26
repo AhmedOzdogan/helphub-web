@@ -1,13 +1,16 @@
 import Advantages from '@/components/Advantages';
 import Download from '@/components/Download';
 import HowItWorks from '@/components/HowItWorks';
+import Numbers from '@/components/Numbers';
 import { Text, View } from 'react-native';
 import Companies from '../../components/Companies';
 import Details from '../../components/Details';
 import Featured from '../../components/Featured';
+import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import PopulerCategories from '../../components/PopulerCategories';
 import Slider from '../../components/Slider';
+import Blog from '../../components/blog';
 
 export default function HomeScreen() {
   return (
@@ -37,6 +40,9 @@ export default function HomeScreen() {
       <Download />
       <Details />
       <Companies />
+      <Numbers />
+      <Blog />
+      <Footer />
     </View>
   );
 }

@@ -23,7 +23,7 @@ function Companies() {
 
             {/* RIGHT SIDE */}
             <View className="items-center justify-center gap-4">
-                <Text className="text-[16px] text-gray-400">
+                <Text className="text-[25px] text-gray-400">
                     Companies partnering with HelpHub
                 </Text>
 
