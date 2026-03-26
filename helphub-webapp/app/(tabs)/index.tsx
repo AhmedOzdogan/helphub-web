@@ -1,3 +1,6 @@
+import Advantages from '@/components/Advantages';
+import Download from '@/components/Download';
+import HowItWorks from '@/components/HowItWorks';
 import { Text, View } from 'react-native';
 import Featured from '../../components/Featured';
 import Navbar from '../../components/Navbar';
@@ -25,8 +28,11 @@ export default function HomeScreen() {
       <PopulerCategories />
       <Featured categoryName="Featured Consultants" />
       <Featured categoryName="Top Rated Consultants" />
+      <HowItWorks />
       <Featured categoryName="New Consultants" />
       <Featured categoryName="Online Consultants" />
+      <Advantages />
+      <Download />
 
     </View>
   );
