@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import Featured from '../../components/Featured';
 import Navbar from '../../components/Navbar';
 import PopulerCategories from '../../components/PopulerCategories';
 import Slider from '../../components/Slider';
@@ -22,6 +23,10 @@ export default function HomeScreen() {
       </View>
 
       <PopulerCategories />
+      <Featured categoryName="Featured Consultants" />
+      <Featured categoryName="Top Rated Consultants" />
+      <Featured categoryName="New Consultants" />
+      <Featured categoryName="Online Consultants" />
 
     </View>
   );

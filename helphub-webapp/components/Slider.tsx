@@ -8,11 +8,11 @@ import {
     View,
 } from 'react-native';
 
-import slider1 from '../assets/slider1.webp';
-import slider2 from '../assets/slider2.webp';
-import slider3 from '../assets/slider3.webp';
-import slider4 from '../assets/slider4.webp';
-import slider5 from '../assets/slider5.webp';
+import slider1 from '../assets/slider/slider1.webp';
+import slider2 from '../assets/slider/slider2.webp';
+import slider3 from '../assets/slider/slider3.webp';
+import slider4 from '../assets/slider/slider4.webp';
+import slider5 from '../assets/slider/slider5.webp';
 
 const slides = [slider1, slider2, slider3, slider4, slider5];
 const AUTO_SLIDE_INTERVAL = 5000;
