@@ -12,13 +12,13 @@ import RedButton from "./ui/RedButton";
 
 function PopulerCategories() {
     return (
-        <View className=" flex p-10 justify-center items-center w-full">
+        <View className="flex p-10 justify-center items-center w-full">
             <Text className="text-3xl font-bold mb-4">Popular Categories</Text>
             <Text className="text-xl text-gray-600 mb-6 text-center">
                 There will be more than 1.500 experts in 39 categories here for you...
             </Text>
 
-            <View className="flex-row w-full items-center justify-center">
+            <View className="flex-col lg:flex-row w-full items-center justify-center gap-4">
                 <CategoryCard title="Astrology" image={astrology} />
                 <CategoryCard title="Psychology" image={psychology} />
                 <CategoryCard title="Life Coach" image={lifeCoach} />
@@ -28,7 +28,6 @@ function PopulerCategories() {
             </View>
 
             <RedButton Icon={{ name: "arrow-forward", size: 20 }} ButtonText="See All Categories" />
-
         </View>
     );
 }

@@ -48,7 +48,7 @@ function Featured({ categoryName }: { categoryName: string }) {
     };
 
     return (
-        <View className="mt-10 w-full items-center justify-center bg-blue-50 px-16 py-8">
+        <View className="mt-10 w-full items-center justify-center bg-blue-50 px-14 py-8">
             <Text className="mb-8 text-2xl font-bold text-slate-800">
                 {categoryName}
             </Text>

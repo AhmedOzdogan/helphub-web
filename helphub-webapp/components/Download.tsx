@@ -15,42 +15,40 @@ const styles = StyleSheet.create({
 
 function Download() {
     return (
-        <View className="w-full items-center justify-center bg-[#f5f5f5] px-6 py-16">
+        <View className="w-full items-center justify-center bg-[#f5f5f5] px-4 py-10 sm:px-6 sm:py-16">
             <Image
                 source={worldbg}
                 resizeMode="contain"
                 className="absolute inset-0 -z-10 h-full w-full opacity-20"
                 style={{ width: '100%', height: '100%' }}
             />
-            <Text className="mb-12 text-center text-[28px] font-bold text-slate-800">
+            <Text className="mb-8 text-center text-[22px] font-bold text-slate-800 sm:mb-12 sm:text-[28px]">
                 Download the Advicemy App!
             </Text>
 
-            <View className="relative w-full max-w-[1400px] overflow-hidden rounded-[28px] px-8 py-10 bg-world">
+            <View className="relative w-full max-w-[1400px] overflow-hidden rounded-[20px] px-4 py-8 bg-world sm:rounded-[28px] sm:px-8 sm:py-10">
 
-                <View className="flex-row items-center justify-between gap-10">
-                    <View className="max-w-[720px] flex-1">
-                        <Text className="mb-4 text-[30px] font-bold leading-[38px] text-slate-800">
+                <View className="flex-col items-center justify-center gap-8 sm:gap-10 lg:flex-row lg:items-center lg:justify-between">
+                    <View className="w-full max-w-[720px] flex-1">
+                        <Text className="text-center lg:text-left mb-4 text-[22px] font-bold leading-[30px] text-slate-800 sm:text-[30px] sm:leading-[38px]">
                             The fastest way to reach expert consultants
                         </Text>
 
-                        <Text className="mb-8 text-[18px] leading-[32px] text-slate-700">
+                        <Text className="text-center lg:text-left mb-6 text-[16px] leading-[28px] text-slate-700 sm:mb-8 sm:text-[18px] sm:leading-[32px]">
                             With the Advicemy mobile app, you can access all our services much
                             faster and more easily. Wherever you are, you can either book an
                             instant appointment or schedule one for the day and time that
                             works best for you.
                         </Text>
 
-                        <View className="flex-row items-center gap-4">
-
-
+                        <View className="flex-row items-center justify-center gap-3 sm:gap-4">
                             <AppStoreDownload />
                             <GooglePlayDownload />
                         </View>
                     </View>
 
-                    <View className="w-[420px] shrink-0 items-end justify-center overflow-hidden">
-                        <View className="h-[350px] w-[350px] items-end justify-center overflow-hidden">
+                    <View className="hidden w-full max-w-[300px] items-end justify-center overflow-hidden sm:flex sm:max-w-[350px] lg:w-[420px] lg:max-w-none lg:shrink-0">
+                        <View className="h-[280px] w-[280px] items-end justify-center overflow-hidden sm:h-[350px] sm:w-[350px]">
                             <Image
                                 source={appImage}
                                 resizeMode="contain"

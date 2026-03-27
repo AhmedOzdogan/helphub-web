@@ -3,19 +3,19 @@ import StepCard from './ui/StepCard';
 
 function HowItWorks() {
     return (
-        <View className="w-full items-center justify-center bg-white px-16 py-12">
+        <View className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12">
             {/* Title */}
-            <Text className="mb-3 text-[28px] font-bold text-slate-800">
+            <Text className="mb-2 md:mb-3 text-xl md:text-[28px] font-bold text-slate-800 text-center">
                 How It Works?
             </Text>
 
             {/* Subtitle */}
-            <Text className="mb-10 max-w-[700px] text-center text-[16px] text-gray-500">
+            <Text className="mb-8 md:mb-10 max-w-[700px] text-center text-sm md:text-[16px] text-gray-500 px-2">
                 Our consulting process is simple and effective. Quickly connect with the right expert for your needs and reach a solution.
             </Text>
 
             {/* Steps */}
-            <View className="flex-row flex-wrap items-center justify-center gap-6">
+            <View className="w-full flex-row flex-wrap items-center justify-center gap-4 md:gap-6">
                 <StepCard
                     icon="search"
                     step="01"
