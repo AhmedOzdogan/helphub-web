@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import astrology from '../assets/popularCategories/astrology.webp';
 import child from '../assets/popularCategories/child.webp';
 import dietician from '../assets/popularCategories/dietician.webp';
@@ -7,8 +7,8 @@ import lifeCoach from '../assets/popularCategories/lifeCoach.webp';
 import psychology from '../assets/popularCategories/psychology.webp';
 
 
-import Ionicons from "@expo/vector-icons/Ionicons";
 import CategoryCard from "./ui/CategoryCard";
+import RedButton from "./ui/RedButton";
 
 function PopulerCategories() {
     return (
@@ -27,10 +27,7 @@ function PopulerCategories() {
                 <CategoryCard title="Family Counseling" image={family} />
             </View>
 
-            <Pressable className="mt-6 px-6 py-3 bg-red-400 rounded-full w-52 flex-row items-center justify-center">
-                <Ionicons name="arrow-forward" size={20} color="white" className="mr-2" />
-                <Text className="text-white font-bold">See All Categories</Text>
-            </Pressable>
+            <RedButton Icon={{ name: "arrow-forward", size: 20 }} ButtonText="See All Categories" />
 
         </View>
     );

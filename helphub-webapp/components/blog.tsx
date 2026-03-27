@@ -5,6 +5,7 @@ import blog3 from '../assets/blog/blog3.webp';
 import blog4 from '../assets/blog/blog4.webp';
 import blog5 from '../assets/blog/blog5.webp';
 import blog6 from '../assets/blog/blog6.webp';
+import RedButton from './ui/RedButton';
 
 const blogs = [
     { image: blog1, title: 'Mental Fatigue Even When Doing Nothing' },
@@ -48,11 +49,7 @@ function Blog() {
                     You can explore blog content from our consultants here.
                 </Text>
 
-                <View className="rounded-full bg-red-500 px-5 py-2 self-start">
-                    <Text className="text-[14px] font-semibold text-white">
-                        View All
-                    </Text>
-                </View>
+                <RedButton ButtonText="Explore" />
             </View>
 
             {/* RIGHT SIDE GRID */}

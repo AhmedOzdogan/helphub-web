@@ -1,6 +1,6 @@
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import companies from '../assets/companies.webp';
-
+import RedButton from './ui/RedButton';
 function Companies() {
     return (
         <View className="w-full flex-row items-center justify-evenly bg-[#f5f5f5] px-20 py-16">
@@ -14,11 +14,7 @@ function Companies() {
                     HelpHub Solutions
                 </Text>
 
-                <Pressable className="mt-6">
-                    <Text className="rounded-full bg-red-500 px-6 py-3 text-center text-[16px] font-semibold text-white hover:bg-red-300">
-                        Contact Us
-                    </Text>
-                </Pressable>
+                <RedButton ButtonText="Contact Us" />
             </View>
 
             {/* RIGHT SIDE */}

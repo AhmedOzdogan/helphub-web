@@ -65,7 +65,7 @@ function ProfileCard({ man, new: isNew, online: isOnliner }: { man: boolean; new
     const isOnline = isOnliner ?? Math.random() > 0.5;
 
     return (
-        <View className="mr-4 w-[300px] rounded-[20px] border border-gray-200 bg-[#f8f8f7] px-3 pb-3 pt-3 shadow-sm">
+        <View className="mr-4 w-[300px] rounded-[30px] border border-gray-200 bg-[#f8f8f7] px-3 pb-3 pt-3">
             <View className="items-end">
                 <Text className="text-[14px] font-medium text-gray-500">Sponsored</Text>
             </View>
