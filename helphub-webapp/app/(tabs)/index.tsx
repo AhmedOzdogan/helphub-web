@@ -2,7 +2,7 @@ import Advantages from '@/components/Advantages';
 import Download from '@/components/Download';
 import HowItWorks from '@/components/HowItWorks';
 import Numbers from '@/components/Numbers';
-import { Text, View } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 import Companies from '../../components/Companies';
 import Details from '../../components/Details';
 import Featured from '../../components/Featured';
@@ -16,16 +16,14 @@ export default function HomeScreen() {
   return (
     <View
       className="flex-1 bg-white items-center justify-start overflow-auto"
-      style={{
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-      }}
+      id="page-content"
+      style={Platform.OS === 'web' ? { scrollbarWidth: 'none', msOverflowStyle: 'none' } as any : {}}
     >
       <Navbar />
 
       <Slider />
 
-      <View className="p-10 bg-blue-50 w-full justify-center items-center flex-col">
+      <View className="p-10 bg-blue-50 w-full justify-center items-center flex-col -z-10">
         <View className="mb-4 justify-center items-center flex-1 max-w-2xl">
           <Text className="text-2xl md:text-3xl font-bold text-center">
             Online psychologists, family counselors, child development experts, astrologers, and more on <Text className="text-blue-500">HelpHub!</Text>

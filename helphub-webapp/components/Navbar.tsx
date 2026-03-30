@@ -1,6 +1,6 @@
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { Link } from 'expo-router';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import MenuDropdown from './ui/MenuDropdown';
 import MenuLink from './ui/MenuLink';
@@ -85,8 +85,31 @@ export default function Navbar() {
         setMobileExpandedSection((prev) => (prev === sectionKey ? null : sectionKey));
     };
 
+    useEffect(() => {
+        if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+
+        const page = document.getElementById('page-content');
+        if (!page) return;
+
+        const previousOverflow = page.style.overflow;
+        const previousHeight = page.style.height;
+        const previousTouchAction = page.style.touchAction;
+
+        if (mobileMenuOpen) {
+            page.style.overflow = 'hidden';
+            page.style.height = '100vh';
+            page.style.touchAction = 'none';
+        }
+
+        return () => {
+            page.style.overflow = previousOverflow;
+            page.style.height = previousHeight;
+            page.style.touchAction = previousTouchAction;
+        };
+    }, [mobileMenuOpen]);
+
     return (
-        <View className="w-full border-b border-gray-200 bg-white">
+        <View className="relative w-full border-b border-gray-200 bg-white">
             {/* Desktop/Tablet Navbar */}
             <View className="hidden w-full max-w-7xl flex-row items-center justify-between px-6 py-5 sm:mx-auto sm:flex">
                 {/* Logo */}
@@ -340,139 +363,164 @@ export default function Navbar() {
                 </View>
 
                 {mobileMenuOpen ? (
-                    <View className="sm:hidden border-t border-gray-200 bg-white">
-                        <ScrollView className="max-h-[100vh]" contentContainerStyle={{ paddingBottom: 28 }}>
-                            <View className="px-6 py-7">
-                                <Text className="text-[18px] font-bold text-black">
-                                    Main Menu
-                                </Text>
-                                <View className="mt-3 h-[3px] w-24 bg-red-500" />
+                    <View
+                        className="absolute inset-x-0 top-full z-[999] sm:hidden"
+                        style={{ height: Platform.OS === 'web' ? 'calc(100vh - 140px)' : '100%' } as any}
+                    >
+                        <Pressable
+                            className="absolute inset-0 bg-black/30"
+                            onPress={() => setMobileMenuOpen(false)}
+                        />
 
-                                <Link href="/" asChild>
-                                    <Pressable
-                                        className="mt-8 flex-row items-center gap-4"
-                                        onPress={() => setMobileMenuOpen(false)}
-                                    >
-                                        <IonIcons name="home" size={24} color="#ef4444" />
-                                        <Text className="text-[17px] font-semibold text-gray-700">
-                                            Home
-                                        </Text>
-                                    </Pressable>
-                                </Link>
+                        <View className="h-full border-t border-gray-200 bg-white shadow-2xl">
+                            <ScrollView
+                                className="h-full"
+                                contentContainerStyle={{ paddingBottom: 28, flexGrow: 1 }}
+                                showsVerticalScrollIndicator={false}
+                                bounces={false}
+                                nestedScrollEnabled={true}
+                                style={
+                                    Platform.OS === 'web'
+                                        ? {
+                                            height: '100%',
+                                            scrollbarWidth: 'none',
+                                            msOverflowStyle: 'none',
+                                        } as any
+                                        : { height: '100%' }
+                                }
+                            >
+                                <View className="px-6 py-7">
+                                    <Text className="text-[18px] font-bold text-black">
+                                        Main Menu
+                                    </Text>
+                                    <View className="mt-3 h-[3px] w-24 bg-red-500" />
 
-                                <Text className="mt-10 text-[16px] font-bold uppercase tracking-wide text-red-500">
-                                    Categories
-                                </Text>
+                                    <Link href="/" asChild>
+                                        <Pressable
+                                            className="mt-8 flex-row items-center gap-4"
+                                            onPress={() => setMobileMenuOpen(false)}
+                                        >
+                                            <IonIcons name="home" size={24} color="#ef4444" />
+                                            <Text className="text-[17px] font-semibold text-gray-700">
+                                                Home
+                                            </Text>
+                                        </Pressable>
+                                    </Link>
 
-                                <View className="mt-4 gap-2">
-                                    {mobileMenuSections.map((section) => {
-                                        const isExpanded = mobileExpandedSection === section.key;
+                                    <Text className="mt-10 text-[16px] font-bold uppercase tracking-wide text-red-500">
+                                        Categories
+                                    </Text>
 
-                                        return (
-                                            <View key={section.key} className="rounded-2xl bg-white">
-                                                <Pressable
-                                                    className="flex-row items-center justify-between py-4"
-                                                    onPress={() => toggleMobileSection(section.key)}
-                                                >
-                                                    <View className="flex-row items-center gap-4">
+                                    <View className="mt-4 gap-2">
+                                        {mobileMenuSections.map((section) => {
+                                            const isExpanded = mobileExpandedSection === section.key;
+
+                                            return (
+                                                <View key={section.key} className="rounded-2xl bg-white">
+                                                    <Pressable
+                                                        className="flex-row items-center justify-between py-4"
+                                                        onPress={() => toggleMobileSection(section.key)}
+                                                    >
+                                                        <View className="flex-row items-center gap-4">
+                                                            <IonIcons
+                                                                name={section.icon as any}
+                                                                size={24}
+                                                                color="#ef4444"
+                                                            />
+                                                            <Text className="text-[18px] font-semibold text-gray-900">
+                                                                {section.label}
+                                                            </Text>
+                                                        </View>
+
                                                         <IonIcons
-                                                            name={section.icon as any}
-                                                            size={24}
-                                                            color="#ef4444"
+                                                            name={isExpanded ? 'chevron-up-outline' : 'chevron-forward-outline'}
+                                                            size={22}
+                                                            color="#9CA3AF"
                                                         />
-                                                        <Text className="text-[18px] font-semibold text-gray-900">
-                                                            {section.label}
-                                                        </Text>
-                                                    </View>
+                                                    </Pressable>
 
-                                                    <IonIcons
-                                                        name={isExpanded ? 'chevron-up-outline' : 'chevron-forward-outline'}
-                                                        size={22}
-                                                        color="#9CA3AF"
-                                                    />
-                                                </Pressable>
+                                                    {isExpanded ? (
+                                                        <View className="pb-2 pl-10">
+                                                            {megaMenuData[section.key].map((group) => (
+                                                                <View key={group.title} className="mb-5">
+                                                                    <Link href="/" asChild>
+                                                                        <Pressable
+                                                                            className="py-2"
+                                                                            onPress={() => setMobileMenuOpen(false)}
+                                                                        >
+                                                                            <Text className="text-[16px] font-bold text-gray-800">
+                                                                                {group.title}
+                                                                            </Text>
+                                                                        </Pressable>
+                                                                    </Link>
 
-                                                {isExpanded ? (
-                                                    <View className="pb-2 pl-10">
-                                                        {megaMenuData[section.key].map((group) => (
-                                                            <View key={group.title} className="mb-5">
-                                                                <Link href="/" asChild>
-                                                                    <Pressable
-                                                                        className="py-2"
-                                                                        onPress={() => setMobileMenuOpen(false)}
-                                                                    >
-                                                                        <Text className="text-[16px] font-bold text-gray-800">
-                                                                            {group.title}
-                                                                        </Text>
-                                                                    </Pressable>
-                                                                </Link>
-
-                                                                <View className="mt-1 gap-1">
-                                                                    {group.items.map((item) => (
-                                                                        <Link key={item} href="/" asChild>
-                                                                            <Pressable
-                                                                                className="py-2"
-                                                                                onPress={() => setMobileMenuOpen(false)}
-                                                                            >
-                                                                                <Text className="text-[15px] text-gray-500">
-                                                                                    {item}
-                                                                                </Text>
-                                                                            </Pressable>
-                                                                        </Link>
-                                                                    ))}
+                                                                    <View className="mt-1 gap-1">
+                                                                        {group.items.map((item) => (
+                                                                            <Link key={item} href="/" asChild>
+                                                                                <Pressable
+                                                                                    className="py-2"
+                                                                                    onPress={() => setMobileMenuOpen(false)}
+                                                                                >
+                                                                                    <Text className="text-[15px] text-gray-500">
+                                                                                        {item}
+                                                                                    </Text>
+                                                                                </Pressable>
+                                                                            </Link>
+                                                                        ))}
+                                                                    </View>
                                                                 </View>
-                                                            </View>
-                                                        ))}
-                                                    </View>
-                                                ) : null}
-                                            </View>
-                                        );
-                                    })}
+                                                            ))}
+                                                        </View>
+                                                    ) : null}
+                                                </View>
+                                            );
+                                        })}
+                                    </View>
+
+                                    <Text className="mt-8 text-[16px] font-bold uppercase tracking-wide text-red-500">
+                                        Discover
+                                    </Text>
+
+                                    <View className="mt-4 gap-1">
+                                        <Link href="/" asChild>
+                                            <Pressable
+                                                className="flex-row items-center gap-4 py-4"
+                                                onPress={() => setMobileMenuOpen(false)}
+                                            >
+                                                <IonIcons name="create" size={22} color="#ef4444" />
+                                                <Text className="text-[17px] font-semibold text-gray-700">
+                                                    Blog
+                                                </Text>
+                                            </Pressable>
+                                        </Link>
+
+                                        <Link href="/" asChild>
+                                            <Pressable
+                                                className="flex-row items-center gap-4 py-4"
+                                                onPress={() => setMobileMenuOpen(false)}
+                                            >
+                                                <IonIcons name="document-text" size={22} color="#ef4444" />
+                                                <Text className="text-[17px] font-semibold text-gray-700">
+                                                    Guide
+                                                </Text>
+                                            </Pressable>
+                                        </Link>
+
+                                        <Link href="/" asChild>
+                                            <Pressable
+                                                className="flex-row items-center gap-4 py-4"
+                                                onPress={() => setMobileMenuOpen(false)}
+                                            >
+                                                <IonIcons name="help-circle" size={22} color="#ef4444" />
+                                                <Text className="text-[17px] font-semibold text-gray-700">
+                                                    How does it work?
+                                                </Text>
+                                            </Pressable>
+                                        </Link>
+                                    </View>
                                 </View>
-
-                                <Text className="mt-8 text-[16px] font-bold uppercase tracking-wide text-red-500">
-                                    Discover
-                                </Text>
-
-                                <View className="mt-4 gap-1">
-                                    <Link href="/" asChild>
-                                        <Pressable
-                                            className="flex-row items-center gap-4 py-4"
-                                            onPress={() => setMobileMenuOpen(false)}
-                                        >
-                                            <IonIcons name="create" size={22} color="#ef4444" />
-                                            <Text className="text-[17px] font-semibold text-gray-700">
-                                                Blog
-                                            </Text>
-                                        </Pressable>
-                                    </Link>
-
-                                    <Link href="/" asChild>
-                                        <Pressable
-                                            className="flex-row items-center gap-4 py-4"
-                                            onPress={() => setMobileMenuOpen(false)}
-                                        >
-                                            <IonIcons name="document-text" size={22} color="#ef4444" />
-                                            <Text className="text-[17px] font-semibold text-gray-700">
-                                                Guide
-                                            </Text>
-                                        </Pressable>
-                                    </Link>
-
-                                    <Link href="/" asChild>
-                                        <Pressable
-                                            className="flex-row items-center gap-4 py-4"
-                                            onPress={() => setMobileMenuOpen(false)}
-                                        >
-                                            <IonIcons name="help-circle" size={22} color="#ef4444" />
-                                            <Text className="text-[17px] font-semibold text-gray-700">
-                                                How does it work?
-                                            </Text>
-                                        </Pressable>
-                                    </Link>
-                                </View>
-                            </View>
-                        </ScrollView>
+                            </ScrollView>
+                        </View>
                     </View>
                 ) : null}
             </View>
