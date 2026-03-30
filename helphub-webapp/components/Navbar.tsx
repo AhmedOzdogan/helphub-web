@@ -279,7 +279,7 @@ export default function Navbar() {
                                     <View key={section.title} className="flex-1">
                                         <Link href="/" asChild>
                                             <Pressable className="rounded-[20px] pb-3">
-                                                <Text className="border-b border-gray-200 pb-3 text-[28px] font-semibold text-gray-800 hover:text-red-500">
+                                                <Text className="border-b border-gray-200 pb-3 text-2xl font-semibold text-gray-800 hover:text-red-500">
                                                     {section.title}
                                                 </Text>
                                             </Pressable>
@@ -321,7 +321,7 @@ export default function Navbar() {
 
                         <Link href="/" asChild>
                             <Pressable>
-                                <Text className="text-[38px] font-extrabold tracking-[6px] text-red-500">
+                                <Text className="text-2xl font-extrabold tracking-[6px] text-red-500">
                                     HelpHub
                                 </Text>
                             </Pressable>
@@ -355,7 +355,7 @@ export default function Navbar() {
                             <TextInput
                                 placeholder="Danışmanlık Uzmanlık... Ara"
                                 placeholderTextColor="#6B7280"
-                                className="pr-12 text-[18px] font-medium text-gray-700"
+                                className="pr-12 text-lg font-medium text-gray-700"
                             />
                             <IonIcons
                                 name="search"
@@ -395,7 +395,7 @@ export default function Navbar() {
                                 }
                             >
                                 <View className="px-6 py-7">
-                                    <Text className="text-[18px] font-bold text-black">
+                                    <Text className="text-lg font-bold text-black">
                                         Main Menu
                                     </Text>
                                     <View className="mt-3 h-[3px] w-24 bg-red-500" />
@@ -406,13 +406,13 @@ export default function Navbar() {
                                             onPress={() => setMobileMenuOpen(false)}
                                         >
                                             <IonIcons name="home" size={24} color="#ef4444" />
-                                            <Text className="text-[17px] font-semibold text-gray-700">
+                                            <Text className="text-lg font-semibold text-gray-700">
                                                 Home
                                             </Text>
                                         </Pressable>
                                     </Link>
 
-                                    <Text className="mt-10 text-[16px] font-bold uppercase tracking-wide text-red-500">
+                                    <Text className="mt-10 text-base font-bold uppercase tracking-wide text-red-500">
                                         Categories
                                     </Text>
 
@@ -432,7 +432,7 @@ export default function Navbar() {
                                                                 size={24}
                                                                 color="#ef4444"
                                                             />
-                                                            <Text className="text-[18px] font-semibold text-gray-900">
+                                                            <Text className="text-lg font-semibold text-gray-900">
                                                                 {section.label}
                                                             </Text>
                                                         </View>
@@ -453,7 +453,7 @@ export default function Navbar() {
                                                                             className="py-2"
                                                                             onPress={() => setMobileMenuOpen(false)}
                                                                         >
-                                                                            <Text className="text-[16px] font-bold text-gray-800">
+                                                                            <Text className="text-base font-bold text-gray-800">
                                                                                 {group.title}
                                                                             </Text>
                                                                         </Pressable>
@@ -466,7 +466,7 @@ export default function Navbar() {
                                                                                     className="py-2"
                                                                                     onPress={() => setMobileMenuOpen(false)}
                                                                                 >
-                                                                                    <Text className="text-[15px] text-gray-500">
+                                                                                    <Text className="text-base text-gray-500">
                                                                                         {item}
                                                                                     </Text>
                                                                                 </Pressable>
@@ -482,7 +482,7 @@ export default function Navbar() {
                                         })}
                                     </View>
 
-                                    <Text className="mt-8 text-[16px] font-bold uppercase tracking-wide text-red-500">
+                                    <Text className="mt-8 text-base font-bold uppercase tracking-wide text-red-500">
                                         Discover
                                     </Text>
 
@@ -493,7 +493,7 @@ export default function Navbar() {
                                                 onPress={() => setMobileMenuOpen(false)}
                                             >
                                                 <IonIcons name="create" size={22} color="#ef4444" />
-                                                <Text className="text-[17px] font-semibold text-gray-700">
+                                                <Text className="text-lg font-semibold text-gray-700">
                                                     Blog
                                                 </Text>
                                             </Pressable>
@@ -505,7 +505,7 @@ export default function Navbar() {
                                                 onPress={() => setMobileMenuOpen(false)}
                                             >
                                                 <IonIcons name="document-text" size={22} color="#ef4444" />
-                                                <Text className="text-[17px] font-semibold text-gray-700">
+                                                <Text className="text-lg font-semibold text-gray-700">
                                                     Guide
                                                 </Text>
                                             </Pressable>
@@ -517,7 +517,7 @@ export default function Navbar() {
                                                 onPress={() => setMobileMenuOpen(false)}
                                             >
                                                 <IonIcons name="help-circle" size={22} color="#ef4444" />
-                                                <Text className="text-[17px] font-semibold text-gray-700">
+                                                <Text className="text-lg font-semibold text-gray-700">
                                                     How does it work?
                                                 </Text>
                                             </Pressable>

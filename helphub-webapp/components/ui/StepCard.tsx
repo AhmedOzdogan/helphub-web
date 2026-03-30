@@ -18,7 +18,7 @@ function StepCard({
         <View className={`relative w-[300px] h-[200px] rounded-[20px] bg-white p-6 shadow ${advantages ? 'items-center justify-center text-center' : 'items-start justify-start'}`}>
             {/* Step number */}
             {advantages ? null : (
-                <Text className="absolute right-6 top-6 text-[28px] font-bold text-gray-200">
+                <Text className="absolute right-6 top-6 text-xl font-bold text-gray-200">
                     {step}
                 </Text>
             )}
@@ -29,12 +29,12 @@ function StepCard({
             </View>
 
             {/* Title */}
-            <Text className="mb-2 text-[16px] font-semibold text-slate-800">
+            <Text className="mb-2 text-base font-semibold text-slate-800">
                 {title}
             </Text>
 
             {/* Description */}
-            <Text className={`text-[14px] ${advantages ? 'text-center' : 'text-left'} text-gray-500`}>
+            <Text className={`text-sm ${advantages ? 'text-center' : 'text-left'} text-gray-500`}>
                 {description}
             </Text>
         </View>

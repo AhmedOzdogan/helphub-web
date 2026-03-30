@@ -22,7 +22,7 @@ function Download() {
                 className="absolute inset-0 -z-10 h-full w-full opacity-20"
                 style={{ width: '100%', height: '100%' }}
             />
-            <Text className="mb-8 text-center text-[22px] font-bold text-slate-800 sm:mb-12 sm:text-[28px]">
+            <Text className="mb-8 text-center text-2xl font-bold text-slate-800 sm:mb-12 sm:text-3xl">
                 Download the Advicemy App!
             </Text>
 
@@ -30,11 +30,11 @@ function Download() {
 
                 <View className="flex-col items-center justify-center gap-8 sm:gap-10 lg:flex-row lg:items-center lg:justify-between">
                     <View className="w-full max-w-[720px] flex-1">
-                        <Text className="text-center lg:text-left mb-4 text-[22px] font-bold leading-[30px] text-slate-800 sm:text-[30px] sm:leading-[38px]">
+                        <Text className="text-center lg:text-left mb-4 text-2xl font-bold leading-[30px] text-slate-800 sm:text-3xl sm:leading-[38px]">
                             The fastest way to reach expert consultants
                         </Text>
 
-                        <Text className="text-center lg:text-left mb-6 text-[16px] leading-[28px] text-slate-700 sm:mb-8 sm:text-[18px] sm:leading-[32px]">
+                        <Text className="text-center lg:text-left mb-6 text-base leading-[28px] text-slate-700 sm:mb-8 sm:text-lg sm:leading-[32px]">
                             With the Advicemy mobile app, you can access all our services much
                             faster and more easily. Wherever you are, you can either book an
                             instant appointment or schedule one for the day and time that

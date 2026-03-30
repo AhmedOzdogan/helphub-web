@@ -6,11 +6,11 @@ function Companies() {
         <View className="w-full flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 md:gap-0 bg-[#f5f5f5] px-4 md:px-20 py-8 md:py-16">
             {/* LEFT SIDE */}
             <View className="w-full md:max-w-[500px] items-center md:items-start">
-                <Text className="text-xl md:text-[30px] font-semibold text-slate-800 leading-relaxed md:leading-[38px] text-center md:text-left">
+                <Text className="text-xl md:text-2xl font-semibold text-slate-800 leading-relaxed md:leading-[38px] text-center md:text-left">
                     Special support for companies
                 </Text>
 
-                <Text className="text-xl md:text-[30px] font-bold text-red-500 leading-relaxed md:leading-[38px] text-center md:text-left">
+                <Text className="text-xl md:text-2xl font-bold text-red-500 leading-relaxed md:leading-[38px] text-center md:text-left">
                     HelpHub Solutions
                 </Text>
 
@@ -21,7 +21,7 @@ function Companies() {
 
             {/* RIGHT SIDE */}
             <View className="w-full md:w-auto items-center justify-center gap-4">
-                <Text className="text-base md:text-[25px] text-gray-400 text-center px-4">
+                <Text className="text-base md:text-2xl text-gray-400 text-center px-4">
                     Companies partnering with HelpHub
                 </Text>
 

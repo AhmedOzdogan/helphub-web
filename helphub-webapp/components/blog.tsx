@@ -18,7 +18,7 @@ const blogs = [
 
 function BlogCard({ image, title }: { image: any; title: string }) {
     return (
-        <View className="relative h-[120px] w-[45%] md:h-[140px] md:w-[240px] overflow-hidden rounded-xl">
+        <View className="relative h-[120px] w-[40%] md:h-[140px] md:w-[240px] overflow-hidden rounded-xl mb-5">
             <Image
                 source={image}
                 resizeMode="contain"
@@ -28,7 +28,7 @@ function BlogCard({ image, title }: { image: any; title: string }) {
 
             {/* Overlay */}
             <View className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-1">
-                <Text className="text-[10px] md:text-[13px] font-semibold text-white">
+                <Text className="text-xs md:text-sm font-semibold text-white">
                     {title}
                 </Text>
             </View>
@@ -41,11 +41,11 @@ function Blog() {
         <View className="w-full flex-col md:flex-row items-center md:items-start justify-center bg-white px-4 md:px-16 py-8 md:py-16 gap-8 md:gap-0">
             {/* LEFT SIDE */}
             <View className="w-full md:mr-16 md:max-w-[300px] items-center md:items-start text-center md:text-left">
-                <Text className="mb-2 md:mb-3 text-2xl md:text-[26px] font-bold text-slate-800">
+                <Text className="mb-2 md:mb-3 text-xl md:text-2xl font-bold text-slate-800">
                     Blog
                 </Text>
 
-                <Text className="mb-4 md:mb-6 text-sm md:text-[16px] text-gray-600">
+                <Text className="mb-4 md:mb-6 text-sm md:text-base text-gray-600">
                     You can explore blog content from our consultants here.
                 </Text>
 

@@ -120,8 +120,8 @@ function ProfileCard({
     const cardRadius = compact ? 28 : 30;
     const nameSize = compact ? 17 : 18;
     const titleMaxWidth = Math.max(width - 60, 180);
-    const tagTextSize = compact ? 11 : 12;
-    const buttonTextSize = compact ? 13 : 14;
+    const tagTextSize = compact ? 10 : 12;
+    const buttonTextSize = compact ? 10 : 12;
 
     return (
         <View
@@ -133,7 +133,7 @@ function ProfileCard({
                 style={{ paddingHorizontal: cardPaddingX, paddingVertical: cardPaddingY }}
             >
                 <View className="items-end">
-                    <Text className={`font-medium text-gray-500 ${compact ? 'text-[13px]' : 'text-[14px]'}`}>
+                    <Text className={`font-medium text-gray-500 ${compact ? 'text-xs' : 'text-sm'}`}>
                         Sponsored
                     </Text>
                 </View>
@@ -153,7 +153,7 @@ function ProfileCard({
 
                         {isOnline ? (
                             <View className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-green-500 px-4 py-1">
-                                <Text className="text-[10px] font-semibold text-white">Online</Text>
+                                <Text className="text-xs font-semibold text-white">Online</Text>
                             </View>
                         ) : null}
                     </View>
@@ -180,7 +180,7 @@ function ProfileCard({
                         {[...Array(5)].map((_, index) => (
                             <Ionicons key={index} name="star" size={12} color="#eab308" />
                         ))}
-                        <Text className="ml-1 text-[14px] font-medium text-gray-500">
+                        <Text className="ml-1 text-sm font-medium text-gray-500">
                             ({randomReviewCount})
                         </Text>
                     </View>
@@ -219,18 +219,18 @@ function ProfileCard({
                         {isNew ? (
                             <View className="flex-row items-center gap-2 rounded-full bg-blue-500 px-3 py-2">
                                 <Ionicons name="sparkles" size={14} color="#ffffff" />
-                                <Text className="text-[10px] font-semibold text-white">New Consultant</Text>
+                                <Text className="text-xs font-semibold text-white">New Consultant</Text>
                             </View>
                         ) : null}
 
                         <View className="flex-row items-center gap-2 rounded-full bg-green-100 px-3 py-2">
                             <Ionicons name="hand-left-outline" size={14} color="#22c55e" />
-                            <Text className="text-[10px] font-medium text-green-500">Free Intro Call</Text>
+                            <Text className="text-xs font-medium text-green-500">Free Intro Call</Text>
                         </View>
                     </View>
 
                     <View className="items-end justify-center">
-                        <Text className="text-[10px] font-medium text-gray-300 line-through" numberOfLines={1}>
+                        <Text className="text-xs font-medium text-gray-300 line-through" numberOfLines={1}>
                             {formatPrice(oldPrice)}
                         </Text>
                         <Text className="mt-1 font-bold text-green-500" style={{ fontSize: compact ? 11 : 12 }} numberOfLines={1}>
