@@ -1,5 +1,5 @@
 import IonIcons from '@expo/vector-icons/Ionicons';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import MenuDropdown from './ui/MenuDropdown';
@@ -8,6 +8,8 @@ import MenuLink from './ui/MenuLink';
 import { megaMenuData } from '../data/megaMenuData';
 
 export default function Navbar() {
+    const router = useRouter();
+
     // Dropdown open state
     const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
@@ -168,9 +170,12 @@ export default function Navbar() {
                                 })}
                             >
                                 {/* Login */}
-                                <Link href="/" asChild>
+                                <Link href="/login" asChild>
                                     <Pressable
-                                        onPress={() => setAccountMenuOpen(false)}
+                                        onPress={() => {
+                                            setAccountMenuOpen(false);
+                                            router.push('/login');
+                                        }}
                                         className="group flex-row items-center gap-3 rounded-[28px] p-3 hover:bg-red-400"
                                     >
                                         <IonIcons
@@ -185,7 +190,7 @@ export default function Navbar() {
                                 </Link>
 
                                 {/* Signup */}
-                                <Link href="/" asChild>
+                                <Link href="/signup" asChild>
                                     <Pressable
                                         onPress={() => setAccountMenuOpen(false)}
                                         className="group mt-2 flex-row items-center gap-3 rounded-[28px] p-3 hover:bg-red-400"
@@ -228,7 +233,7 @@ export default function Navbar() {
             </View>
 
             <View className="relative -z-10 hidden border-t border-gray-100 sm:flex">
-                <View className="mx-auto flex w-full max-w-7xl flex-row items-center justify-center gap-10 px-6 py-4">
+                <View className="mx-auto flex w-full max-w-7xl flex-row items-center justify-center gap-10 px-6 py-4 z-[999]">
                     <MenuDropdown
                         onMouseEnterFunction={() => openMegaMenu('forMyself')}
                         onMouseLeaveFunction={closeMegaMenu}

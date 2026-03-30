@@ -8,10 +8,11 @@ interface RedButtonProps {
         color?: string;
     };
     ButtonText: string;
+    wfull?: boolean;
 }
 
-function RedButton({ Icon, ButtonText }: RedButtonProps) {
-    return (<Pressable className="mt-6 px-6 py-3 bg-red-500 rounded-full w-52 flex-row items-center justify-center">
+function RedButton({ Icon, ButtonText, wfull }: RedButtonProps) {
+    return (<Pressable className={`mt-6 px-6 py-3 bg-red-500 rounded-full ${wfull ? 'w-full' : 'w-52'} flex-row items-center justify-center`}>
         {Icon && <Ionicons name={Icon.name} size={Icon.size} color={Icon.color || "white"} className="mr-2" />}
         <Text className="text-white font-bold">{ButtonText}</Text>
     </Pressable>);

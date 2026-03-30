@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
     Animated,
     Easing,
     Image,
     LayoutChangeEvent,
+    PanResponder,
+    Platform,
     Pressable,
     View,
 } from 'react-native';
@@ -14,97 +16,248 @@ import slider3 from '../assets/slider/slider3.webp';
 import slider4 from '../assets/slider/slider4.webp';
 import slider5 from '../assets/slider/slider5.webp';
 
-const slides = [slider1, slider2, slider3, slider4, slider5];
-const SLIDE_DURATION = 450;
+import slider1Mobile from '../assets/slider/slider1-mobile.webp';
+import slider2Mobile from '../assets/slider/slider2-mobile.webp';
+import slider3Mobile from '../assets/slider/slider3-mobile.webp';
+import slider4Mobile from '../assets/slider/slider4-mobile.webp';
+
+const desktopSlides = [slider1, slider2, slider3, slider4, slider5];
+const mobileSlides = [slider1Mobile, slider2Mobile, slider3Mobile, slider4Mobile];
+const AUTO_PLAY_DELAY = 4500;
+const SLIDE_DURATION = 650;
 
 function Slider() {
-    // Removed useWindowDimensions
     const [activeIndex, setActiveIndex] = useState(0);
     const [sliderWidth, setSliderWidth] = useState(0);
     const translateX = useRef(new Animated.Value(0)).current;
+    const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const isAnimatingRef = useRef(false);
 
-    const handleLayout = (event: LayoutChangeEvent) => {
-        const width = event.nativeEvent.layout.width;
-        setSliderWidth(width);
-        translateX.setValue(-activeIndex * width);
+    const sliderHeightClass =
+        Platform.OS === 'web'
+            ? 'h-[500px] sm:h-[320px] md:h-[420px] lg:h-[600px]'
+            : 'h-[220px]';
+
+    const isMobileSlider = sliderWidth > 0 && sliderWidth < 640;
+    const isTouchSlider = sliderWidth > 0;
+    const currentSlides = isMobileSlider ? mobileSlides : desktopSlides;
+    const trackSlides = useMemo(() => [...currentSlides, currentSlides[0]], [currentSlides]);
+
+    const resetTrackPosition = (index: number) => {
+        translateX.setValue(-(index * sliderWidth));
     };
 
-    const goToSlide = (nextIndex: number) => {
-        if (!sliderWidth || isAnimatingRef.current || nextIndex === activeIndex) {
+    const stopAutoPlay = () => {
+        if (autoPlayRef.current) {
+            clearInterval(autoPlayRef.current);
+            autoPlayRef.current = null;
+        }
+    };
+
+    const handleLayout = (event: LayoutChangeEvent) => {
+        const nextWidth = Math.round(event.nativeEvent.layout.width);
+
+        if (!nextWidth || nextWidth === sliderWidth) {
+            return;
+        }
+
+        setSliderWidth(nextWidth);
+        translateX.setValue(-(activeIndex * nextWidth));
+    };
+
+    const animateToIndex = (nextIndex: number, onDone?: () => void) => {
+        if (!sliderWidth || isAnimatingRef.current) {
             return;
         }
 
         isAnimatingRef.current = true;
 
         Animated.timing(translateX, {
-            toValue: -nextIndex * sliderWidth,
+            toValue: -(nextIndex * sliderWidth),
             duration: SLIDE_DURATION,
             easing: Easing.inOut(Easing.ease),
             useNativeDriver: true,
         }).start(() => {
-            setActiveIndex(nextIndex);
             isAnimatingRef.current = false;
+            onDone?.();
         });
     };
 
-    const handlePrevious = () => {
-        const previousIndex = activeIndex === 0 ? slides.length - 1 : activeIndex - 1;
-        goToSlide(previousIndex);
+    const goToIndex = (nextIndex: number) => {
+        if (nextIndex === activeIndex || !sliderWidth) {
+            return;
+        }
+
+        setActiveIndex(nextIndex);
+        animateToIndex(nextIndex);
     };
 
-    const handleNext = () => {
-        const nextIndex = activeIndex === slides.length - 1 ? 0 : activeIndex + 1;
-        goToSlide(nextIndex);
+    const goToPrevious = () => {
+        if (!sliderWidth) {
+            return;
+        }
+
+        const previousIndex = activeIndex === 0 ? currentSlides.length - 1 : activeIndex - 1;
+        setActiveIndex(previousIndex);
+        animateToIndex(previousIndex);
     };
+
+    const goToNext = () => {
+        if (!sliderWidth) {
+            return;
+        }
+
+        if (activeIndex === currentSlides.length - 1) {
+            setActiveIndex(0);
+            animateToIndex(currentSlides.length, () => {
+                resetTrackPosition(0);
+            });
+            return;
+        }
+
+        const nextIndex = activeIndex + 1;
+        setActiveIndex(nextIndex);
+        animateToIndex(nextIndex);
+    };
+
+    const goToPreviousFromFirst = () => {
+        if (!sliderWidth) {
+            return;
+        }
+
+        translateX.setValue(-(currentSlides.length * sliderWidth));
+        setActiveIndex(currentSlides.length - 1);
+
+        requestAnimationFrame(() => {
+            animateToIndex(currentSlides.length - 1);
+        });
+    };
+
+    const panResponder = useMemo(
+        () =>
+            PanResponder.create({
+                onMoveShouldSetPanResponder: (_, gestureState) => {
+                    return isTouchSlider && Math.abs(gestureState.dx) > Math.abs(gestureState.dy) && Math.abs(gestureState.dx) > 10;
+                },
+                onPanResponderGrant: () => {
+                    stopAutoPlay();
+                    translateX.stopAnimation();
+                },
+                onPanResponderRelease: (_, gestureState) => {
+                    if (!isTouchSlider || !sliderWidth) {
+                        startAutoPlay();
+                        return;
+                    }
+
+                    const swipeThreshold = sliderWidth * 0.12;
+
+                    if (gestureState.dx <= -swipeThreshold) {
+                        goToNext();
+                    } else if (gestureState.dx >= swipeThreshold) {
+                        if (activeIndex === 0) {
+                            goToPreviousFromFirst();
+                        } else {
+                            goToPrevious();
+                        }
+                    } else {
+                        resetTrackPosition(activeIndex);
+                    }
+
+                    startAutoPlay();
+                },
+                onPanResponderTerminate: () => {
+                    resetTrackPosition(activeIndex);
+                    startAutoPlay();
+                },
+            }),
+        [activeIndex, currentSlides.length, isTouchSlider, sliderWidth]
+    );
+
+    const startAutoPlay = () => {
+        stopAutoPlay();
+
+        if (!sliderWidth) {
+            return;
+        }
+
+        autoPlayRef.current = setInterval(() => {
+            if (!isAnimatingRef.current) {
+                goToNext();
+            }
+        }, AUTO_PLAY_DELAY);
+    };
+
+    useEffect(() => {
+        if (!sliderWidth) {
+            return;
+        }
+
+        translateX.setValue(-(activeIndex * sliderWidth));
+        startAutoPlay();
+
+        return () => {
+            stopAutoPlay();
+        };
+    }, [sliderWidth]);
+
+    useEffect(() => {
+        return () => {
+            stopAutoPlay();
+        };
+    }, []);
 
     return (
-        <View onLayout={handleLayout} className="relative h-[520px] w-full overflow-hidden bg-gray-200 -z-10">
-            <Animated.View
-                className="flex-row"
-                style={{
-                    width: sliderWidth * slides.length,
-                    transform: [{ translateX }],
-                }}
-            >
-                {slides.map((slide, index) => (
-                    <View
-                        key={index}
-                        style={{ width: sliderWidth || '100%' }}
-                        className="relative h-[520px]"
-                    >
-                        <Image
-                            source={slide}
-                            resizeMode="cover"
-                            className="h-full w-full"
-                        />
-                    </View>
-                ))}
-            </Animated.View>
+        <View
+            onLayout={handleLayout}
+            className={`relative w-full overflow-hidden bg-gray-200 ${sliderHeightClass} -z-10 cursor-pointer`}
+            {...(isTouchSlider ? panResponder.panHandlers : {})}
+        >
+            {sliderWidth > 0 ? (
+                <Animated.View
+                    style={{
+                        width: sliderWidth * trackSlides.length,
+                        height: '100%',
+                        flexDirection: 'row',
+                        transform: [{ translateX }],
+                    }}
+                >
+                    {trackSlides.map((slide, index) => (
+                        <View
+                            key={index}
+                            style={{ width: sliderWidth, height: '100%' }}
+                        >
+                            <Image
+                                source={slide}
+                                resizeMode="cover"
+                                style={{ width: sliderWidth, height: '100%' }}
+                            />
+                        </View>
+                    ))}
+                </Animated.View>
+            ) : (
+                <View className="h-full w-full">
+                    <Image
+                        source={currentSlides[0]}
+                        resizeMode="cover"
+                        style={{ width: '100%', height: '100%' }}
+                    />
+                </View>
+            )}
 
-            <Pressable
-                onPress={handlePrevious}
-                className="absolute left-4 top-1/2 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/35"
-            >
-                <View className="h-3 w-3 rotate-45 border-b-2 border-l-2 border-white" />
-            </Pressable>
 
-            <Pressable
-                onPress={handleNext}
-                className="absolute right-4 top-1/2 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/35"
-            >
-                <View className="h-3 w-3 rotate-45 border-r-2 border-t-2 border-white" />
-            </Pressable>
-
-            <View className="absolute bottom-6 left-0 right-0 flex-row items-center justify-center gap-3">
-                {slides.map((_, index) => {
+            <View className="absolute bottom-4 left-0 right-0 flex-row items-center justify-center gap-2 sm:bottom-6 sm:gap-3">
+                {currentSlides.map((_, index) => {
                     const isActive = index === activeIndex;
 
                     return (
                         <Pressable
                             key={index}
-                            onPress={() => goToSlide(index)}
-                            className={`h-3 w-3 rounded-full shadow-sm shadow-black/40 ${isActive ? 'bg-black' : 'bg-black/60'}`}
+                            onPress={() => {
+                                stopAutoPlay();
+                                goToIndex(index);
+                                startAutoPlay();
+                            }}
+                            className={`h-2.5 w-2.5 rounded-full shadow-sm shadow-black/40 sm:h-3 sm:w-3 ${isActive ? 'bg-white' : 'bg-white/60'}`}
                         />
                     );
                 })}

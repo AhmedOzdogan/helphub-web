@@ -4,55 +4,49 @@ import { Text, View } from 'react-native';
 import AppStoreDownload from './ui/AppStoreDownload';
 import GooglePlayDownload from './ui/GooglePlayDownload';
 
-
 function Footer() {
     return (
-        <View className="mx-auto w-full bg-red-500 px-4 md:px-6 py-8 md:py-12">
-            {/* TOP ROW */}
-            <View className="flex-col md:flex-row items-center md:items-start justify-center gap-8 md:gap-32">
-                {/* LOGO */}
+        <View className="w-full bg-red-500 px-4 py-8 md:px-6 md:py-12">
+            <View className="mx-auto w-full max-w-[1200px] flex-col items-center justify-center gap-8 md:flex-row md:items-start md:justify-between md:gap-10">
                 <View className="w-[220px] items-center md:items-start">
-                    <Text className="text-xl md:text-[24px] font-bold text-white">HelpHub</Text>
+                    <Text className="text-xl font-bold text-white md:text-[24px]">HelpHub</Text>
                 </View>
 
-                {/* LINKS COL 1 */}
-                <View className="items-center gap-3 text-center">
-                    <Link href={"/how-it-works" as any} asChild>
-                        <Text className="text-sm md:text-[16px] font-semibold text-white">How it works?</Text>
+                <View className="items-center gap-3 text-center md:items-start md:text-left">
+                    <Link href={'/how-it-works' as any} asChild>
+                        <Text className="text-sm font-semibold text-white md:text-[16px]">How it works?</Text>
                     </Link>
-                    <Link href={"/about" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">About Us</Text>
+                    <Link href={'/about' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">About Us</Text>
                     </Link>
-                    <Link href={"/contact" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">Contact</Text>
+                    <Link href={'/contact' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">Contact</Text>
                     </Link>
-                    <Link href={"/blog" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">Blog</Text>
-                    </Link>
-                </View>
-
-                {/* LINKS COL 2 */}
-                <View className="items-center gap-3 text-center">
-                    <Link href={"/terms" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">Terms of Use</Text>
-                    </Link>
-                    <Link href={"/privacy" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">Privacy Policy & GDPR</Text>
-                    </Link>
-                    <Link href={"/distance-sales" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">Distance Sales Agreement</Text>
-                    </Link>
-                    <Link href={"/refund" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">Refund Policy</Text>
-                    </Link>
-                    <Link href={"/cookies" as any} asChild>
-                        <Text className="text-sm md:text-[16px] text-white">Cookie Policy</Text>
+                    <Link href={'/blog' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">Blog</Text>
                     </Link>
                 </View>
 
-                {/* SOCIAL + STORES */}
-                <View className="items-center md:items-start gap-4">
-                    <Text className="text-sm md:text-[16px] font-semibold text-white">Follow Us</Text>
+                <View className="items-center gap-3 text-center md:items-start md:text-left">
+                    <Link href={'/terms' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">Terms of Use</Text>
+                    </Link>
+                    <Link href={'/privacy' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">Privacy Policy & GDPR</Text>
+                    </Link>
+                    <Link href={'/distance-sales' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">Distance Sales Agreement</Text>
+                    </Link>
+                    <Link href={'/refund' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">Refund Policy</Text>
+                    </Link>
+                    <Link href={'/cookies' as any} asChild>
+                        <Text className="text-sm text-white md:text-[16px]">Cookie Policy</Text>
+                    </Link>
+                </View>
+
+                <View className="items-center gap-4 md:items-start">
+                    <Text className="text-sm font-semibold text-white md:text-[16px]">Follow Us</Text>
 
                     <View className="flex-row gap-3">
                         <Link href="/" asChild>
@@ -79,13 +73,12 @@ function Footer() {
                 </View>
             </View>
 
-            {/* DISCLAIMER */}
-            <View className="mt-8 md:mt-12 items-center">
-                <Text className="max-w-[900px] text-center text-xs md:text-[14px] leading-[20px] md:leading-[24px] text-white px-2">
+            <View className="mx-auto mt-8 items-center md:mt-12">
+                <Text className="max-w-[900px] px-2 text-center text-xs leading-[20px] text-white md:text-[14px] md:leading-[24px]">
                     Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services.
                 </Text>
 
-                <Text className="mt-4 text-center text-xs md:text-[14px] text-white px-2">
+                <Text className="mt-4 px-2 text-center text-xs text-white md:text-[14px]">
                     Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191
                 </Text>
             </View>
