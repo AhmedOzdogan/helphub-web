@@ -379,7 +379,7 @@ export default function Navbar() {
                     </View>
                 </View>
                 {mobileAccountMenuOpen ? (
-                    <View className="absolute right-5 top-20 z-[999] w-48 rounded-[28px] border border-gray-200 bg-white px-6 py-6 shadow-lg sm:hidden z-[999]">
+                    <View className="absolute right-5 top-20 w-48 rounded-[28px] border border-gray-200 bg-white px-6 py-6 shadow-lg sm:hidden z-[999]">
                         <Link href="/login" asChild>
                             <Pressable
                                 onPress={() => {
