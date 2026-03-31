@@ -3,14 +3,14 @@ import companies from '../assets/companies.webp';
 import RedButton from './ui/RedButton';
 function Companies() {
     return (
-        <View className="w-full flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 md:gap-0 bg-[#f5f5f5] px-4 md:px-20 py-8 md:py-16">
+        <View className="w-full flex-col items-center justify-center gap-8 bg-[#f5f5f5] px-4 py-8 md:px-8 md:py-12 lg:flex-row lg:justify-evenly lg:gap-0 lg:px-20 lg:py-16">
             {/* LEFT SIDE */}
-            <View className="w-full md:max-w-[500px] items-center md:items-start">
-                <Text className="text-xl md:text-2xl font-semibold text-slate-800 leading-relaxed md:leading-[38px] text-center md:text-left">
+            <View className="w-full items-center md:max-w-[600px] lg:max-w-[500px] lg:items-start">
+                <Text className="text-center text-xl font-semibold leading-relaxed text-slate-800 md:text-2xl lg:text-left lg:leading-[38px]">
                     Special support for companies
                 </Text>
 
-                <Text className="text-xl md:text-2xl font-bold text-red-500 leading-relaxed md:leading-[38px] text-center md:text-left">
+                <Text className="text-center text-xl font-bold leading-relaxed text-red-500 md:text-2xl lg:text-left lg:leading-[38px]">
                     HelpHub Solutions
                 </Text>
 
@@ -20,15 +20,15 @@ function Companies() {
             </View>
 
             {/* RIGHT SIDE */}
-            <View className="w-full md:w-auto items-center justify-center gap-4">
-                <Text className="text-base md:text-2xl text-gray-400 text-center px-4">
+            <View className="w-full items-center justify-center gap-4 lg:w-auto">
+                <Text className="px-4 text-center text-base text-gray-400 md:text-xl lg:text-2xl">
                     Companies partnering with HelpHub
                 </Text>
 
                 <Image
                     source={companies}
                     resizeMode="contain"
-                    className="h-[40px] max-w-[350px] md:h-[60px] md:w-[400px]"
+                    className="h-[40px] w-full max-w-[320px] md:h-[52px] md:max-w-[520px] lg:h-[60px] lg:w-[400px]"
                 />
             </View>
         </View>

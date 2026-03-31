@@ -7,9 +7,9 @@ import GooglePlayDownload from './ui/GooglePlayDownload';
 function Footer() {
     return (
         <View className="w-full bg-red-500 px-4 py-8 md:px-6 md:py-12">
-            <View className="mx-auto w-full max-w-[1200px] flex-col items-center justify-center gap-8 md:flex-row md:items-start md:justify-between md:gap-10">
-                <View className="w-[220px] items-center md:items-start">
-                    <Text className="text-xl font-bold text-white md:text-[24px]">HelpHub</Text>
+            <View className="mx-auto w-full max-w-[1400px] flex-col items-center justify-center gap-8  md:flex-row md:items-start md:justify-between md:gap-10">
+                <View className="w-[150px] items-center md:items-start">
+                    <Text className="text-xl font-bold text-white md:text-[20px]">HelpHub</Text>
                 </View>
 
                 <View className="items-center gap-3 text-center md:items-start md:text-left">

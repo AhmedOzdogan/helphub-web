@@ -116,20 +116,21 @@ export default function Navbar() {
     return (
         <View className="relative w-full border-b border-gray-200 bg-white">
             {/* Desktop/Tablet Navbar */}
-            <View className="hidden w-full max-w-7xl flex-row items-center justify-between px-6 py-5 sm:mx-auto sm:flex">
+            <View className="hidden w-full max-w-7xl flex-row items-center justify-between px-4 py-4 md:px-6 md:py-5 sm:mx-auto sm:flex">
                 {/* Logo */}
                 <Link href="/" asChild>
-                    <Text className="text-4xl font-extrabold tracking-wider text-red-500">
+                    <Text className="text-3xl font-extrabold tracking-wide text-red-500 md:text-4xl md:tracking-wider">
                         HelpHub
                     </Text>
                 </Link>
 
                 {/* Search */}
-                <View className="mx-8 flex-1">
+                <View className="mx-4 min-w-0 flex-1 md:mx-8">
                     <TextInput
                         placeholder="Search for help, resources, or volunteers..."
+                        multiline={true}
                         placeholderTextColor="#9CA3AF"
-                        className="rounded-xl bg-gray-100 px-4 py-3 text-base text-gray-800"
+                        className="rounded-xl bg-gray-100 px-3 py-2.5 text-sm text-gray-800 md:px-2 md:py-3 md:text-base"
                     />
                     <IonIcons
                         name="search"
@@ -140,7 +141,7 @@ export default function Navbar() {
                 </View>
 
                 {/* Right section */}
-                <View className="relative z-[80] flex-row items-center gap-5">
+                <View className="relative z-[80] flex-row items-center gap-3 md:gap-5">
                     {/* Account dropdown */}
                     <View
                         className="relative"
@@ -150,14 +151,14 @@ export default function Navbar() {
                         })}
                     >
                         {/* Account trigger */}
-                        <Pressable className="flex-row items-center gap-2">
+                        <Pressable className="flex-row items-center gap-1.5 md:gap-2">
                             <IonIcons
                                 name="person-outline"
                                 size={24}
                                 color={accountMenuOpen ? '#9CA3AF' : '#cf1a17'}
                             />
                             <Text
-                                className={`text-lg ${accountMenuOpen ? 'text-gray-400' : 'text-gray-700'}`}
+                                className={`text-base md:text-lg ${accountMenuOpen ? 'text-gray-400' : 'text-gray-700'}`}
                             >
                                 My Account
                             </Text>
@@ -214,21 +215,21 @@ export default function Navbar() {
 
                     {/* Messages */}
                     <Link href="/" asChild>
-                        <Pressable className="group flex-row items-center gap-2 rounded-[28px] px-6 py-3 hover:bg-red-400">
+                        <Pressable className="group hidden flex-row items-center gap-1.5 rounded-[28px] px-3 py-2.5 md:gap-2 md:px-6 md:py-3 lg:flex">
                             <IonIcons
                                 name="chatbubble-ellipses-outline"
                                 size={24}
                                 className="text-red-500 group-hover:text-white"
                             />
-                            <Text className="text-lg font-medium text-gray-700 group-hover:text-white">
+                            <Text className="text-base font-medium text-gray-700 group-hover:text-white md:text-lg">
                                 Messages
                             </Text>
                         </Pressable>
                     </Link>
 
                     {/* Get Help */}
-                    <Pressable className="rounded-full border border-red-500 px-5 py-3 hover:bg-red-400">
-                        <Text className="font-semibold text-red-500 hover:text-white">
+                    <Pressable className="rounded-full border border-red-500 px-4 py-2.5 md:px-5 md:py-3 hover:bg-red-400">
+                        <Text className="text-sm font-semibold text-red-500 hover:text-white md:text-base">
                             Get Help
                         </Text>
                     </Pressable>
@@ -236,7 +237,7 @@ export default function Navbar() {
             </View>
 
             <View className="relative -z-10 hidden border-t border-gray-100 sm:flex">
-                <View className="mx-auto flex w-full max-w-7xl flex-row items-center justify-center gap-10 px-6 py-4 z-[999]">
+                <View className="z-[999] mx-auto flex w-full max-w-7xl flex-row items-center justify-center gap-6 px-4 py-4 md:gap-10 md:px-6">
                     <MenuDropdown
                         onMouseEnterFunction={() => openMegaMenu('forMyself')}
                         onMouseLeaveFunction={closeMegaMenu}
@@ -264,9 +265,15 @@ export default function Navbar() {
                     />
 
                     {/* Static links */}
-                    <MenuLink text="Blog" />
-                    <MenuLink text="Guide" />
-                    <MenuLink text="How does it work?" />
+                    <View className="hidden lg:flex">
+                        <MenuLink text="Blog" />
+                    </View>
+                    <View className="hidden lg:flex">
+                        <MenuLink text="Guide" />
+                    </View>
+                    <View className="hidden xl:flex">
+                        <MenuLink text="How does it work?" />
+                    </View>
 
                     {/* Mega menu panel */}
                     {menuDropdownOpen && menuDropdownOpen in megaMenuData ? (

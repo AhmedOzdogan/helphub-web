@@ -40,7 +40,7 @@ function Blog() {
     return (
         <View className="w-full flex-col flex-wrap items-center justify-center bg-white px-4 py-8 md:px-8 md:py-12 lg:flex-row lg:items-start lg:px-16 lg:py-16 lg:gap-0">
             {/* LEFT SIDE */}
-            <View className="mb-8 w-full  justify-center items-center md:max-w-[600px] lg:mr-16 lg:mb-0 lg:max-w-[300px] lg:items-start">
+            <View className="mb-8 w-full justify-center items-center md:max-w-[600px] lg:mr-16 lg:mb-5 lg:max-w-[300px] lg:items-start">
                 <Text className="mb-2 text-xl font-bold text-slate-800 md:mb-3 md:text-2xl">
                     Blog
                 </Text>

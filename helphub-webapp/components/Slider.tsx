@@ -35,7 +35,7 @@ function Slider() {
 
     const sliderHeightClass =
         Platform.OS === 'web'
-            ? 'h-[500px] sm:h-[320px] md:h-[420px] lg:h-[600px]'
+            ? 'h-[500px] sm:h-[320px] md:h-[360px] lg:h-[600px]'
             : 'h-[220px]';
 
     const isMobileSlider = sliderWidth > 0 && sliderWidth < 640;
