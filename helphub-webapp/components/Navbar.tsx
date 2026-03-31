@@ -13,6 +13,9 @@ export default function Navbar() {
     // Dropdown open state
     const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
+    //Mobile Dropdown open state
+    const [mobileAccountMenuOpen, setMobileAccountMenuOpen] = useState(false);
+
     // MenuDropdown
     const [menuDropdownOpen, setMenuDropdownOpen] = useState<string | null>(null);
 
@@ -328,15 +331,17 @@ export default function Navbar() {
                         </Link>
 
                         <View className="flex-row items-center gap-4">
-                            <Link href="/" asChild>
-                                <Pressable className="rounded-full p-2">
-                                    <IonIcons
-                                        name="person-outline"
-                                        size={30}
-                                        color="#cf1a17"
-                                    />
-                                </Pressable>
-                            </Link>
+
+                            <Pressable
+                                className="rounded-full p-2"
+                                onPress={() => setMobileAccountMenuOpen(!mobileAccountMenuOpen)}
+                            >
+                                <IonIcons
+                                    name="person-outline"
+                                    size={30}
+                                    color="#cf1a17"
+                                />
+                            </Pressable>
 
                             <Link href="/" asChild>
                                 <Pressable className="rounded-full p-2">
@@ -366,8 +371,44 @@ export default function Navbar() {
                         </View>
                     </View>
                 </View>
+                {mobileAccountMenuOpen ? (
+                    <View className="absolute right-5 top-20 z-[999] w-48 rounded-[28px] border border-gray-200 bg-white px-6 py-6 shadow-lg sm:hidden z-[999]">
+                        <Link href="/login" asChild>
+                            <Pressable
+                                onPress={() => {
+                                    setMobileAccountMenuOpen(false);
+                                    router.push('/login');
+                                }}
+                                className="flex-row items-center gap-3 rounded-[20px] p-3 active:bg-red-400"
+                            >
+                                <IonIcons
+                                    name="log-in-outline"
+                                    size={22}
+                                    color="#cf1a17"
+                                />
+                                <Text className="text-base font-medium text-gray-700">
+                                    Log In
+                                </Text>
+                            </Pressable>
+                        </Link>
 
-                {mobileMenuOpen ? (
+                        <Link href="/signup" asChild>
+                            <Pressable
+                                onPress={() => setMobileAccountMenuOpen(false)}
+                                className="mt-2 flex-row items-center gap-3 rounded-[20px] p-3 active:bg-red-400"
+                            >
+                                <IonIcons
+                                    name="add-circle-outline"
+                                    size={22}
+                                    color="#cf1a17"
+                                />
+                                <Text className="text-base font-medium text-gray-700">
+                                    Sign Up
+                                </Text>
+                            </Pressable>
+                        </Link>
+                    </View>
+                ) : null}{mobileMenuOpen ? (
                     <View
                         className="absolute inset-x-0 top-full z-[999] sm:hidden"
                         style={{ height: Platform.OS === 'web' ? 'calc(100vh - 140px)' : '100%' } as any}

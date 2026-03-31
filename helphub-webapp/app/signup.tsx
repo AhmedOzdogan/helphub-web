@@ -1,7 +1,7 @@
 import RedButton from '@/components/ui/RedButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
-import { Platform, Text, TextInput, View } from 'react-native';
+import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
@@ -11,7 +11,7 @@ function Login() {
     const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
 
     return (
-        <View
+        <ScrollView
             className="bg-[#f5f5f5] z-[-999]"
             style={{
                 minHeight: Platform.OS === 'web' ? '100%' : '100%',
@@ -21,7 +21,7 @@ function Login() {
             <Navbar />
 
             <View
-                className="px-2 py-3"
+                className="px-2 pb-3 z-[-999]"
                 style={{
                     flexGrow: 1,
                     justifyContent: 'center',
@@ -97,7 +97,7 @@ function Login() {
             </View>
 
             <Footer />
-        </View>
+        </ScrollView>
     );
 }
 
