@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { router } from 'expo-router';
 import { useRef } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { manNames, womanNames } from '../../data/names';
@@ -34,6 +35,7 @@ const titles = [
     'Clinical Psychologist',
     'Family Counselor',
     'Holistic Health Coach',
+    'Yaşam ve Bütünsel Sağlık Koçu',
 ];
 
 function pickRandomItems<T>(items: T[], count: number) {
@@ -58,11 +60,24 @@ function ProfileCard({
     compact?: boolean;
     cardWidth?: number;
 }) {
+    const handlePress = (name: string, title: string, price: number, image: string) => {
+        router.push({
+            pathname: '/appointment' as any,
+            params: {
+                name: encodeURIComponent(name),
+                title: encodeURIComponent(title),
+                price: String(price),
+                image: encodeURIComponent(image),
+            },
+        });
+    };
+
     const manImages = [man1, man2, man3, man4, man5];
     const womanImages = [woman1, woman2, woman3, woman4, woman5];
 
     const profileSeedRef = useRef<{
         image: any;
+        imageKey: string;
         name: string;
         title: string;
         reviewCount: number;
@@ -78,6 +93,12 @@ function ProfileCard({
             ? manImages[Math.floor(Math.random() * manImages.length)]
             : womanImages[Math.floor(Math.random() * womanImages.length)];
 
+        const selectedImageIndex = man
+            ? manImages.findIndex((image) => image === selectedImage)
+            : womanImages.findIndex((image) => image === selectedImage);
+
+        const selectedImageKey = `${man ? 'man' : 'woman'}-${selectedImageIndex}`;
+
         const selectedName = man
             ? manNames[Math.floor(Math.random() * manNames.length)]
             : womanNames[Math.floor(Math.random() * womanNames.length)];
@@ -91,6 +112,7 @@ function ProfileCard({
 
         profileSeedRef.current = {
             image: selectedImage,
+            imageKey: selectedImageKey,
             name: selectedName,
             title: selectedTitle,
             reviewCount: selectedReviewCount,
@@ -103,6 +125,7 @@ function ProfileCard({
     }
 
     const randomImage = profileSeedRef.current.image;
+    const randomImageKey = profileSeedRef.current.imageKey;
     const randomName = profileSeedRef.current.name;
     const randomTitle = profileSeedRef.current.title;
     const randomReviewCount = profileSeedRef.current.reviewCount;
@@ -117,7 +140,6 @@ function ProfileCard({
     const imageBorderRadius = compact ? 20 : 24;
     const cardPaddingX = compact ? 12 : 14;
     const cardPaddingY = compact ? 12 : 14;
-    const cardRadius = compact ? 28 : 30;
     const nameSize = compact ? 17 : 18;
     const titleMaxWidth = Math.max(width - 60, 180);
     const tagTextSize = compact ? 10 : 12;
@@ -240,13 +262,19 @@ function ProfileCard({
                 </View>
 
                 <View className="mt-3 flex-row">
-                    <Pressable className="flex-1 items-center rounded-[20px] bg-[#355584] py-3">
+                    <Pressable
+                        className="flex-1 items-center rounded-[20px] bg-[#355584] py-3"
+                        onPress={() => handlePress(randomName, randomTitle, newPrice, randomImageKey)}
+                    >
                         <Text className="font-semibold text-white" style={{ fontSize: buttonTextSize }}>
                             Book Session
                         </Text>
                     </Pressable>
                     {isOnline ? (
-                        <Pressable className="ml-2 flex-1 items-center rounded-[20px] bg-green-500 py-3">
+                        <Pressable
+                            className="ml-2 flex-1 items-center rounded-[20px] bg-green-500 py-3"
+                            onPress={() => handlePress(randomName, randomTitle, newPrice, randomImageKey)}
+                        >
                             <Text className="font-semibold text-white" style={{ fontSize: buttonTextSize }}>
                                 Start Now
                             </Text>
