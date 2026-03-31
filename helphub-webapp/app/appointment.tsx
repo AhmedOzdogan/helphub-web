@@ -207,8 +207,8 @@ function Appointment() {
                         Select date and time from calendar
                     </Text>
 
-                    <View className="mt-6 flex-col gap-8 lg:flex-row lg:items-start lg:justify-center">
-                        <View className="w-full max-w-[420px] rounded-[22px] border border-[#d6d6d6] bg-white px-5 py-5">
+                    <View className="mt-6 flex-col items-center gap-8 md:items-center lg:flex-row lg:items-start lg:justify-center">
+                        <View className="w-full max-w-[420px] items-center rounded-[22px] border border-[#d6d6d6] bg-white px-5 py-5">
                             <View className="flex-row items-center justify-between">
                                 <Ionicons name="chevron-back" size={28} color="#6b7280" />
                                 <Text className="text-[20px] font-semibold text-[#1f2937]">Mar 2026</Text>
@@ -261,7 +261,7 @@ function Appointment() {
 
                         <View className="hidden h-[430px] w-px bg-[#d6d6d6] lg:flex" />
 
-                        <View className="w-full max-w-[360px]">
+                        <View className="w-full max-w-[360px] items-center">
                             <Text className="mb-4 text-center text-[16px] font-medium text-[#1f2937] lg:text-left">
                                 Times are in UTC+3
                             </Text>
