@@ -18,7 +18,7 @@ const blogs = [
 
 function BlogCard({ image, title }: { image: any; title: string }) {
     return (
-        <View className="relative h-[120px] w-[40%] md:h-[140px] md:w-[240px] overflow-hidden rounded-xl mb-5">
+        <View className="relative mb-4 h-[120px] w-[47%] overflow-hidden rounded-xl sm:w-[48%] md:h-[140px] md:w-[47%] lg:mb-5 lg:w-[240px]">
             <Image
                 source={image}
                 resizeMode="contain"
@@ -38,39 +38,28 @@ function BlogCard({ image, title }: { image: any; title: string }) {
 
 function Blog() {
     return (
-        <View className="w-full flex-col md:flex-row items-center md:items-start justify-center bg-white px-4 md:px-16 py-8 md:py-16 gap-8 md:gap-0">
+        <View className="w-full flex-col flex-wrap items-center justify-center bg-white px-4 py-8 md:px-8 md:py-12 lg:flex-row lg:items-start lg:px-16 lg:py-16 lg:gap-0">
             {/* LEFT SIDE */}
-            <View className="w-full md:mr-16 md:max-w-[300px] items-center md:items-start text-center md:text-left">
-                <Text className="mb-2 md:mb-3 text-xl md:text-2xl font-bold text-slate-800">
+            <View className="mb-8 w-full  justify-center items-center md:max-w-[600px] lg:mr-16 lg:mb-0 lg:max-w-[300px] lg:items-start">
+                <Text className="mb-2 text-xl font-bold text-slate-800 md:mb-3 md:text-2xl">
                     Blog
                 </Text>
 
-                <Text className="mb-4 md:mb-6 text-sm md:text-base text-gray-600">
+                <Text className="mb-6 max-w-[520px] text-center text-sm text-gray-600 md:text-base lg:text-left">
                     You can explore blog content from our consultants here.
                 </Text>
 
-                <RedButton ButtonText="Explore" />
+                <View className="mt-2 md:mt-4">
+                    <RedButton ButtonText="Explore" />
+                </View>
             </View>
 
             {/* RIGHT SIDE GRID */}
-            <View className="w-full md:w-auto">
-                {/* Mobile only: 2 cards per row */}
-                <View className="flex-row flex-wrap gap-3 md:hidden justify-center">
+            <View className="w-full max-w-[770px]">
+                <View className="flex-row flex-wrap justify-center gap-3 md:gap-4">
                     <BlogCard {...blogs[0]} />
                     <BlogCard {...blogs[1]} />
                     <BlogCard {...blogs[2]} />
-                    <BlogCard {...blogs[3]} />
-                    <BlogCard {...blogs[4]} />
-                    <BlogCard {...blogs[5]} />
-                </View>
-
-                {/* Desktop only: 3 cards per row */}
-                <View className="hidden md:flex flex-row flex-wrap gap-4 justify-start">
-                    <BlogCard {...blogs[0]} />
-                    <BlogCard {...blogs[1]} />
-                    <BlogCard {...blogs[2]} />
-                </View>
-                <View className="hidden md:flex flex-row flex-wrap gap-4 justify-start">
                     <BlogCard {...blogs[3]} />
                     <BlogCard {...blogs[4]} />
                     <BlogCard {...blogs[5]} />

@@ -13,7 +13,7 @@ function Featured({ categoryName }: { categoryName: string }) {
     const [containerWidth, setContainerWidth] = useState(0);
 
     const isMobile = containerWidth > 0 && containerWidth < 768;
-    const isTabletOrMobile = containerWidth > 0 && containerWidth < 1280;
+    const isTabletOrMobile = containerWidth > 0 && containerWidth < 1366;
     const cardGap = isMobile ? 12 : isTabletOrMobile ? 14 : 16;
 
     const cardWidth = useMemo(() => {

@@ -18,7 +18,7 @@ function PopulerCategories() {
                 There will be more than 1.500 experts in 39 categories here for you...
             </Text>
 
-            <View className="flex-col lg:flex-row w-full items-center justify-center gap-4">
+            <View className="flex-col md:flex-row w-full items-center justify-center gap-4 md:flex-wrap mb-6">
                 <CategoryCard title="Astrology" image={astrology} />
                 <CategoryCard title="Psychology" image={psychology} />
                 <CategoryCard title="Life Coach" image={lifeCoach} />

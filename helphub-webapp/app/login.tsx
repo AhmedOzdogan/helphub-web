@@ -26,7 +26,7 @@ function Login() {
                     justifyContent: 'center',
                 }}
             >
-                <View className="mx-auto w-full max-w-[400px] rounded-[34px] border border-[#d9d9d9] bg-[#f8f8f8] px-10 py-5 shadow-sm my-10">
+                <View className="mx-auto w-full max-w-[500px] rounded-[34px] border border-[#d9d9d9] bg-[#f8f8f8] px-10 py-5 shadow-sm my-10">
                     <View className="items-center">
                         <View className="h-[64px] w-[64px] items-center justify-center rounded-full bg-[#f8ebeb]">
                             <Ionicons name="person" size={28} color="#ef3734" />
