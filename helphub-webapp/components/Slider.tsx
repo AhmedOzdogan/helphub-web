@@ -10,43 +10,60 @@ import {
     View,
 } from 'react-native';
 
+// Import desktop slide images
 import slider1 from '../assets/slider/slider1.webp';
 import slider2 from '../assets/slider/slider2.webp';
 import slider3 from '../assets/slider/slider3.webp';
 import slider4 from '../assets/slider/slider4.webp';
 import slider5 from '../assets/slider/slider5.webp';
 
+// Import mobile slide images
 import slider1Mobile from '../assets/slider/slider1-mobile.webp';
 import slider2Mobile from '../assets/slider/slider2-mobile.webp';
 import slider3Mobile from '../assets/slider/slider3-mobile.webp';
 import slider4Mobile from '../assets/slider/slider4-mobile.webp';
 
+// Define desktop and mobile slide arrays
 const desktopSlides = [slider1, slider2, slider3, slider4, slider5];
 const mobileSlides = [slider1Mobile, slider2Mobile, slider3Mobile, slider4Mobile];
+
+// Define autoplay delay and slide animation duration
 const AUTO_PLAY_DELAY = 4500;
 const SLIDE_DURATION = 650;
 
 function Slider() {
+    // State for current active slide index
     const [activeIndex, setActiveIndex] = useState(0);
+    // State for slider container width
     const [sliderWidth, setSliderWidth] = useState(0);
+    // Animated value for horizontal translation
     const translateX = useRef(new Animated.Value(0)).current;
+    // Ref for autoplay interval
     const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    // Ref to track if animation is in progress
     const isAnimatingRef = useRef(false);
 
+    // Determine height class based on platform
     const sliderHeightClass =
         Platform.OS === 'web'
             ? 'h-[500px] sm:h-[320px] md:h-[360px] lg:h-[600px]'
             : 'h-[220px]';
 
+    // Check if slider is in mobile mode (width < 640)
     const isMobileSlider = sliderWidth > 0 && sliderWidth < 640;
+    // Check if slider supports touch gestures
     const isTouchSlider = sliderWidth > 0;
+    // Select current slides based on mobile/desktop
     const currentSlides = isMobileSlider ? mobileSlides : desktopSlides;
+    // Create track slides with extra first slide for infinite loop
     const trackSlides = useMemo(() => [...currentSlides, currentSlides[0]], [currentSlides]);
 
+    // Function to reset track position to specific index
     const resetTrackPosition = (index: number) => {
         translateX.setValue(-(index * sliderWidth));
     };
 
+    // Function to stop autoplay
     const stopAutoPlay = () => {
         if (autoPlayRef.current) {
             clearInterval(autoPlayRef.current);
@@ -54,6 +71,7 @@ function Slider() {
         }
     };
 
+    // Handle layout changes to update slider width
     const handleLayout = (event: LayoutChangeEvent) => {
         const nextWidth = Math.round(event.nativeEvent.layout.width);
 
@@ -65,6 +83,7 @@ function Slider() {
         translateX.setValue(-(activeIndex * nextWidth));
     };
 
+    // Animate to a specific slide index
     const animateToIndex = (nextIndex: number, onDone?: () => void) => {
         if (!sliderWidth || isAnimatingRef.current) {
             return;
@@ -83,6 +102,7 @@ function Slider() {
         });
     };
 
+    // Go to a specific slide index
     const goToIndex = (nextIndex: number) => {
         if (nextIndex === activeIndex || !sliderWidth) {
             return;
@@ -92,6 +112,7 @@ function Slider() {
         animateToIndex(nextIndex);
     };
 
+    // Go to previous slide
     const goToPrevious = () => {
         if (!sliderWidth) {
             return;
@@ -102,6 +123,7 @@ function Slider() {
         animateToIndex(previousIndex);
     };
 
+    // Go to next slide
     const goToNext = () => {
         if (!sliderWidth) {
             return;
@@ -120,6 +142,7 @@ function Slider() {
         animateToIndex(nextIndex);
     };
 
+    // Go to previous from first slide (for infinite loop)
     const goToPreviousFromFirst = () => {
         if (!sliderWidth) {
             return;
@@ -133,16 +156,20 @@ function Slider() {
         });
     };
 
+    // Create PanResponder for swipe gestures
     const panResponder = useMemo(
         () =>
             PanResponder.create({
+                // Determine if should respond to move
                 onMoveShouldSetPanResponder: (_, gestureState) => {
                     return isTouchSlider && Math.abs(gestureState.dx) > Math.abs(gestureState.dy) && Math.abs(gestureState.dx) > 10;
                 },
+                // Handle responder grant
                 onPanResponderGrant: () => {
                     stopAutoPlay();
                     translateX.stopAnimation();
                 },
+                // Handle responder release
                 onPanResponderRelease: (_, gestureState) => {
                     if (!isTouchSlider || !sliderWidth) {
                         startAutoPlay();
@@ -165,6 +192,7 @@ function Slider() {
 
                     startAutoPlay();
                 },
+                // Handle responder terminate
                 onPanResponderTerminate: () => {
                     resetTrackPosition(activeIndex);
                     startAutoPlay();
@@ -173,6 +201,7 @@ function Slider() {
         [activeIndex, currentSlides.length, isTouchSlider, sliderWidth]
     );
 
+    // Start autoplay
     const startAutoPlay = () => {
         stopAutoPlay();
 
@@ -187,6 +216,7 @@ function Slider() {
         }, AUTO_PLAY_DELAY);
     };
 
+    // Effect to start autoplay when slider width is set
     useEffect(() => {
         if (!sliderWidth) {
             return;
@@ -200,12 +230,14 @@ function Slider() {
         };
     }, [sliderWidth]);
 
+    // Effect to cleanup autoplay on unmount
     useEffect(() => {
         return () => {
             stopAutoPlay();
         };
     }, []);
 
+    // Render the slider component
     return (
         <View
             onLayout={handleLayout}
