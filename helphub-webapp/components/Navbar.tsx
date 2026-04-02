@@ -86,10 +86,12 @@ export default function Navbar() {
         },
     ];
 
+    // Toggle mobile menu section expansion
     const toggleMobileSection = (sectionKey: string) => {
         setMobileExpandedSection((prev) => (prev === sectionKey ? null : sectionKey));
     };
 
+    // Prevent background scrolling when mobile menu is open
     useEffect(() => {
         if (Platform.OS !== 'web' || typeof document === 'undefined') return;
 
