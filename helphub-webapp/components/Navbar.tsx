@@ -7,7 +7,11 @@ import MenuLink from './ui/MenuLink';
 
 import { megaMenuData } from '../data/megaMenuData';
 
-export default function Navbar() {
+type NavbarProps = {
+    onMobileMenuChange?: (isOpen: boolean) => void;
+};
+
+export default function Navbar({ onMobileMenuChange }: NavbarProps) {
     const router = useRouter();
 
     // Dropdown open state
@@ -93,27 +97,46 @@ export default function Navbar() {
 
     // Prevent background scrolling when mobile menu is open
     useEffect(() => {
-        if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+        onMobileMenuChange?.(mobileMenuOpen);
+
+        if (Platform.OS !== 'web' || typeof document === 'undefined') {
+            return () => onMobileMenuChange?.(false);
+        }
 
         const page = document.getElementById('page-content');
-        if (!page) return;
+        const body = document.body;
+        const html = document.documentElement;
 
-        const previousOverflow = page.style.overflow;
-        const previousHeight = page.style.height;
-        const previousTouchAction = page.style.touchAction;
+        const previousPageOverflow = page?.style.overflow;
+        const previousPageHeight = page?.style.height;
+        const previousPageTouchAction = page?.style.touchAction;
+        const previousBodyOverflow = body.style.overflow;
+        const previousHtmlOverflow = html.style.overflow;
 
         if (mobileMenuOpen) {
-            page.style.overflow = 'hidden';
-            page.style.height = '100vh';
-            page.style.touchAction = 'none';
+            if (page) {
+                page.style.overflow = 'hidden';
+                page.style.height = '100vh';
+                page.style.touchAction = 'none';
+            }
+
+            body.style.overflow = 'hidden';
+            html.style.overflow = 'hidden';
         }
 
         return () => {
-            page.style.overflow = previousOverflow;
-            page.style.height = previousHeight;
-            page.style.touchAction = previousTouchAction;
+            onMobileMenuChange?.(false);
+
+            if (page) {
+                page.style.overflow = previousPageOverflow || '';
+                page.style.height = previousPageHeight || '';
+                page.style.touchAction = previousPageTouchAction || '';
+            }
+
+            body.style.overflow = previousBodyOverflow;
+            html.style.overflow = previousHtmlOverflow;
         };
-    }, [mobileMenuOpen]);
+    }, [mobileMenuOpen, onMobileMenuChange]);
 
     return (
         <View className="relative w-full border-b border-gray-200 bg-white">
@@ -221,9 +244,9 @@ export default function Navbar() {
                             <IonIcons
                                 name="chatbubble-ellipses-outline"
                                 size={24}
-                                className="text-red-500 group-hover:text-white"
+                                className="text-red-500 group-hover:text-gray-300"
                             />
-                            <Text className="text-base font-medium text-gray-700 group-hover:text-white md:text-lg">
+                            <Text className="text-base font-medium text-gray-700 group-hover:text-gray-300 md:text-lg">
                                 Messages
                             </Text>
                         </Pressable>
@@ -375,7 +398,8 @@ export default function Navbar() {
                                 name="search"
                                 size={28}
                                 color="#cf1a17"
-                                className="absolute right-5 top-1/2 -translate-y-1/2"
+                                className={Platform.OS === 'web' ? 'absolute right-5 top-1/2 -translate-y-1/2' : 'absolute right-5'}
+                                style={Platform.OS === 'web' ? undefined : { top: 14 }}
                             />
                         </View>
                     </View>
@@ -420,14 +444,18 @@ export default function Navbar() {
                 ) : null}{mobileMenuOpen ? (
                     <View
                         className="absolute inset-x-0 top-full z-[999] sm:hidden"
-                        style={{ height: Platform.OS === 'web' ? 'calc(100vh - 140px)' : '100%' } as any}
+                        style={{ height: Platform.OS === 'web' || Platform.OS === 'ios' ? 'calc(100vh - 140px)' : '100%' } as any}
                     >
                         <Pressable
                             className="absolute inset-0 bg-black/30"
+                            onTouchMove={(event) => event.preventDefault?.()}
                             onPress={() => setMobileMenuOpen(false)}
                         />
 
-                        <View className="h-full border-t border-gray-200 bg-white shadow-2xl">
+                        <View
+                            className="h-full border-t border-gray-200 bg-white shadow-2xl"
+                            onTouchMove={(event) => event.stopPropagation()}
+                        >
                             <ScrollView
                                 className="h-full"
                                 contentContainerStyle={{ paddingBottom: 28, flexGrow: 1 }}

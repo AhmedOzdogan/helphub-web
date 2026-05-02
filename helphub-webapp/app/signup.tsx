@@ -5,14 +5,14 @@ import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
-function Login() {
+function Signup() {
 
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
 
     return (
         <ScrollView
-            className="bg-[#f5f5f5] z-[-999]"
+            className={`bg-[#f5f5f5] z-[-999] ${Platform.OS === 'ios' ? 'mt-16' : ''}`}
             style={{
                 minHeight: Platform.OS === 'web' ? '100%' : '100%',
                 flex: 1,
@@ -101,4 +101,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Signup;

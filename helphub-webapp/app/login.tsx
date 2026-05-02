@@ -11,7 +11,7 @@ function Login() {
 
     return (
         <ScrollView
-            className="bg-[#f5f5f5] z-[-999]"
+            className={"bg-[#f5f5f5] z-[-999] " + (Platform.OS === 'ios' ? 'mt-16' : '')}
             style={{
                 minHeight: Platform.OS === 'web' ? '100%' : '100%',
                 flex: 1,

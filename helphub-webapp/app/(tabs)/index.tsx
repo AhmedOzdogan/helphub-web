@@ -2,7 +2,7 @@ import Advantages from '@/components/Advantages';
 import Download from '@/components/Download';
 import HowItWorks from '@/components/HowItWorks';
 import Numbers from '@/components/Numbers';
-import { Platform, Text, View } from 'react-native';
+import { Platform, ScrollView, Text, View } from 'react-native';
 import Companies from '../../components/Companies';
 import Details from '../../components/Details';
 import Featured from '../../components/Featured';
@@ -12,14 +12,26 @@ import PopulerCategories from '../../components/PopulerCategories';
 import Slider from '../../components/Slider';
 import Blog from '../../components/blog';
 
+import { useState } from 'react';
+
 export default function HomeScreen() {
+  // State to control scroll enabled status for ScrollView 
+  // when mobile menu is open
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+
   return (
-    <View
-      className="flex-1 bg-white items-center justify-start overflow-auto"
+    <ScrollView
+      className={`flex-1 bg-white ${Platform.OS === 'ios' ? 'mt-16' : ''}`}
       id="page-content"
       style={Platform.OS === 'web' ? { scrollbarWidth: 'none', msOverflowStyle: 'none' } as any : {}}
+      contentContainerStyle={{
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}
+      scrollEnabled={scrollEnabled}
     >
-      <Navbar />
+      <Navbar onMobileMenuChange={(isOpen) => setScrollEnabled(!isOpen)} />
 
       <Slider />
 
@@ -47,6 +59,6 @@ export default function HomeScreen() {
       <Numbers />
       <Blog />
       <Footer />
-    </View>
+    </ScrollView>
   );
 }

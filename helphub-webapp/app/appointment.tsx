@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
@@ -118,7 +118,7 @@ function Appointment() {
     }, [price, selectedPackage]);
 
     return (
-        <ScrollView className="bg-[#f6f6f6] z-[-999]">
+        <ScrollView className={`bg-[#f6f6f6] z-[-999] ${Platform.OS === 'ios' ? 'mt-16' : ''}`}>
             <Navbar />
 
             <View className="px-3 py-4 md:px-6 lg:px-10 lg:py-6 z-[-999]">

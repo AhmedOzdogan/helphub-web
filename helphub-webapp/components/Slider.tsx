@@ -45,9 +45,9 @@ function Slider() {
 
     // Determine height class based on platform
     const sliderHeightClass =
-        Platform.OS === 'web'
-            ? 'h-[500px] sm:h-[320px] md:h-[360px] lg:h-[600px]'
-            : 'h-[220px]';
+        Platform.OS === 'web' || Platform.OS === 'ios'
+            ? 'h-[620px] sm:h-[620px] md:h-[360px] lg:h-[600px]'
+            : 'h-[250px]';
 
     // Check if slider is in mobile mode (width < 640)
     const isMobileSlider = sliderWidth > 0 && sliderWidth < 640;

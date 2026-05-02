@@ -174,8 +174,12 @@ function ProfileCard({
                         </View>
 
                         {isOnline ? (
-                            <View className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-green-500 px-4 py-1">
-                                <Text className="text-xs font-semibold text-white">Online</Text>
+                            <View
+                                className="absolute bottom-2 left-0 right-0 items-center"
+                            >
+                                <View className="rounded-full bg-green-500 px-4 py-1">
+                                    <Text className="text-xs font-semibold text-white">Online</Text>
+                                </View>
                             </View>
                         ) : null}
                     </View>

@@ -1,12 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Link } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 import AppStoreDownload from './ui/AppStoreDownload';
 import GooglePlayDownload from './ui/GooglePlayDownload';
 
 function Footer() {
     return (
-        <View className="w-full bg-red-500 px-4 py-8 md:px-6 md:py-12">
+        <View className={`w-full bg-red-500 px-4 md:px-6 ${Platform.OS === 'ios' ? 'pt-8 pb-8' : 'py-8 md:py-12'}`}>
             <View className="mx-auto w-full max-w-[1400px] flex-col items-center justify-center gap-8  md:flex-row md:items-start md:justify-between md:gap-10">
                 <View className="w-[150px] items-center md:items-start">
                     <Text className="text-xl font-bold text-white md:text-[20px]">HelpHub</Text>
@@ -73,7 +73,7 @@ function Footer() {
                 </View>
             </View>
 
-            <View className="mx-auto mt-8 items-center md:mt-12">
+            <View className={`mx-auto items-center ${Platform.OS === 'ios' ? 'mt-4' : 'mt-8 md:mt-12'}`}>
                 <Text className="max-w-[900px] px-2 text-center text-xs leading-[20px] text-white md:text-[14px] md:leading-[24px]">
                     Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services.
                 </Text>
