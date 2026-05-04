@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useMemo, useRef, useState } from 'react';
-import { LayoutChangeEvent, PanResponder, Pressable, ScrollView, Text, View } from 'react-native';
+import { LayoutChangeEvent, Pressable, ScrollView, Text, View } from 'react-native';
 import ProfileCard from './ui/ProfileCard';
 
 function Featured({ categoryName }: { categoryName: string }) {
@@ -8,10 +8,6 @@ function Featured({ categoryName }: { categoryName: string }) {
     const scrollRef = useRef<ScrollView | null>(null);
     // Ref to track current scroll position
     const currentScrollX = useRef(0);
-    // Ref to store drag start X position
-    const dragStartX = useRef(0);
-    // Ref to store drag start offset
-    const dragStartOffset = useRef(0);
 
     // State for current scroll X position
     const [scrollX, setScrollX] = useState(0);
@@ -44,11 +40,6 @@ function Featured({ categoryName }: { categoryName: string }) {
     const visibleCards = isTabletOrMobile ? 1 : 4;
     // Maximum scroll distance
     const maxScroll = Math.max((TOTAL_CARDS - visibleCards) * slideStep, 0);
-
-    // Function to clamp scroll value within bounds
-    const clampScroll = (value: number) => {
-        return Math.max(0, Math.min(value, maxScroll));
-    };
 
     // Handle container layout change to update width
     const handleContainerLayout = (event: LayoutChangeEvent) => {
@@ -87,60 +78,6 @@ function Featured({ categoryName }: { categoryName: string }) {
         setScrollX(nextX);
     };
 
-    // Create PanResponder for drag gestures on tablet/mobile
-    const panResponder = useMemo(
-        () =>
-            PanResponder.create({
-                // Determine if should respond to move
-                onMoveShouldSetPanResponder: (_, gestureState) => {
-                    return isTabletOrMobile && Math.abs(gestureState.dx) > Math.abs(gestureState.dy) && Math.abs(gestureState.dx) > 8;
-                },
-                // Handle responder grant
-                onPanResponderGrant: () => {
-                    dragStartX.current = currentScrollX.current;
-                    dragStartOffset.current = currentScrollX.current;
-                },
-                // Handle responder move
-                onPanResponderMove: (_, gestureState) => {
-                    const nextX = clampScroll(dragStartOffset.current - gestureState.dx);
-
-                    scrollRef.current?.scrollTo({
-                        x: nextX,
-                        animated: false,
-                    });
-
-                    currentScrollX.current = nextX;
-                    setScrollX(nextX);
-                },
-                // Handle responder release
-                onPanResponderRelease: (_, gestureState) => {
-                    const rawTarget = clampScroll(dragStartX.current - gestureState.dx);
-                    const snappedX = clampScroll(Math.round(rawTarget / slideStep) * slideStep);
-
-                    scrollRef.current?.scrollTo({
-                        x: snappedX,
-                        animated: true,
-                    });
-
-                    currentScrollX.current = snappedX;
-                    setScrollX(snappedX);
-                },
-                // Handle responder terminate
-                onPanResponderTerminate: () => {
-                    const snappedX = clampScroll(Math.round(currentScrollX.current / slideStep) * slideStep);
-
-                    scrollRef.current?.scrollTo({
-                        x: snappedX,
-                        animated: true,
-                    });
-
-                    currentScrollX.current = snappedX;
-                    setScrollX(snappedX);
-                },
-            }),
-        [isTabletOrMobile, maxScroll, slideStep]
-    );
-
     // Render the Featured component
     return (
         <View className={`mt-10 w-full items-center justify-center bg-blue-50 ${isMobile ? 'px-3 py-6' : isTabletOrMobile ? 'px-6 py-7' : 'px-14 py-8'}`}>
@@ -151,7 +88,6 @@ function Featured({ categoryName }: { categoryName: string }) {
             <View
                 onLayout={handleContainerLayout}
                 className={`relative w-full ${isMobile ? 'max-w-full' : 'max-w-[1330px]'}`}
-                {...(isTabletOrMobile ? panResponder.panHandlers : {})}
             >
                 {!isTabletOrMobile ? (
                     <Pressable
@@ -166,7 +102,7 @@ function Featured({ categoryName }: { categoryName: string }) {
                 <ScrollView
                     ref={scrollRef}
                     horizontal
-                    scrollEnabled={!isTabletOrMobile}
+                    scrollEnabled
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{
                         paddingHorizontal: sidePadding,
@@ -181,7 +117,7 @@ function Featured({ categoryName }: { categoryName: string }) {
                     decelerationRate={isTabletOrMobile ? 'fast' : 'normal'}
                     snapToInterval={slideStep}
                     snapToAlignment="start"
-                    disableIntervalMomentum={isTabletOrMobile}
+                    disableIntervalMomentum
                     pagingEnabled={false}
                     bounces={false}
                 >

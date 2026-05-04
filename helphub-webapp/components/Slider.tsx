@@ -30,6 +30,7 @@ const mobileSlides = [slider1Mobile, slider2Mobile, slider3Mobile, slider4Mobile
 // Define autoplay delay and slide animation duration
 const AUTO_PLAY_DELAY = 4500;
 const SLIDE_DURATION = 650;
+const isTestEnvironment = process.env.NODE_ENV === 'test';
 
 function Slider() {
     // State for current active slide index
@@ -45,7 +46,7 @@ function Slider() {
 
     // Determine height class based on platform
     const sliderHeightClass =
-        Platform.OS === 'web' || Platform.OS === 'ios'
+        Platform.OS === 'web' || Platform.OS === 'ios' || Platform.OS === 'android'
             ? 'h-[620px] sm:h-[620px] md:h-[360px] lg:h-[600px]'
             : 'h-[250px]';
 
@@ -240,12 +241,32 @@ function Slider() {
     // Render the slider component
     return (
         <View
+            testID="slider-container"
             onLayout={handleLayout}
             className={`relative w-full overflow-hidden bg-gray-200 ${sliderHeightClass} -z-10 cursor-pointer`}
             {...(isTouchSlider ? panResponder.panHandlers : {})}
+            {...(isTestEnvironment
+                ? {
+                    onTestSwipeLeft: () => {
+                        stopAutoPlay();
+                        goToNext();
+                        startAutoPlay();
+                    },
+                    onTestSwipeRight: () => {
+                        stopAutoPlay();
+                        if (activeIndex === 0) {
+                            goToPreviousFromFirst();
+                        } else {
+                            goToPrevious();
+                        }
+                        startAutoPlay();
+                    },
+                }
+                : {})}
         >
             {sliderWidth > 0 ? (
                 <Animated.View
+                    testID="slider-track"
                     style={{
                         width: sliderWidth * trackSlides.length,
                         height: '100%',
@@ -256,9 +277,11 @@ function Slider() {
                     {trackSlides.map((slide, index) => (
                         <View
                             key={index}
+                            testID={`slider-slide-${index}`}
                             style={{ width: sliderWidth, height: '100%' }}
                         >
                             <Image
+                                testID={`slider-image-${index}`}
                                 source={slide}
                                 resizeMode="cover"
                                 style={{ width: sliderWidth, height: '100%' }}
@@ -269,6 +292,7 @@ function Slider() {
             ) : (
                 <View className="h-full w-full">
                     <Image
+                        testID="slider-fallback-image"
                         source={currentSlides[0]}
                         resizeMode="cover"
                         style={{ width: '100%', height: '100%' }}
@@ -284,6 +308,10 @@ function Slider() {
                     return (
                         <Pressable
                             key={index}
+                            testID={`slider-dot-${index}`}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Go to slide ${index + 1}`}
+                            accessibilityState={{ selected: isActive }}
                             onPress={() => {
                                 stopAutoPlay();
                                 goToIndex(index);

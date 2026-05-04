@@ -18,12 +18,12 @@ const blogs = [
 
 function BlogCard({ image, title }: { image: any; title: string }) {
     return (
-        <View className="relative mb-4 h-[120px] w-[47%] overflow-hidden rounded-xl sm:w-[48%] md:h-[140px] md:w-[47%] lg:mb-5 lg:w-[240px]">
+        <View className="relative mb-4 h-[120px] w-[37%] overflow-hidden rounded-xl sm:w-[48%] md:h-[140px] md:w-[47%] lg:mb-5 lg:w-[240px]">
             <Image
                 source={image}
                 resizeMode="contain"
                 className="h-full w-full"
-                style={{ borderRadius: 16, backgroundColor: '#000', width: '100%', height: '100%' }}
+                style={{ borderRadius: 16, backgroundColor: '#fff', width: '100%', height: '100%' }}
             />
 
             {/* Overlay */}

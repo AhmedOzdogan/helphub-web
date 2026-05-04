@@ -3,7 +3,10 @@ import StepCard from './ui/StepCard';
 
 function HowItWorks() {
     return (
-        <View className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12">
+        <View
+            className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12"
+            testID="steps-container"
+        >
             {/* Title */}
             <Text className="mb-2 md:mb-3 text-xl md:text-2xl font-bold text-slate-800 text-center">
                 How It Works?
@@ -15,7 +18,10 @@ function HowItWorks() {
             </Text>
 
             {/* Steps */}
-            <View className="w-full flex-row flex-wrap items-center justify-center gap-4 md:gap-6">
+            <View
+                className="w-full flex-row flex-wrap items-center justify-center gap-4 md:gap-6"
+                testID="steps-cards-container"
+            >
                 <StepCard
                     icon="search"
                     step="01"

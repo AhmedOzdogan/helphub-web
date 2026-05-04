@@ -15,7 +15,7 @@ function StepCard({
     advantages?: boolean;
 }) {
     return (
-        <View className={`relative w-[300px] h-[200px] rounded-[20px] bg-white p-6 shadow ${advantages ? 'items-center justify-center text-center' : 'items-start justify-start'}`}>
+        <View testID={`step-card-${step}`} className={`relative w-[300px] h-[200px] rounded-[20px] bg-white p-6 shadow ${advantages ? 'items-center justify-center text-center' : 'items-start justify-start'}`}>
             {/* Step number */}
             {advantages ? null : (
                 <Text className="absolute right-6 top-6 text-xl font-bold text-gray-200">
@@ -24,8 +24,8 @@ function StepCard({
             )}
 
             {/* Icon */}
-            <View className={`mb-4 h-14 w-14 items-center justify-center rounded-full ${advantages ? 'bg-red-500' : 'bg-red-50'}`}>
-                <Ionicons name={icon} size={22} color={advantages ? '#ffffff' : '#ef4444'} />
+            <View testID={`step-card-icon-wrapper-${step}`} className={`mb-4 h-14 w-14 items-center justify-center rounded-full ${advantages ? 'bg-red-500' : 'bg-red-50'}`}>
+                <Ionicons testID={`step-card-icon-${step}`} name={icon} size={22} color={advantages ? '#ffffff' : '#ef4444'} />
             </View>
 
             {/* Title */}

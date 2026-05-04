@@ -4,14 +4,14 @@ import StepCard from './ui/StepCard';
 
 function Advantages() {
     return (
-        <View className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12">
+        <View testID="advantages-section" className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12">
             {/* Title */}
             <Text className="mb-2 md:mb-3 text-xl md:text-2xl font-bold text-slate-800 text-center">
                 Advantages of Choosing HelpHub
             </Text>
 
             {/* Steps */}
-            <View className="w-full flex-row flex-wrap items-center justify-center gap-4 md:gap-6">
+            <View testID="advantages-cards-container" className="w-full flex-row flex-wrap items-center justify-center gap-4 md:gap-6">
                 <StepCard
                     icon="search"
                     step="01"

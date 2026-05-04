@@ -19,7 +19,7 @@ function Download() {
             <Image
                 source={worldbg}
                 resizeMode="contain"
-                className="absolute inset-0 -z-10 h-full w-full opacity-20"
+                className="absolute inset-0 h-full w-full opacity-20"
                 style={{ width: '100%', height: '100%' }}
             />
             <Text className="mb-8 text-center text-2xl font-bold text-slate-800 sm:mb-12 sm:text-3xl">

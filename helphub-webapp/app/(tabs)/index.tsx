@@ -21,7 +21,7 @@ export default function HomeScreen() {
 
   return (
     <ScrollView
-      className={`flex-1 bg-white ${Platform.OS === 'ios' ? 'mt-16' : ''}`}
+      className={`flex-1 bg-white ${Platform.OS === 'web' ? '' : 'mt-16'}`}
       id="page-content"
       style={Platform.OS === 'web' ? { scrollbarWidth: 'none', msOverflowStyle: 'none' } as any : {}}
       contentContainerStyle={{

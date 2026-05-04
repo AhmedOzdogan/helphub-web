@@ -4,12 +4,14 @@ interface MenuDropdownProps {
     onMouseEnterFunction: () => void;
     onMouseLeaveFunction: () => void;
     menuText: string;
+    TestID?: string;
 }
-function MenuDropdown({ onMouseEnterFunction, onMouseLeaveFunction, menuText }: MenuDropdownProps) {
+function MenuDropdown({ TestID, onMouseEnterFunction, onMouseLeaveFunction, menuText }: MenuDropdownProps) {
     return (
 
         <View
             className="relative"
+            testID={TestID}
             {...(Platform.OS === 'web' && {
                 onMouseEnter: onMouseEnterFunction,
                 onMouseLeave: onMouseLeaveFunction,

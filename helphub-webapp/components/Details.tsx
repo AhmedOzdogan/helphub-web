@@ -2,14 +2,22 @@ import { Text, View } from 'react-native';
 
 function Details() {
     return (
-        <View className="w-full items-center justify-center bg-blue-50 px-6 py-16">
+        <View
+            className="w-full items-center justify-center bg-blue-50 px-6 py-16"
+            testID="details-main-container">
             <Text className="mb-10 text-center text-[30px] font-bold text-slate-800">
                 What is HelpHub?
             </Text>
 
-            <View className="max-w-[900px] gap-8">
-                <View>
-                    <Text className="mb-2 text-center text-2xl font-semibold text-slate-800">
+            <View
+                className="max-w-[900px] gap-8"
+                testID="details-container"
+            >
+                <View
+                    testID='First Paragraph'>
+                    <Text
+                        className="mb-2 text-center text-2xl font-semibold text-slate-800"
+                    >
                         Online Counseling and Support Services at HelpHub
                     </Text>
                     <Text className="text-center text-sm leading-[30px] text-gray-600">
@@ -17,8 +25,11 @@ function Details() {
                     </Text>
                 </View>
 
-                <View>
-                    <Text className="mb-2 text-center text-2xl font-semibold text-slate-800">
+                <View
+                    testID='Second Paragraph'>
+                    <Text
+                        className="mb-2 text-center text-2xl font-semibold text-slate-800"
+                    >
                         Simplify Your Life with Online Support
                     </Text>
                     <Text className="text-center text-sm leading-[30px] text-gray-600">
@@ -26,7 +37,8 @@ function Details() {
                     </Text>
                 </View>
 
-                <View>
+                <View
+                    testID='Third Paragraph'>
                     <Text className="mb-2 text-center text-2xl font-semibold text-slate-800">
                         Benefits of Online Counseling
                     </Text>

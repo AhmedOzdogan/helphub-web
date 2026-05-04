@@ -176,7 +176,11 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                         })}
                     >
                         {/* Account trigger */}
-                        <Pressable className="flex-row items-center gap-1.5 md:gap-2">
+                        <Pressable
+                            accessibilityRole="button"
+                            accessibilityLabel="Open account menu"
+                            className="flex-row items-center gap-1.5 md:gap-2"
+                        >
                             <IonIcons
                                 name="person-outline"
                                 size={24}
@@ -261,9 +265,13 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                 </View>
             </View>
 
-            <View className="relative -z-10 hidden border-t border-gray-100 sm:flex">
+            <View
+                className="relative -z-10 hidden border-t border-gray-100 sm:flex"
+                testID='Dropdown-web-menu'
+            >
                 <View className="z-[999] mx-auto flex w-full max-w-7xl flex-row items-center justify-center gap-6 px-4 py-4 md:gap-10 md:px-6">
                     <MenuDropdown
+                        TestID='for-myself-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('forMyself')}
                         onMouseLeaveFunction={closeMegaMenu}
                         menuText="FOR MYSELF"
@@ -271,6 +279,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
 
                     {/* For Moms and Kids */}
                     <MenuDropdown
+                        TestID='for-moms-and-kids-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('momsAndKids')}
                         onMouseLeaveFunction={closeMegaMenu}
                         menuText="FOR MOMS AND KIDS"
@@ -278,12 +287,14 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
 
                     {/* For Work */}
                     <MenuDropdown
+                        TestID='for-work-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('workRelatedIssues')}
                         onMouseLeaveFunction={closeMegaMenu}
                         menuText="FOR WORK"
                     />
 
                     <MenuDropdown
+                        TestID='group-therapies-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('groupTherapies')}
                         onMouseLeaveFunction={closeMegaMenu}
                         menuText="GROUP THERAPIES"
@@ -303,6 +314,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     {/* Mega menu panel */}
                     {menuDropdownOpen && menuDropdownOpen in megaMenuData ? (
                         <View
+                            testID={`mega-menu-${menuDropdownOpen}`}
                             className="absolute left-1/2 top-full z-50 w-full max-w-[900px] -translate-x-1/2 rounded-b-[28px] border border-gray-200 bg-white px-8 py-8 shadow-xl"
                             {...(Platform.OS === 'web' && {
                                 onMouseEnter: () => openMegaMenu(menuDropdownOpen as keyof typeof megaMenuData),
@@ -344,6 +356,8 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                 <View className="flex w-full bg-[#f5f5f5] px-5 pb-6 pt-5 sm:hidden">
                     <View className="flex-row items-center justify-between">
                         <Pressable
+                            accessibilityRole="button"
+                            accessibilityLabel={mobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
                             className="rounded-full p-2"
                             onPress={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
@@ -365,6 +379,8 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                         <View className="flex-row items-center gap-4">
 
                             <Pressable
+                                accessibilityRole="button"
+                                accessibilityLabel="Toggle account menu"
                                 className="rounded-full p-2"
                                 onPress={() => setMobileAccountMenuOpen(!mobileAccountMenuOpen)}
                             >
@@ -387,25 +403,28 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                         </View>
                     </View>
 
-                    <View className="mt-6">
-                        <View className="relative justify-center rounded-2xl bg-[#eceaec] px-5 py-4">
-                            <TextInput
-                                placeholder="Danışmanlık Uzmanlık... Ara"
-                                placeholderTextColor="#6B7280"
-                                className="pr-12 text-lg font-medium text-gray-700"
-                            />
-                            <IonIcons
-                                name="search"
-                                size={28}
-                                color="#cf1a17"
-                                className={Platform.OS === 'web' ? 'absolute right-5 top-1/2 -translate-y-1/2' : 'absolute right-5'}
-                                style={Platform.OS === 'web' ? undefined : { top: 14 }}
-                            />
+                    {!mobileMenuOpen ? (
+                        <View className="mt-6">
+                            <View className="relative justify-center rounded-2xl bg-[#eceaec] px-5 py-4">
+                                <TextInput
+                                    testID="mobile-search-input"
+                                    placeholder="Danışmanlık Uzmanlık... Ara"
+                                    placeholderTextColor="#6B7280"
+                                    className="pr-12 text-lg font-medium text-gray-700"
+                                />
+                                <IonIcons
+                                    name="search"
+                                    size={28}
+                                    color="#cf1a17"
+                                    className={Platform.OS === 'web' ? 'absolute right-5 top-1/2 -translate-y-1/2' : 'absolute right-5'}
+                                    style={Platform.OS === 'web' ? undefined : { top: 14 }}
+                                />
+                            </View>
                         </View>
-                    </View>
+                    ) : null}
                 </View>
                 {mobileAccountMenuOpen ? (
-                    <View className="absolute right-5 top-20 w-48 rounded-[28px] border border-gray-200 bg-white px-6 py-6 shadow-lg sm:hidden z-[999]">
+                    <View testID="mobile-account-menu" className="absolute right-5 top-20 w-48 rounded-[28px] border border-gray-200 bg-white px-6 py-6 shadow-lg sm:hidden z-[999]">
                         <Link href="/login" asChild>
                             <Pressable
                                 onPress={() => {
@@ -427,7 +446,10 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
 
                         <Link href="/signup" asChild>
                             <Pressable
-                                onPress={() => setMobileAccountMenuOpen(false)}
+                                onPress={() => {
+                                    setMobileAccountMenuOpen(false);
+                                    router.push('/signup');
+                                }}
                                 className="mt-2 flex-row items-center gap-3 rounded-[20px] p-3 active:bg-red-400"
                             >
                                 <IonIcons
@@ -443,22 +465,30 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     </View>
                 ) : null}{mobileMenuOpen ? (
                     <View
-                        className="absolute inset-x-0 top-full z-[999] sm:hidden"
-                        style={{ height: Platform.OS === 'web' || Platform.OS === 'ios' ? 'calc(100vh - 140px)' : '100%' } as any}
+                        className="absolute inset-x-0 top-full z-[999] sm:hidden "
+                        style={
+                            Platform.OS === 'web'
+                                ? ({ position: 'fixed', top: 88, left: 0, right: 0, bottom: 0, height: '100%' } as any)
+                                : ({ height: '100vh' } as any)
+                        }
                     >
                         <Pressable
+                            testID="mobile-menu-backdrop"
+                            accessibilityRole="button"
+                            accessibilityLabel="Close mobile menu backdrop"
                             className="absolute inset-0 bg-black/30"
                             onTouchMove={(event) => event.preventDefault?.()}
                             onPress={() => setMobileMenuOpen(false)}
                         />
 
                         <View
-                            className="h-full border-t border-gray-200 bg-white shadow-2xl"
+                            testID="mobile-menu-content"
+                            className="h-full flex-1 border-t border-gray-200 bg-white shadow-2xl"
                             onTouchMove={(event) => event.stopPropagation()}
                         >
                             <ScrollView
-                                className="h-full"
-                                contentContainerStyle={{ paddingBottom: 28, flexGrow: 1 }}
+                                className="h-full flex-1"
+                                contentContainerStyle={{ paddingBottom: 28, flexGrow: 1, minHeight: '100%' }}
                                 showsVerticalScrollIndicator={false}
                                 bounces={false}
                                 nestedScrollEnabled={true}
@@ -472,7 +502,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                         : { height: '100%' }
                                 }
                             >
-                                <View className="px-6 py-7">
+                                <View className="px-6 py-7 ">
                                     <Text className="text-lg font-bold text-black">
                                         Main Menu
                                     </Text>
@@ -501,6 +531,10 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                             return (
                                                 <View key={section.key} className="rounded-2xl bg-white">
                                                     <Pressable
+                                                        testID={`mobile-section-${section.key}`}
+                                                        accessibilityRole="button"
+                                                        accessibilityLabel={`Toggle ${section.label}`}
+                                                        accessibilityState={{ expanded: isExpanded }}
                                                         className="flex-row items-center justify-between py-4"
                                                         onPress={() => toggleMobileSection(section.key)}
                                                     >
@@ -567,6 +601,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                     <View className="mt-4 gap-1">
                                         <Link href="/" asChild>
                                             <Pressable
+                                                testID="mobile-discover-blog-link"
                                                 className="flex-row items-center gap-4 py-4"
                                                 onPress={() => setMobileMenuOpen(false)}
                                             >
