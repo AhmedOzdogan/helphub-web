@@ -4,10 +4,26 @@ import { useState } from 'react';
 import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import { useLogin } from '../hooks/loginSignupHook';
+import { useRouter } from 'expo-router';
 
 function Login() {
-
+    const { login, loading, error } = useLogin();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const router = useRouter();
+
+    const handleLogin = async () => {
+        if (loading) return; // Prevent multiple login attempts
+        try {
+            const response = await login(email, password);
+            console.log('Login successful:', response);
+            router.push('/');
+        } catch (err) {
+            console.error('Login failed:', err);
+        }
+    };
 
     return (
         <ScrollView
@@ -47,7 +63,9 @@ function Login() {
                             <TextInput
                                 editable={true}
                                 placeholder="Write your email"
-                                className="ml-4 flex-1 text-base text-[#1f2933] border-none outline-none"
+                                className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
+                                value={email}
+                                onChangeText={setEmail}
                             />
                         </View>
 
@@ -61,7 +79,9 @@ function Login() {
                                 editable={true}
                                 secureTextEntry={secureTextEntry}
                                 placeholder="Write your password"
-                                className="ml-4 flex-1 text-base text-[#1f2933] border-none outline-none"
+                                className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
+                                value={password}
+                                onChangeText={setPassword}
                             />
                             <Ionicons name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'} size={18} color="#9ca3af" onPress={() => setSecureTextEntry(!secureTextEntry)} />
                         </View>
@@ -72,7 +92,12 @@ function Login() {
                             </Text>
                         </View>
 
-                        <RedButton ButtonText='Login' wfull={true} />
+                        <RedButton
+                            ButtonText={loading ? 'Logging in...' : 'Login'} wfull={true} onPress={handleLogin}
+                            // Disable the button while loading to prevent multiple submissions
+                            disabled={loading}
+                            {...loading && { Icon: { name: 'reload-circle-sharp', size: 18, color: 'white' }, rotatingIcon: true }}
+                        />
 
                         <View className="mt-10 flex-row items-center justify-center sm:mt-12">
                             <Text className="text-base font-medium text-[#a1a7b4]">

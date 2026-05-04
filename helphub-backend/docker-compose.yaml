@@ -20,7 +20,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - helphub_postgres_data:/var/lib/postgresql
+      - helphub_postgres_data:/var/lib/postgresql/data
 
 volumes:
   helphub_postgres_data:

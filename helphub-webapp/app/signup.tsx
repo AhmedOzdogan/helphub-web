@@ -1,14 +1,54 @@
 import RedButton from '@/components/ui/RedButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+
+import { useSignUp } from '../hooks/loginSignupHook';
+import { useRouter } from 'expo-router';
 
 function Signup() {
 
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
+    const [user, dispatchUser] = useReducer((state, action) => {
+        switch (action.type) {
+            case 'SET_NAME':
+                return { ...state, name: action.payload };
+            case 'SET_EMAIL':
+                return { ...state, email: action.payload };
+            case 'SET_PASSWORD':
+                return { ...state, password: action.payload };
+            case 'SET_CONFIRM_PASSWORD':
+                return { ...state, confirmPassword: action.payload };
+            default:
+                return state;
+        }
+    }, {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
+
+    const router = useRouter();
+
+    const { signup, loading, error } = useSignUp();
+
+    const handleSignUp = async () => {
+        // check passwords match
+        if (user.password !== user.confirmPassword) {
+            return alert('Passwords do not match');
+        }
+        try {
+            const response = await signup(user.name, user.email, user.password);
+            console.log('Signup successful:', response);
+            router.push('/');
+        } catch (err) {
+            console.error('Signup failed:', err);
+        }
+    };
 
     return (
         <ScrollView
@@ -38,8 +78,23 @@ function Signup() {
                         </Text>
                     </View>
 
+
                     <View className="mx-auto mt-5 w-full">
                         <Text className="mb-2 text-xl font-semibold text-[#1f2933]">
+                            Full Name
+                        </Text>
+
+                        <View className="flex-row items-center rounded-[16px] border-[2px] border-[#b4b4be] bg-transparent px-3 py-2">
+                            <Ionicons name="mail-outline" size={18} color="#9ca3af" />
+                            <TextInput
+                                editable={true}
+                                placeholder="Write your full name"
+                                value={user.name}
+                                onChangeText={(text) => dispatchUser({ type: 'SET_NAME', payload: text })}
+                                className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
+                            />
+                        </View>
+                        <Text className="mb-2 mt-5 text-xl font-semibold text-[#1f2933]">
                             Email Address
                         </Text>
 
@@ -48,7 +103,9 @@ function Signup() {
                             <TextInput
                                 editable={true}
                                 placeholder="Write your email"
-                                className="ml-4 flex-1 text-base text-[#1f2933] border-none outline-none"
+                                value={user.email}
+                                onChangeText={(text) => dispatchUser({ type: 'SET_EMAIL', payload: text })}
+                                className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                             />
                         </View>
 
@@ -62,7 +119,9 @@ function Signup() {
                                 editable={true}
                                 secureTextEntry={secureTextEntry}
                                 placeholder="Write your password"
-                                className="ml-4 flex-1 text-base text-[#1f2933] border-none outline-none"
+                                value={user.password}
+                                onChangeText={(text) => dispatchUser({ type: 'SET_PASSWORD', payload: text })}
+                                className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                             />
                             <Ionicons name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'} size={18} color="#9ca3af" onPress={() => setSecureTextEntry(!secureTextEntry)} />
                         </View>
@@ -77,12 +136,20 @@ function Signup() {
                                 editable={true}
                                 secureTextEntry={confirmSecureTextEntry}
                                 placeholder="Write your password again"
-                                className="ml-4 flex-1 text-base text-[#1f2933] border-none outline-none"
+                                value={user.confirmPassword}
+                                onChangeText={(text) => dispatchUser({ type: 'SET_CONFIRM_PASSWORD', payload: text })}
+                                className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                             />
                             <Ionicons name={confirmSecureTextEntry ? 'eye-outline' : 'eye-off-outline'} size={18} color="#9ca3af" onPress={() => setConfirmSecureTextEntry(!confirmSecureTextEntry)} />
                         </View>
 
-                        <RedButton ButtonText='Sign Up' wfull={true} />
+                        <RedButton
+                            ButtonText='Sign Up'
+                            wfull={true}
+                            onPress={handleSignUp}
+                            disabled={loading}
+                            {...loading && { Icon: { name: 'reload-circle-sharp', size: 18, color: 'white' }, rotatingIcon: true }}
+                        />
 
                         <View className="mt-10 flex-row items-center justify-center sm:mt-12">
                             <Text className="text-base font-medium text-[#a1a7b4]">

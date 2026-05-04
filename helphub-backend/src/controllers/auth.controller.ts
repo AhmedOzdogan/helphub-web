@@ -19,7 +19,9 @@ export const signup = async (req: Request, res: Response) => {
         });
     }
 
-    const { name, email, password } = result.data;
+    // lowercase email for consistency
+    const email = result.data.email.toLowerCase();
+    const { name, password } = result.data;
 
     const existingUser = await prisma.user.findUnique({
         where: { email },
@@ -54,7 +56,9 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    // lowercase email for consistency
+    const email = req.body.email?.toLowerCase();
+    const password = req.body.password;
 
     if (!email || !password) {
         return res.status(400).json({
