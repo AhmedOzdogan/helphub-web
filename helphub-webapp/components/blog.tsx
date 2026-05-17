@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Image, Text, View } from 'react-native';
 import blog1 from '../assets/blog/blog1.webp';
 import blog2 from '../assets/blog/blog2.webp';
@@ -17,6 +18,7 @@ const blogs = [
 ];
 
 function BlogCard({ image, title }: { image: any; title: string }) {
+    const { t, i18n } = useTranslation();
     return (
         <View className="relative mb-4 h-[120px] w-[37%] overflow-hidden rounded-xl sm:w-[48%] md:h-[140px] md:w-[47%] lg:mb-5 lg:w-[240px]">
             <Image
@@ -37,32 +39,34 @@ function BlogCard({ image, title }: { image: any; title: string }) {
 }
 
 function Blog() {
+    const { t } = useTranslation();
+
     return (
         <View className="w-full flex-col flex-wrap items-center justify-center bg-white px-4 py-8 md:px-8 md:py-12 lg:flex-row lg:items-start lg:px-16 lg:py-16 lg:gap-0">
             {/* LEFT SIDE */}
             <View className="mb-8 w-full justify-center items-center md:max-w-[600px] lg:mr-16 lg:mb-5 lg:max-w-[300px] lg:items-start">
                 <Text className="mb-2 text-xl font-bold text-slate-800 md:mb-3 md:text-2xl">
-                    Blog
+                    {t('blog.leftSide.blog')}
                 </Text>
 
                 <Text className="mb-6 max-w-[520px] text-center text-sm text-gray-600 md:text-base lg:text-left">
-                    You can explore blog content from our consultants here.
+                    {t('blog.leftSide.text1')}
                 </Text>
 
                 <View className="mt-2 md:mt-4">
-                    <RedButton ButtonText="Explore" />
+                    <RedButton ButtonText={t('blog.leftSide.buttonText')} />
                 </View>
             </View>
 
             {/* RIGHT SIDE GRID */}
             <View className="w-full max-w-[770px]">
                 <View className="flex-row flex-wrap justify-center gap-3 md:gap-4">
-                    <BlogCard {...blogs[0]} />
-                    <BlogCard {...blogs[1]} />
-                    <BlogCard {...blogs[2]} />
-                    <BlogCard {...blogs[3]} />
-                    <BlogCard {...blogs[4]} />
-                    <BlogCard {...blogs[5]} />
+                    <BlogCard image={blogs[0].image} title={t('blog.titles.title1')} />
+                    <BlogCard image={blogs[1].image} title={t('blog.titles.title2')} />
+                    <BlogCard image={blogs[2].image} title={t('blog.titles.title3')} />
+                    <BlogCard image={blogs[3].image} title={t('blog.titles.title4')} />
+                    <BlogCard image={blogs[4].image} title={t('blog.titles.title5')} />
+                    <BlogCard image={blogs[5].image} title={t('blog.titles.title6')} />
                 </View>
             </View>
         </View>

@@ -1,13 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 import StepCard from './ui/StepCard';
 
 
 function Advantages() {
+    const { t, i18n } = useTranslation();
     return (
         <View testID="advantages-section" className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12">
             {/* Title */}
             <Text className="mb-2 md:mb-3 text-xl md:text-2xl font-bold text-slate-800 text-center">
-                Advantages of Choosing HelpHub
+                {t('advantages.title')} <Text className="text-blue-500">HelpHub</Text>
             </Text>
 
             {/* Steps */}
@@ -15,32 +17,32 @@ function Advantages() {
                 <StepCard
                     icon="search"
                     step="01"
-                    title="1-1 Live Consultation"
-                    description="Live consultation from the comfort of your home, office, or anywhere you are."
+                    title={t('advantages.advantagesList.step1.title')}
+                    description={t('advantages.advantagesList.step1.description')}
                     advantages
                 />
 
                 <StepCard
                     icon="chatbubble-outline"
                     step="02"
-                    title="Online Chat"
-                    description="Message the expert for free and have a short introductory conversation."
+                    title={t('advantages.advantagesList.step2.title')}
+                    description={t('advantages.advantagesList.step2.description')}
                     advantages
                 />
 
                 <StepCard
                     icon="calendar-outline"
                     step="03"
-                    title="Secure Payment"
-                    description="Make secure payments using your credit card."
+                    title={t('advantages.advantagesList.step3.title')}
+                    description={t('advantages.advantagesList.step3.description')}
                     advantages
                 />
 
                 <StepCard
                     icon="videocam-outline"
                     step="04"
-                    title="100% Refund Guarantee"
-                    description="Get a full refund for any missed appointments."
+                    title={t('advantages.advantagesList.step4.title')}
+                    description={t('advantages.advantagesList.step4.description')}
                     advantages
                 />
             </View>

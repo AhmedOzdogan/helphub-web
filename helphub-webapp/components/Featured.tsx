@@ -1,9 +1,11 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LayoutChangeEvent, Pressable, ScrollView, Text, View } from 'react-native';
 import ProfileCard from './ui/ProfileCard';
 
 function Featured({ categoryName }: { categoryName: string }) {
+    const { t } = useTranslation();
     // Ref to ScrollView for programmatic scrolling
     const scrollRef = useRef<ScrollView | null>(null);
     // Ref to track current scroll position
@@ -82,7 +84,7 @@ function Featured({ categoryName }: { categoryName: string }) {
     return (
         <View className={`mt-10 w-full items-center justify-center bg-blue-50 ${isMobile ? 'px-3 py-6' : isTabletOrMobile ? 'px-6 py-7' : 'px-14 py-8'}`}>
             <Text className={`mb-8 font-bold text-slate-800 ${isMobile ? 'text-xl' : 'text-2xl'}`}>
-                {categoryName}
+                {t("featured." + categoryName.replace(/\s/g, ''))}
             </Text>
 
             <View

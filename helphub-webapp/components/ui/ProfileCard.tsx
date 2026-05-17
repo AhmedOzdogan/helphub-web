@@ -1,6 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, Pressable, Text, View } from 'react-native';
 import { manNames, womanNames } from '../../data/names';
 
@@ -17,25 +18,25 @@ import woman4 from '../../assets/profile/woman4.webp';
 import woman5 from '../../assets/profile/woman5.webp';
 
 const specialties = [
-    'Attachment Issues',
-    'Low Self-Esteem',
-    'Anxiety Disorders',
-    'Exam Anxiety',
-    'Family Counseling',
-    'Relationship Issues',
-    'Stress Management',
-    'Child Development',
-    'Burnout',
-    'Communication Issues',
+    'attachmentIssues',
+    'lowSelfEsteem',
+    'anxietyDisorders',
+    'examAnxiety',
+    'familyCounseling',
+    'relationshipIssues',
+    'stressManagement',
+    'childDevelopment',
+    'burnout',
+    'communicationIssues',
 ];
 
 const titles = [
-    'Psychologist - Family and Couples Counselor',
-    'Psychological Counselor',
-    'Clinical Psychologist',
-    'Family Counselor',
-    'Holistic Health Coach',
-    'Yaşam ve Bütünsel Sağlık Koçu',
+    'psychologistFamily',
+    'psychologicalCounselor',
+    'clinicalPsychologist',
+    'familyCounselor',
+    'holisticHealthCoach',
+    'lifeCoach',
 ];
 
 function pickRandomItems<T>(items: T[], count: number) {
@@ -60,6 +61,8 @@ function ProfileCard({
     compact?: boolean;
     cardWidth?: number;
 }) {
+
+    const { t, i18n } = useTranslation();
     const handlePress = (name: string, title: string, price: number, image: string) => {
         router.push({
             pathname: '/appointment' as any,
@@ -156,7 +159,7 @@ function ProfileCard({
             >
                 <View className="items-end">
                     <Text className={`font-medium text-gray-500 ${compact ? 'text-xs' : 'text-sm'}`}>
-                        Sponsored
+                        {t('profileCard.sponsored')}
                     </Text>
                 </View>
 
@@ -178,7 +181,9 @@ function ProfileCard({
                                 className="absolute bottom-2 left-0 right-0 items-center"
                             >
                                 <View className="rounded-full bg-green-500 px-4 py-1">
-                                    <Text className="text-xs font-semibold text-white">Online</Text>
+                                    <Text className="text-xs font-semibold text-white">
+                                        {t('profileCard.online')}
+                                    </Text>
                                 </View>
                             </View>
                         ) : null}
@@ -199,7 +204,7 @@ function ProfileCard({
                         className="mt-1 text-center font-medium text-gray-400"
                         style={{ maxWidth: titleMaxWidth, fontSize: compact ? 13 : 14 }}
                     >
-                        {randomTitle}
+                        {t(`profileCard.titles.${randomTitle}`).replace('profileCard.titles.', '')}
                     </Text>
 
                     <View className="mt-3 flex-row items-center gap-1">
@@ -215,27 +220,27 @@ function ProfileCard({
                 <View className={`${compact ? 'mt-3 gap-2' : 'mt-3 gap-3'} items-center`}>
                     <View className="max-w-full rounded-[16px] bg-[#e5e7eb] px-2 py-1">
                         <Text numberOfLines={1} className="font-medium text-slate-700" style={{ fontSize: tagTextSize }}>
-                            {randomTags[0]}
+                            {t(`profileCard.specialties.${randomTags[0]}`).replace('profileCard.specialties.', '')}
                         </Text>
                     </View>
 
                     <View className="w-full flex-row items-center justify-center gap-2">
                         <View className="max-w-[48%] rounded-[16px] bg-[#e5e7eb] px-2 py-1">
                             <Text numberOfLines={1} className="font-medium text-slate-700" style={{ fontSize: tagTextSize }}>
-                                {randomTags[1]}
+                                {t(`profileCard.specialties.${randomTags[1]}`).replace('profileCard.specialties.', '')}
                             </Text>
                         </View>
 
                         <View className="max-w-[48%] rounded-[16px] bg-[#e5e7eb] px-2 py-1">
                             <Text numberOfLines={1} className="font-medium text-slate-700" style={{ fontSize: tagTextSize }}>
-                                {randomTags[2]}
+                                {t(`profileCard.specialties.${randomTags[2]}`).replace('profileCard.specialties.', '')}
                             </Text>
                         </View>
                     </View>
 
                     <View className="rounded-[16px] bg-[#e5e7eb] px-2 py-1">
                         <Text className="font-semibold text-red-500" style={{ fontSize: tagTextSize }}>
-                            + {randomMoreCount} more
+                            {t('profileCard.more', { count: randomMoreCount })}
                         </Text>
                     </View>
                 </View>
@@ -245,13 +250,17 @@ function ProfileCard({
                         {isNew ? (
                             <View className="flex-row items-center gap-2 rounded-full bg-blue-500 px-3 py-2">
                                 <Ionicons name="sparkles" size={14} color="#ffffff" />
-                                <Text className="text-xs font-semibold text-white">New Consultant</Text>
+                                <Text className="text-xs font-semibold text-white">
+                                    {t('profileCard.newConsultant')}
+                                </Text>
                             </View>
                         ) : null}
 
                         <View className="flex-row items-center gap-2 rounded-full bg-green-100 px-3 py-2">
                             <Ionicons name="hand-left-outline" size={14} color="#22c55e" />
-                            <Text className="text-xs font-medium text-green-500">Free Intro Call</Text>
+                            <Text className="text-xs font-medium text-green-500">
+                                {t('profileCard.freeIntroCall')}
+                            </Text>
                         </View>
                     </View>
 
@@ -271,7 +280,7 @@ function ProfileCard({
                         onPress={() => handlePress(randomName, randomTitle, newPrice, randomImageKey)}
                     >
                         <Text className="font-semibold text-white" style={{ fontSize: buttonTextSize }}>
-                            Book Session
+                            {t('profileCard.bookSession')}
                         </Text>
                     </Pressable>
                     {isOnline ? (
@@ -280,7 +289,7 @@ function ProfileCard({
                             onPress={() => handlePress(randomName, randomTitle, newPrice, randomImageKey)}
                         >
                             <Text className="font-semibold text-white" style={{ fontSize: buttonTextSize }}>
-                                Start Now
+                                {t('profileCard.startNow')}
                             </Text>
                         </Pressable>
                     ) : null}

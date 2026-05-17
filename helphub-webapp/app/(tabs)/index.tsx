@@ -1,23 +1,25 @@
-import Advantages from '@/components/Advantages';
-import Download from '@/components/Download';
-import HowItWorks from '@/components/HowItWorks';
-import Numbers from '@/components/Numbers';
 import { Platform, ScrollView, Text, View } from 'react-native';
+import Advantages from '../../components/Advantages';
 import Companies from '../../components/Companies';
 import Details from '../../components/Details';
+import Download from '../../components/Download';
 import Featured from '../../components/Featured';
 import Footer from '../../components/Footer';
+import HowItWorks from '../../components/HowItWorks';
 import Navbar from '../../components/Navbar';
+import Numbers from '../../components/Numbers';
 import PopulerCategories from '../../components/PopulerCategories';
 import Slider from '../../components/Slider';
 import Blog from '../../components/blog';
 
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
   // State to control scroll enabled status for ScrollView 
   // when mobile menu is open
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const { t, i18n } = useTranslation();
 
   return (
     <ScrollView
@@ -38,10 +40,10 @@ export default function HomeScreen() {
       <View className="p-10 bg-blue-50 w-full justify-center items-center flex-col -z-10">
         <View className="mb-4 justify-center items-center flex-1 max-w-2xl">
           <Text className="text-2xl md:text-3xl font-bold text-center">
-            Online psychologists, family counselors, child development experts, astrologers, and more on <Text className="text-blue-500">HelpHub!</Text>
+            {t('intro.firstText')} <Text className="text-blue-500">HelpHub!</Text>
           </Text>
           <Text className="text-lg md:text-xl text-gray-600 mt-1 text-center">
-            Professional guidance for personal and career growth. Reach your goals and live happier with <Text className="text-blue-500">HelpHub</Text>.
+            {t('intro.secondText')} <Text className="text-blue-500">HelpHub</Text>.
           </Text>
         </View>
       </View>

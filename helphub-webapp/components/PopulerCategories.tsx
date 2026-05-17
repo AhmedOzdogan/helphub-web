@@ -7,30 +7,32 @@ import lifeCoach from '../assets/popularCategories/lifeCoach.webp';
 import psychology from '../assets/popularCategories/psychology.webp';
 
 
+import { useTranslation } from "react-i18next";
 import CategoryCard from "./ui/CategoryCard";
 import RedButton from "./ui/RedButton";
 
 function PopulerCategories() {
+    const { t, i18n } = useTranslation();
     return (
         <View className="flex p-10 justify-center items-center w-full z-[-999]">
-            <Text className="text-2xl font-bold mb-4">Popular Categories</Text>
+            <Text className="text-2xl font-bold mb-4">{t('popularCategories.title')}</Text>
             <Text className="text-lg text-gray-600 mb-6 text-center">
-                There will be more than 1.500 experts in 39 categories here for you...
+                {t('popularCategories.description')}
             </Text>
 
             <View
                 className="flex-col md:flex-row w-full items-center justify-center gap-4 md:flex-wrap mb-6"
                 testID="category-cards-container"
             >
-                <CategoryCard title="Astrology" image={astrology} />
-                <CategoryCard title="Psychology" image={psychology} />
-                <CategoryCard title="Life Coach" image={lifeCoach} />
-                <CategoryCard title="Child Development" image={child} />
-                <CategoryCard title="Dietician" image={dietician} />
-                <CategoryCard title="Family Counseling" image={family} />
+                <CategoryCard title={t('popularCategories.Astrology')} image={astrology} />
+                <CategoryCard title={t('popularCategories.Psychology')} image={psychology} />
+                <CategoryCard title={t('popularCategories.Life Coach')} image={lifeCoach} />
+                <CategoryCard title={t('popularCategories.Child Development')} image={child} />
+                <CategoryCard title={t('popularCategories.Dietitian')} image={dietician} />
+                <CategoryCard title={t('popularCategories.Family Counseling')} image={family} />
             </View>
 
-            <RedButton Icon={{ name: "arrow-forward", size: 20 }} ButtonText="See All Categories" />
+            <RedButton Icon={{ name: "arrow-forward", size: 20 }} ButtonText={t('popularCategories.buttonText')} />
         </View>
     );
 }

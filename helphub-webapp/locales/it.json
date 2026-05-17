@@ -1,0 +1,288 @@
+{
+  "SearchBar": {
+    "desktopPlaceholder": "Cerca aiuto, risorse o volontari...",
+    "mobilePlaceholder": "Cerca..."
+  },
+  "LoginPage": {
+    "login": "Accedi",
+    "loggingIn": "Accesso in corso...",
+    "email": "Indirizzo Email",
+    "emailPlaceholder": "Inserisci la tua email",
+    "password": "Password",
+    "passwordPlaceholder": "Inserisci la tua password",
+    "forgotPassword": "Password dimenticata?",
+    "noAccount": "Non hai un account?"
+  },
+  "SignupPage": {
+    "signup": "Registrati",
+    "fullName": "Nome Completo",
+    "fullNamePlaceholder": "Inserisci il tuo nome completo",
+    "email": "Indirizzo Email",
+    "emailPlaceholder": "Inserisci la tua email",
+    "password": "Password",
+    "passwordPlaceholder": "Inserisci la tua password",
+    "confirmPassword": "Conferma Password",
+    "confirmPasswordPlaceholder": "Inserisci di nuovo la tua password",
+    "haveAccount": "Hai già un account?"
+  },
+  "Messages": "Messaggi",
+  "Get Help": "Ottieni Aiuto",
+  "Main Menu": "Menu Principale",
+  "Home": "Home",
+  "Discover": "Scopri",
+  "Categories": "Categorie",
+  "My Account": "Il Mio Account",
+  "Blog": "Blog",
+  "Guide": "Guida",
+  "How does it work?": "Come funziona?",
+
+  "MobileMenuSections": {
+    "forMyself": "PER ME",
+    "forMomsAndKids": "PER MAMME E BAMBINI",
+    "forWork": "PER IL LAVORO",
+    "groupTherapies": "TERAPIE DI GRUPPO"
+  },
+
+  "MegaMenuTitles": {
+    "Mental Wellbeing": "Benessere Mentale",
+    "Physical Wellbeing": "Benessere Fisico",
+    "Alternative Practices": "Pratiche Alternative",
+    "Mother Support": "Supporto alle Madri",
+    "Child Support": "Supporto ai Bambini",
+    "Family Support": "Supporto Familiare",
+    "Career Support": "Supporto Professionale",
+    "Work-Life Balance": "Equilibrio Vita-Lavoro",
+    "Team & Culture": "Team e Cultura",
+    "Support Groups": "Gruppi di Supporto",
+    "Growth Groups": "Gruppi di Crescita",
+    "Workshops": "Workshop"
+  },
+
+  "MegaMenuItems": {
+    "Psychology": "Psicologia",
+    "Family Counseling": "Consulenza Familiare",
+    "Sexual Therapy": "Terapia Sessuale",
+    "Holistic Therapy": "Terapia Olistica",
+    "Life Coaching": "Life Coaching",
+    "Dietitian": "Dietista",
+    "Sports": "Sport",
+    "Style": "Stile",
+    "Physiotherapy": "Fisioterapia",
+    "Energy Therapy": "Terapia Energetica",
+    "Astrology": "Astrologia",
+    "Numerology": "Numerologia",
+    "NLP": "PNL",
+    "Reiki": "Reiki",
+    "Family Constellation": "Costellazione Familiare",
+    "Human Design": "Human Design",
+    "Mindfulness": "Mindfulness",
+    "Postpartum Support": "Supporto Post-Parto",
+    "Parenting Guidance": "Guida Genitoriale",
+    "Emotional Balance": "Equilibrio Emotivo",
+    "Child Anxiety": "Ansia Infantile",
+    "School Stress": "Stress Scolastico",
+    "Behavior Support": "Supporto Comportamentale",
+    "Parent-Child Communication": "Comunicazione Genitore-Figlio",
+    "Routine Planning": "Pianificazione della Routine",
+    "Family Coaching": "Coaching Familiare",
+    "Burnout": "Burnout",
+    "Career Counseling": "Consulenza di Carriera",
+    "Leadership Coaching": "Coaching di Leadership",
+    "Stress Management": "Gestione dello Stress",
+    "Time Management": "Gestione del Tempo",
+    "Remote Work Balance": "Equilibrio del Lavoro da Remoto",
+    "Conflict Resolution": "Risoluzione dei Conflitti",
+    "Communication Skills": "Competenze Comunicative",
+    "Workplace Motivation": "Motivazione sul Lavoro",
+    "Anxiety Support Group": "Gruppo di Supporto per l'Ansia",
+    "Depression Support Group": "Gruppo di Supporto per la Depressione",
+    "Mindfulness Group": "Gruppo Mindfulness",
+    "Confidence Building": "Costruzione della Fiducia",
+    "Stress Recovery": "Recupero dallo Stress",
+    "Relationship Skills": "Competenze Relazionali",
+    "Breathing Workshop": "Workshop di Respirazione",
+    "Emotional Awareness": "Consapevolezza Emotiva",
+    "Guided Reflection": "Riflessione Guidata"
+  },
+
+  "intro": {
+    "firstText": "Psicologi online, consulenti familiari, esperti dello sviluppo infantile, astrologi e molto altro su",
+    "secondText": "Guida professionale per la crescita personale e professionale. Raggiungi i tuoi obiettivi e vivi più felicemente con"
+  },
+
+  "popularCategories": {
+    "title": "Categorie Popolari",
+    "description": "Ci saranno più di 1.500 esperti in 39 categorie qui per te...",
+    "Astrology": "Astrologia",
+    "Psychology": "Psicologia",
+    "Life Coach": "Life Coach",
+    "Child Development": "Sviluppo Infantile",
+    "Dietitian": "Dietista",
+    "Family Counseling": "Consulenza Familiare",
+    "buttonText": "Vedi Tutte le Categorie"
+  },
+
+  "howItWorks": {
+    "title": "Come Funziona?",
+    "subtitle": "Il nostro processo di consulenza è semplice ed efficace. Connettiti rapidamente con l'esperto giusto per le tue esigenze e trova una soluzione.",
+    "step1": {
+      "title": "Scegli il Tuo Esperto",
+      "description": "Trova facilmente lo specialista giusto utilizzando filtri adatti alle tue esigenze."
+    },
+    "step2": {
+      "title": "Chat Introduttiva Gratuita",
+      "description": "Invia un messaggio gratuito all'esperto e fai una breve conversazione introduttiva."
+    },
+    "step3": {
+      "title": "Pianifica la Tua Sessione",
+      "description": "Scegli una data e un orario adatti e pianifica la tua sessione online."
+    },
+    "step4": {
+      "title": "Inizia la Sessione",
+      "description": "Incontra il tuo consulente online all'orario programmato."
+    }
+  },
+
+  "advantages": {
+    "title": "Vantaggi di Scegliere HelpHub",
+    "advantagesList": {
+      "step1": {
+        "title": "Consulenza Live 1-a-1",
+        "description": "Consulenza live comodamente da casa, ufficio o ovunque tu sia."
+      },
+      "step2": {
+        "title": "Chat Online",
+        "description": "Invia un messaggio gratuito all'esperto e fai una breve conversazione introduttiva."
+      },
+      "step3": {
+        "title": "Pagamento Sicuro",
+        "description": "Effettua pagamenti sicuri utilizzando la tua carta di credito."
+      },
+      "step4": {
+        "title": "Garanzia di Rimborso al 100%",
+        "description": "Ottieni un rimborso completo per qualsiasi appuntamento mancato."
+      }
+    }
+  },
+
+  "download": {
+    "title": "Scarica l'App HelpHub!",
+    "description1": "Il modo più veloce per raggiungere consulenti esperti",
+    "description2": "Con l'app mobile HelpHub, puoi accedere a tutti i nostri servizi molto più velocemente e facilmente. Ovunque tu sia, puoi prenotare un appuntamento immediato o programmarne uno nel giorno e nell'orario più adatti a te."
+  },
+
+  "featured": {
+    "NewConsultants": "Nuovi Consulenti",
+    "OnlineConsultants": "Consulenti Online",
+    "FeaturedConsultants": "Consulenti in Evidenza",
+    "TopRatedConsultants": "Consulenti con le Migliori Recensioni"
+  },
+  "profileCard": {
+    "sponsored": "Sponsorizzato",
+    "online": "Online",
+    "more": "+ {{count}} altri",
+    "newConsultant": "Nuovo Consulente",
+    "freeIntroCall": "Chiamata Introduttiva Gratuita",
+    "bookSession": "Prenota Sessione",
+    "startNow": "Inizia Ora",
+    "titles": {
+      "psychologistFamily": "Psicologo - Consulente Familiare e di Coppia",
+      "psychologicalCounselor": "Consulente Psicologico",
+      "clinicalPsychologist": "Psicologo Clinico",
+      "familyCounselor": "Consulente Familiare",
+      "holisticHealthCoach": "Coach di Salute Olistica",
+      "lifeCoach": "Coach della Vita e Benessere Olistico"
+    },
+    "specialties": {
+      "attachmentIssues": "Problemi di Attaccamento",
+      "lowSelfEsteem": "Bassa Autostima",
+      "anxietyDisorders": "Disturbi d'Ansia",
+      "examAnxiety": "Ansia da Esame",
+      "familyCounseling": "Consulenza Familiare",
+      "relationshipIssues": "Problemi Relazionali",
+      "stressManagement": "Gestione dello Stress",
+      "childDevelopment": "Sviluppo Infantile",
+      "burnout": "Burnout",
+      "communicationIssues": "Problemi di Comunicazione"
+    }
+  },
+  "details": {
+    "title": "Cos'è HelpHub?",
+    "section1": {
+      "title": "Consulenza e Servizi di Supporto Online su HelpHub",
+      "description": "HelpHub offre una vasta gamma di servizi di consulenza online per chi cerca supporto professionale. Con servizi come terapia online, consulenza familiare e guida emotiva, puoi trovare soluzioni su misura per le tue esigenze mentali ed emotive. Non importa quanto sia impegnata la tua giornata, puoi connetterti con consulenti esperti comodamente da casa."
+    },
+    "section2": {
+      "title": "Semplifica la Tua Vita con il Supporto Online",
+      "description": "HelpHub è progettato per facilitare la tua vita mettendoti in contatto con professionisti di diversi settori. Che tu abbia bisogno di supporto psicologico, guida sullo stile di vita o crescita personale, puoi facilmente trovare l’esperto giusto e ricevere assistenza personalizzata."
+    },
+    "section3": {
+      "title": "Vantaggi della Consulenza Online",
+      "description": "Uno dei maggiori vantaggi della consulenza online è la possibilità di ricevere supporto in qualsiasi momento e ovunque tu sia. Non è necessario spostarsi: basta connettersi da casa o da qualsiasi luogo. Questo è particolarmente utile per chi ha una vita frenetica o accesso limitato ai servizi locali. Le sessioni online garantiscono anche privacy e comfort, permettendoti di sentirti più sicuro e a tuo agio."
+    },
+    "section4": {
+      "title": "Supporto Professionale di Fiducia",
+      "description": "HelpHub ti mette in contatto con professionisti esperti che offrono guida per diverse necessità. Dal supporto per la salute mentale alla crescita personale, i nostri esperti ti aiutano ad affrontare le sfide e migliorare il tuo benessere con fiducia."
+    },
+    "section5": {
+      "title": "Soluzioni Personalizzate per Tutti",
+      "description": "I nostri servizi sono pensati per offrire soluzioni personalizzate che si adattano alle tue esigenze uniche. Per te o per i tuoi cari, HelpHub rende facile accedere a un supporto affidabile e professionale, aiutandoti a compiere passi verso una vita più sana e felice."
+    }
+  },
+  "companies": {
+    "leftSide": {
+      "text1": "Supporto speciale per le aziende",
+      "text2": "Soluzioni HelpHub",
+      "buttonText": "Contattaci"
+    },
+    "rightSide": {
+      "text1": "Aziende partner di HelpHub",
+      "accesibilityLabel": "Loghi delle aziende partner di HelpHub"
+    }
+  },
+  "numbers": {
+    "title": "Il Nostro Impatto in Numeri",
+    "consultants": "Consulenti Attivi",
+    "sessions": "Sessioni Completate",
+    "customers": "Clienti Soddisfatti",
+    "reviews": "Recensioni Positive"
+  },
+  "blog": {
+    "leftSide": {
+      "blog": "Blog",
+      "text1": "Qui puoi esplorare i contenuti del blog dei nostri consulenti.",
+      "buttonText": "Esplora"
+    },
+    "titles": {
+      "title1": "Fatica Mentale Anche Quando Non Si Fa Nulla",
+      "title2": "Trauma e Crescita Dopo il Trauma",
+      "title3": "Fiducia, Connessione e Ricostruzione",
+      "title4": "Essere un Consulente nella Ricerca AI",
+      "title5": "Dove Ci Siamo Persi?",
+      "title6": "Essere Presenti vs Essere Davvero Presenti"
+    }
+  },
+  "footer": {
+    "brand": "HelpHub",
+    "companyLinks": {
+      "howItWorks": "Come funziona?",
+      "aboutUs": "Chi Siamo",
+      "contact": "Contatto",
+      "blog": "Blog"
+    },
+    "legalLinks": {
+      "terms": "Termini di Utilizzo",
+      "privacy": "Privacy Policy & GDPR",
+      "distanceSales": "Contratto di Vendita a Distanza",
+      "refund": "Politica di Rimborso",
+      "cookies": "Politica sui Cookie"
+    },
+    "social": {
+      "title": "Seguici"
+    },
+    "disclaimer": {
+      "text": "Disclaimer – I servizi di consulenza online non sono adatti a tutti. Se stai vivendo pensieri di autolesionismo o suicidio, questi servizi potrebbero non essere appropriati per te. In questi casi, ti consigliamo vivamente di contattare i servizi di emergenza locali.",
+      "emergency": "Numero di Emergenza: 112, Polizia: 113, Supporto Violenza Domestica: 1522, Supporto Dipendenze: 800 554088"
+    }
+  }
+}

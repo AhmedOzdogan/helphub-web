@@ -1,7 +1,9 @@
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { Link, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import LanguageMenu from './LanguageMenu';
 import MenuDropdown from './ui/MenuDropdown';
 import MenuLink from './ui/MenuLink';
 
@@ -13,9 +15,12 @@ type NavbarProps = {
 
 export default function Navbar({ onMobileMenuChange }: NavbarProps) {
     const router = useRouter();
+    const { t, i18n } = useTranslation();
 
     // Dropdown open state
     const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+
+    const [openLanguageMenu, setOpenLanguageMenu] = useState(false);
 
     //Mobile Dropdown open state
     const [mobileAccountMenuOpen, setMobileAccountMenuOpen] = useState(false);
@@ -74,12 +79,12 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
             icon: 'heart',
         },
         {
-            key: 'momsAndKids' as keyof typeof megaMenuData,
+            key: 'forMomsAndKids' as keyof typeof megaMenuData,
             label: 'FOR MOMS AND KIDS',
             icon: 'woman',
         },
         {
-            key: 'workRelatedIssues' as keyof typeof megaMenuData,
+            key: 'forWork' as keyof typeof megaMenuData,
             label: 'FOR WORK',
             icon: 'briefcase',
         },
@@ -152,7 +157,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                 {/* Search */}
                 <View className="mx-4 min-w-0 flex-1 md:mx-8">
                     <TextInput
-                        placeholder="Search for help, resources, or volunteers..."
+                        placeholder={t("SearchBar.desktopPlaceholder")}
                         multiline={true}
                         placeholderTextColor="#9CA3AF"
                         className="rounded-xl bg-gray-100 px-3 py-2.5 text-sm text-gray-800 md:px-2 md:py-3 md:text-base"
@@ -189,7 +194,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                             <Text
                                 className={`text-base md:text-lg ${accountMenuOpen ? 'text-gray-400' : 'text-gray-700'}`}
                             >
-                                My Account
+                                {t('My Account')}
                             </Text>
                         </Pressable>
 
@@ -217,7 +222,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                             className="text-red-500 group-hover:text-white"
                                         />
                                         <Text className="text-base font-medium text-gray-700 group-hover:text-white">
-                                            Log In
+                                            {t('Login')}
                                         </Text>
                                     </Pressable>
                                 </Link>
@@ -234,7 +239,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                             className="text-red-500 group-hover:text-white"
                                         />
                                         <Text className="text-base font-medium text-gray-700 group-hover:text-white">
-                                            Sign Up
+                                            {t('Sign Up')}
                                         </Text>
                                     </Pressable>
                                 </Link>
@@ -251,7 +256,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                 className="text-red-500 group-hover:text-gray-300"
                             />
                             <Text className="text-base font-medium text-gray-700 group-hover:text-gray-300 md:text-lg">
-                                Messages
+                                {t('Messages')}
                             </Text>
                         </Pressable>
                     </Link>
@@ -259,9 +264,12 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     {/* Get Help */}
                     <Pressable className="rounded-full border border-red-500 px-4 py-2.5 md:px-5 md:py-3 hover:bg-red-400">
                         <Text className="text-sm font-semibold text-red-500 hover:text-white md:text-base">
-                            Get Help
+                            {t('Get Help')}
                         </Text>
                     </Pressable>
+
+                    {/* Language Dropdown */}
+                    <LanguageMenu openLanguageMenu={openLanguageMenu} setOpenLanguageMenu={setOpenLanguageMenu} />
                 </View>
             </View>
 
@@ -274,7 +282,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                         TestID='for-myself-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('forMyself')}
                         onMouseLeaveFunction={closeMegaMenu}
-                        menuText="FOR MYSELF"
+                        menuText={t('MobileMenuSections.forMyself')}
                     />
 
                     {/* For Moms and Kids */}
@@ -282,7 +290,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                         TestID='for-moms-and-kids-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('momsAndKids')}
                         onMouseLeaveFunction={closeMegaMenu}
-                        menuText="FOR MOMS AND KIDS"
+                        menuText={t('MobileMenuSections.forMomsAndKids')}
                     />
 
                     {/* For Work */}
@@ -290,25 +298,25 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                         TestID='for-work-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('workRelatedIssues')}
                         onMouseLeaveFunction={closeMegaMenu}
-                        menuText="FOR WORK"
+                        menuText={t('MobileMenuSections.forWork')}
                     />
 
                     <MenuDropdown
                         TestID='group-therapies-dropdown'
                         onMouseEnterFunction={() => openMegaMenu('groupTherapies')}
                         onMouseLeaveFunction={closeMegaMenu}
-                        menuText="GROUP THERAPIES"
+                        menuText={t('MobileMenuSections.groupTherapies')}
                     />
 
                     {/* Static links */}
                     <View className="hidden lg:flex">
-                        <MenuLink text="Blog" />
+                        <MenuLink text={t('Blog')} />
                     </View>
                     <View className="hidden lg:flex">
-                        <MenuLink text="Guide" />
+                        <MenuLink text={t('Guide')} />
                     </View>
                     <View className="hidden xl:flex">
-                        <MenuLink text="How does it work?" />
+                        <MenuLink text={t('How does it work?')} />
                     </View>
 
                     {/* Mega menu panel */}
@@ -323,11 +331,11 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                         >
                             <View className="flex-row items-start justify-between gap-10">
                                 {megaMenuData[menuDropdownOpen as keyof typeof megaMenuData].map((section) => (
-                                    <View key={section.title} className="flex-1">
+                                    <View key={t("MegaMenuSections." + section.title)} className="flex-1">
                                         <Link href="/" asChild>
                                             <Pressable className="rounded-[20px] pb-3">
                                                 <Text className="border-b border-gray-200 pb-3 text-2xl font-semibold text-gray-800 hover:text-red-500">
-                                                    {section.title}
+                                                    {t("MegaMenuTitles." + section.title)}
                                                 </Text>
                                             </Pressable>
                                         </Link>
@@ -337,7 +345,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                                 <Link key={item} href="/" asChild>
                                                     <Pressable className="rounded-[20px] px-1 py-1">
                                                         <Text className="text-xl font-medium text-gray-500 hover:text-red-500">
-                                                            {item}
+                                                            {t("MegaMenuItems." + item)}
                                                         </Text>
                                                     </Pressable>
                                                 </Link>
@@ -400,15 +408,16 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                     />
                                 </Pressable>
                             </Link>
+                            <LanguageMenu openLanguageMenu={openLanguageMenu} setOpenLanguageMenu={setOpenLanguageMenu} mobile={true} />
                         </View>
                     </View>
 
                     {!mobileMenuOpen ? (
-                        <View className="mt-6">
-                            <View className="relative justify-center rounded-2xl bg-[#eceaec] px-5 py-4">
+                        <View className="mt-6 z-[-999]">
+                            <View className="relative justify-center rounded-2xl bg-[#eceaec] px-5 py-4 z-[-999]">
                                 <TextInput
                                     testID="mobile-search-input"
-                                    placeholder="Danışmanlık Uzmanlık... Ara"
+                                    placeholder={t("SearchBar.mobilePlaceholder")}
                                     placeholderTextColor="#6B7280"
                                     className="pr-12 text-lg font-medium text-gray-700"
                                 />
@@ -439,7 +448,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                     color="#cf1a17"
                                 />
                                 <Text className="text-base font-medium text-gray-700">
-                                    Log In
+                                    {t('Log In')}
                                 </Text>
                             </Pressable>
                         </Link>
@@ -458,7 +467,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                     color="#cf1a17"
                                 />
                                 <Text className="text-base font-medium text-gray-700">
-                                    Sign Up
+                                    {t('Sign Up')}
                                 </Text>
                             </Pressable>
                         </Link>
@@ -504,7 +513,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                             >
                                 <View className="px-6 py-7 ">
                                     <Text className="text-lg font-bold text-black">
-                                        Main Menu
+                                        {t('Main Menu')}
                                     </Text>
                                     <View className="mt-3 h-[3px] w-24 bg-red-500" />
 
@@ -515,13 +524,13 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                         >
                                             <IonIcons name="home" size={24} color="#ef4444" />
                                             <Text className="text-lg font-semibold text-gray-700">
-                                                Home
+                                                {t('Home')}
                                             </Text>
                                         </Pressable>
                                     </Link>
 
                                     <Text className="mt-10 text-base font-bold uppercase tracking-wide text-red-500">
-                                        Categories
+                                        {t('Categories')}
                                     </Text>
 
                                     <View className="mt-4 gap-2">
@@ -529,7 +538,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                             const isExpanded = mobileExpandedSection === section.key;
 
                                             return (
-                                                <View key={section.key} className="rounded-2xl bg-white">
+                                                <View key={t("MobileMenuSections." + section.key)} className="rounded-2xl bg-white">
                                                     <Pressable
                                                         testID={`mobile-section-${section.key}`}
                                                         accessibilityRole="button"
@@ -545,7 +554,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                                                 color="#ef4444"
                                                             />
                                                             <Text className="text-lg font-semibold text-gray-900">
-                                                                {section.label}
+                                                                {t("MobileMenuSections." + section.key)}
                                                             </Text>
                                                         </View>
 
@@ -559,14 +568,14 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                                     {isExpanded ? (
                                                         <View className="pb-2 pl-10">
                                                             {megaMenuData[section.key].map((group) => (
-                                                                <View key={group.title} className="mb-5">
+                                                                <View key={t("MegaMenuGroups." + group.title)} className="mb-5">
                                                                     <Link href="/" asChild>
                                                                         <Pressable
                                                                             className="py-2"
                                                                             onPress={() => setMobileMenuOpen(false)}
                                                                         >
                                                                             <Text className="text-base font-bold text-gray-800">
-                                                                                {group.title}
+                                                                                {t("MegaMenuTitles." + group.title)}
                                                                             </Text>
                                                                         </Pressable>
                                                                     </Link>
@@ -579,7 +588,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                                                                     onPress={() => setMobileMenuOpen(false)}
                                                                                 >
                                                                                     <Text className="text-base text-gray-500">
-                                                                                        {item}
+                                                                                        {t("MegaMenuItems." + item)}
                                                                                     </Text>
                                                                                 </Pressable>
                                                                             </Link>
@@ -595,7 +604,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                     </View>
 
                                     <Text className="mt-8 text-base font-bold uppercase tracking-wide text-red-500">
-                                        Discover
+                                        {t('Discover')}
                                     </Text>
 
                                     <View className="mt-4 gap-1">
@@ -607,7 +616,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                             >
                                                 <IonIcons name="create" size={22} color="#ef4444" />
                                                 <Text className="text-lg font-semibold text-gray-700">
-                                                    Blog
+                                                    {t('Blog')}
                                                 </Text>
                                             </Pressable>
                                         </Link>
@@ -619,7 +628,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                             >
                                                 <IonIcons name="document-text" size={22} color="#ef4444" />
                                                 <Text className="text-lg font-semibold text-gray-700">
-                                                    Guide
+                                                    {t('Guide')}
                                                 </Text>
                                             </Pressable>
                                         </Link>
@@ -631,7 +640,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                             >
                                                 <IonIcons name="help-circle" size={22} color="#ef4444" />
                                                 <Text className="text-lg font-semibold text-gray-700">
-                                                    How does it work?
+                                                    {t('How does it work?')}
                                                 </Text>
                                             </Pressable>
                                         </Link>

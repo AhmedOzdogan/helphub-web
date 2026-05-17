@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Image, ImageStyle, StyleSheet, Text, View } from 'react-native';
 import appImage from '../assets/app.webp';
 import worldbg from '../assets/world-bg.webp';
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
 });
 
 function Download() {
+    const { t, i18n } = useTranslation();
     return (
         <View className="w-full items-center justify-center bg-[#f5f5f5] px-4 py-10 sm:px-6 sm:py-16">
             <Image
@@ -23,7 +25,7 @@ function Download() {
                 style={{ width: '100%', height: '100%' }}
             />
             <Text className="mb-8 text-center text-2xl font-bold text-slate-800 sm:mb-12 sm:text-3xl">
-                Download the Advicemy App!
+                {t('download.title')}
             </Text>
 
             <View className="relative w-full max-w-[1400px] overflow-hidden rounded-[20px] px-4 py-8 bg-world sm:rounded-[28px] sm:px-8 sm:py-10">
@@ -31,14 +33,11 @@ function Download() {
                 <View className="flex-col items-center justify-center gap-8 sm:gap-10 lg:flex-row lg:items-center lg:justify-between">
                     <View className="w-full max-w-[720px] flex-1">
                         <Text className="text-center lg:text-left mb-4 text-2xl font-bold leading-[30px] text-slate-800 sm:text-3xl sm:leading-[38px]">
-                            The fastest way to reach expert consultants
+                            {t('download.description1')}
                         </Text>
 
                         <Text className="text-center lg:text-left mb-6 text-base leading-[28px] text-slate-700 sm:mb-8 sm:text-lg sm:leading-[32px]">
-                            With the Advicemy mobile app, you can access all our services much
-                            faster and more easily. Wherever you are, you can either book an
-                            instant appointment or schedule one for the day and time that
-                            works best for you.
+                            {t('download.description2')}
                         </Text>
 
                         <View className="flex-row items-center justify-center gap-3 sm:gap-4">

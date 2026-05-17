@@ -1,0 +1,279 @@
+{
+  "SearchBar": {
+    "desktopPlaceholder": "Suche nach Hilfe, Ressourcen oder Freiwilligen...",
+    "mobilePlaceholder": "Suchen..."
+  },
+  "LoginPage": {
+    "login": "Anmelden",
+    "loggingIn": "Anmelden...",
+    "email": "E-Mail-Adresse",
+    "emailPlaceholder": "E-Mail eingeben",
+    "password": "Passwort",
+    "passwordPlaceholder": "Passwort eingeben",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Noch kein Konto?"
+  },
+  "SignupPage": {
+    "signup": "Registrieren",
+    "fullName": "Vollständiger Name",
+    "fullNamePlaceholder": "Vollständigen Namen eingeben",
+    "email": "E-Mail-Adresse",
+    "emailPlaceholder": "E-Mail eingeben",
+    "password": "Passwort",
+    "passwordPlaceholder": "Passwort eingeben",
+    "confirmPassword": "Passwort bestätigen",
+    "confirmPasswordPlaceholder": "Passwort erneut eingeben",
+    "haveAccount": "Bereits ein Konto?"
+  },
+  "Messages": "Nachrichten",
+  "Get Help": "Hilfe erhalten",
+  "Main Menu": "Hauptmenü",
+  "Home": "Startseite",
+  "Discover": "Entdecken",
+  "Categories": "Kategorien",
+  "My Account": "Mein Konto",
+  "Blog": "Blog",
+  "Guide": "Anleitung",
+  "How does it work?": "Wie funktioniert es?",
+  "MobileMenuSections": {
+    "forMyself": "FÜR MICH",
+    "forMomsAndKids": "FÜR MÜTTER UND KINDER",
+    "forWork": "FÜR DIE ARBEIT",
+    "groupTherapies": "GRUPPENTHERAPIEN"
+  },
+  "MegaMenuTitles": {
+    "Mental Wellbeing": "Mentales Wohlbefinden",
+    "Physical Wellbeing": "Körperliches Wohlbefinden",
+    "Alternative Practices": "Alternative Methoden",
+    "Mother Support": "Unterstützung für Mütter",
+    "Child Support": "Unterstützung für Kinder",
+    "Family Support": "Familienunterstützung",
+    "Career Support": "Karriereunterstützung",
+    "Work-Life Balance": "Work-Life-Balance",
+    "Team & Culture": "Teamkultur",
+    "Support Groups": "Selbsthilfegruppen",
+    "Growth Groups": "Wachstumsgruppen",
+    "Workshops": "Seminare"
+  },
+  "MegaMenuItems": {
+    "Psychology": "Psychologie",
+    "Family Counseling": "Familienberatung",
+    "Sexual Therapy": "Sexualtherapie",
+    "Holistic Therapy": "Ganzheitliche Therapie",
+    "Life Coaching": "Lebenscoaching",
+    "Dietitian": "Ernährungsberatung",
+    "Sports": "Sport",
+    "Style": "Stil",
+    "Physiotherapy": "Physiotherapie",
+    "Energy Therapy": "Energietherapie",
+    "Astrology": "Astrologie",
+    "Numerology": "Numerologie",
+    "NLP": "Neurolinguistisches Programmieren",
+    "Reiki": "Reiki",
+    "Family Constellation": "Familienaufstellung",
+    "Human Design": "Human Design Analyse",
+    "Mindfulness": "Achtsamkeit",
+    "Postpartum Support": "Unterstützung nach der Geburt",
+    "Parenting Guidance": "Erziehungsberatung",
+    "Emotional Balance": "Emotionale Balance",
+    "Child Anxiety": "Ängste bei Kindern",
+    "School Stress": "Schulstress",
+    "Behavior Support": "Verhaltensunterstützung",
+    "Parent-Child Communication": "Eltern-Kind-Kommunikation",
+    "Routine Planning": "Routineplanung",
+    "Family Coaching": "Familiencoaching",
+    "Burnout": "Burnout-Prävention",
+    "Career Counseling": "Karriereberatung",
+    "Leadership Coaching": "Führungskräfte-Coaching",
+    "Stress Management": "Stressbewältigung",
+    "Time Management": "Zeitmanagement",
+    "Remote Work Balance": "Balance im Homeoffice",
+    "Conflict Resolution": "Konfliktlösung",
+    "Communication Skills": "Kommunikationsfähigkeiten",
+    "Workplace Motivation": "Arbeitsmotivation",
+    "Anxiety Support Group": "Angstbewältigungsgruppe",
+    "Depression Support Group": "Depressions-Selbsthilfegruppe",
+    "Mindfulness Group": "Achtsamkeitsgruppe",
+    "Confidence Building": "Selbstvertrauen stärken",
+    "Stress Recovery": "Stressbewältigung",
+    "Relationship Skills": "Beziehungsfähigkeiten",
+    "Breathing Workshop": "Atemworkshop",
+    "Emotional Awareness": "Emotionales Bewusstsein",
+    "Guided Reflection": "Geführte Reflexion"
+  },
+  "intro": {
+    "firstText": "Online-Psychologen, Familienberater, Experten für Kindesentwicklung, Astrologen und mehr auf",
+    "secondText": "Professionelle Unterstützung für persönliche und berufliche Entwicklung. Erreiche deine Ziele und lebe glücklicher mit"
+  },
+  "popularCategories": {
+    "title": "Beliebte Kategorien",
+    "description": "Hier werden mehr als 1.500 Experten in 39 Kategorien für dich verfügbar sein...",
+    "Astrology": "Astrologie",
+    "Psychology": "Psychologie",
+    "Life Coach": "Lebenscoach",
+    "Child Development": "Kindesentwicklung",
+    "Dietitian": "Ernährungsberatung",
+    "Family Counseling": "Familienberatung",
+    "buttonText": "Alle Kategorien ansehen"
+  },
+  "howItWorks": {
+    "title": "Wie funktioniert es?",
+    "subtitle": "Unser Beratungsprozess ist einfach und effektiv. Verbinde dich schnell mit dem richtigen Experten für deine Bedürfnisse und finde eine Lösung.",
+    "step1": {
+      "title": "Wähle deinen Experten",
+      "description": "Finde ganz einfach den passenden Spezialisten mithilfe von Filtern, die deinen Bedürfnissen entsprechen."
+    },
+    "step2": {
+      "title": "Kostenloser Einführungschat",
+      "description": "Schreibe dem Experten kostenlos und führe ein kurzes Einführungsgespräch."
+    },
+    "step3": {
+      "title": "Plane deine Sitzung",
+      "description": "Wähle ein passendes Datum und eine Uhrzeit und plane deine Online-Sitzung."
+    },
+    "step4": {
+      "title": "Starte die Sitzung",
+      "description": "Treffe deinen Berater online zur vereinbarten Zeit."
+    }
+  },
+  "advantages": {
+    "title": "Vorteile von HelpHub",
+    "advantagesList": {
+      "step1": {
+        "title": "1-zu-1 Live-Beratung",
+        "description": "Live-Beratung bequem von zu Hause, aus dem Büro oder von überall aus."
+      },
+      "step2": {
+        "title": "Online-Chat",
+        "description": "Schreibe dem Experten kostenlos und führe ein kurzes Einführungsgespräch."
+      },
+      "step3": {
+        "title": "Sichere Zahlung",
+        "description": "Bezahle sicher mit deiner Kreditkarte."
+      },
+      "step4": {
+        "title": "100% Geld-zurück-Garantie",
+        "description": "Erhalte eine vollständige Rückerstattung bei verpassten Terminen."
+      }
+    }
+  },
+  "download": {
+    "title": "Lade die HelpHub App herunter!",
+    "description1": "Der schnellste Weg zu professionellen Beratern",
+    "description2": "Mit der mobilen HelpHub-App kannst du viel schneller und einfacher auf alle unsere Dienstleistungen zugreifen. Egal wo du bist, du kannst sofort einen Termin buchen oder einen passenden Termin für dich planen."
+  },
+  "details": {
+    "title": "Was ist HelpHub?",
+    "section1": {
+      "title": "Online-Beratung und Unterstützungsdienste bei HelpHub",
+      "description": "HelpHub bietet eine große Auswahl an Online-Beratungsdiensten für Menschen, die professionelle Unterstützung suchen. Mit Angeboten wie Online-Therapie, Familienberatung und emotionaler Begleitung findest du Lösungen, die auf deine mentalen und emotionalen Bedürfnisse zugeschnitten sind. Egal wie beschäftigt dein Alltag ist, du kannst Experten bequem von zu Hause aus kontaktieren."
+    },
+    "section2": {
+      "title": "Vereinfache dein Leben mit Online-Unterstützung",
+      "description": "HelpHub wurde entwickelt, um dein Leben einfacher zu machen, indem es dich mit Fachleuten aus verschiedenen Bereichen verbindet. Egal ob psychologische Unterstützung, Lebensberatung oder persönliche Entwicklung – du findest schnell den richtigen Experten und erhältst individuelle Hilfe."
+    },
+    "section3": {
+      "title": "Vorteile der Online-Beratung",
+      "description": "Einer der größten Vorteile der Online-Beratung ist die Möglichkeit, jederzeit und überall Unterstützung zu erhalten. Du musst nicht reisen – verbinde dich einfach von zu Hause oder jedem anderen Ort aus. Besonders hilfreich ist dies für beschäftigte Menschen oder Personen mit eingeschränktem Zugang zu lokalen Angeboten. Online-Sitzungen bieten außerdem Privatsphäre und Komfort."
+    },
+    "section4": {
+      "title": "Professionelle Unterstützung, der du vertrauen kannst",
+      "description": "HelpHub verbindet dich mit erfahrenen Fachleuten, die Unterstützung in vielen Bereichen anbieten. Von mentaler Gesundheit bis zur persönlichen Entwicklung helfen dir unsere Experten dabei, Herausforderungen zu meistern und dein Wohlbefinden zu verbessern."
+    },
+    "section5": {
+      "title": "Personalisierte Lösungen für jeden",
+      "description": "Unsere Dienstleistungen bieten individuelle Lösungen, die zu deinen persönlichen Bedürfnissen passen. Egal ob für dich selbst oder deine Familie – HelpHub erleichtert den Zugang zu zuverlässiger professioneller Unterstützung."
+    }
+  },
+  "companies": {
+    "leftSide": {
+      "text1": "Spezielle Unterstützung für Unternehmen",
+      "text2": "HelpHub Lösungen",
+      "buttonText": "Kontaktiere uns"
+    },
+    "rightSide": {
+      "text1": "Unternehmen, die mit HelpHub zusammenarbeiten",
+      "accesibilityLabel": "Logos der Unternehmen, die mit HelpHub zusammenarbeiten"
+    }
+  },
+  "numbers": {
+    "title": "Unser Einfluss in Zahlen",
+    "consultants": "Aktive Berater",
+    "sessions": "Abgeschlossene Sitzungen",
+    "customers": "Zufriedene Kunden",
+    "reviews": "Positive Bewertungen"
+  },
+  "blog": {
+    "leftSide": {
+      "blog": "Blog",
+      "text1": "Hier kannst du Blogbeiträge unserer Berater entdecken.",
+      "buttonText": "Entdecken"
+    },
+    "titles": {
+      "title1": "Mentale Erschöpfung trotz Nichtstun",
+      "title2": "Trauma und Wachstum nach dem Trauma",
+      "title3": "Vertrauen, Verbindung und Wiederaufbau",
+      "title4": "Berater sein in der KI-Suche",
+      "title5": "Wo haben wir uns selbst verloren?",
+      "title6": "Anwesend sein vs. wirklich da sein"
+    }
+  },
+  "footer": {
+    "brand": "HelpHub",
+    "companyLinks": {
+      "howItWorks": "Wie funktioniert es?",
+      "aboutUs": "Über uns",
+      "contact": "Kontakt",
+      "blog": "Blog"
+    },
+    "legalLinks": {
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutzrichtlinie & DSGVO",
+      "distanceSales": "Fernabsatzvertrag",
+      "refund": "Rückerstattungsrichtlinie",
+      "cookies": "Cookie-Richtlinie"
+    },
+    "social": {
+      "title": "Folge uns"
+    },
+    "disclaimer": {
+      "text": "Hinweis – Online-Beratungsdienste sind nicht für jeden geeignet. Falls du Gedanken an Selbstverletzung oder Suizid hast, könnten diese Dienste ungeeignet sein. In solchen Fällen empfehlen wir dringend, lokale Notfallhilfe zu kontaktieren.",
+      "emergency": "Notruf: 112, Polizei: 155, Unterstützung bei häuslicher Gewalt: 183, Suchtberatung: 191"
+    }
+  },
+  "featured": {
+    "NewConsultants": "Neue Berater",
+    "OnlineConsultants": "Online-Berater",
+    "FeaturedConsultants": "Empfohlene Berater",
+    "TopRatedConsultants": "Bestbewertete Berater"
+  },
+  "profileCard": {
+    "sponsored": "Gesponsert",
+    "online": "Online",
+    "more": "+ {{count}} weitere",
+    "newConsultant": "Neuer Berater",
+    "freeIntroCall": "Kostenloses Erstgespräch",
+    "bookSession": "Sitzung buchen",
+    "startNow": "Jetzt starten",
+    "titles": {
+      "psychologistFamily": "Psychologe - Familien- und Paarberater",
+      "psychologicalCounselor": "Psychologischer Berater",
+      "clinicalPsychologist": "Klinischer Psychologe",
+      "familyCounselor": "Familienberater",
+      "holisticHealthCoach": "Ganzheitlicher Gesundheitscoach",
+      "lifeCoach": "Lebens- und ganzheitlicher Gesundheitscoach"
+    },
+    "specialties": {
+      "attachmentIssues": "Bindungsprobleme",
+      "lowSelfEsteem": "Geringes Selbstwertgefühl",
+      "anxietyDisorders": "Angststörungen",
+      "examAnxiety": "Prüfungsangst",
+      "familyCounseling": "Familienberatung",
+      "relationshipIssues": "Beziehungsprobleme",
+      "stressManagement": "Stressbewältigung",
+      "childDevelopment": "Kindesentwicklung",
+      "burnout": "Burnout",
+      "communicationIssues": "Kommunikationsprobleme"
+    }
+  }
+}

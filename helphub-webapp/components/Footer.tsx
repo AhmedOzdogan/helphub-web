@@ -1,52 +1,55 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Link } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { Platform, Text, View } from 'react-native';
 import AppStoreDownload from './ui/AppStoreDownload';
 import GooglePlayDownload from './ui/GooglePlayDownload';
 
 function Footer() {
+    const { t } = useTranslation();
+
     return (
         <View testID="footer-section" className={`w-full bg-red-500 px-4 md:px-6 ${Platform.OS === 'ios' ? 'pt-8 pb-8' : 'py-8 md:py-12'}`}>
             <View testID="footer-main-content" className="mx-auto w-full max-w-[1400px] flex-col items-center justify-center gap-8  md:flex-row md:items-start md:justify-between md:gap-10">
                 <View className="w-[150px] items-center md:items-start">
-                    <Text className="text-xl font-bold text-white md:text-[20px]">HelpHub</Text>
+                    <Text className="text-xl font-bold text-white md:text-[20px]">{t('footer.brand')}</Text>
                 </View>
 
                 <View testID="footer-company-links" className="items-center gap-3 text-center md:items-start md:text-left">
                     <Link href={'/how-it-works' as any} asChild>
-                        <Text className="text-sm font-semibold text-white md:text-[16px]">How it works?</Text>
+                        <Text className="text-sm font-semibold text-white md:text-[16px]">{t('footer.companyLinks.howItWorks')}</Text>
                     </Link>
                     <Link href={'/about' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">About Us</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.companyLinks.aboutUs')}</Text>
                     </Link>
                     <Link href={'/contact' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">Contact</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.companyLinks.contact')}</Text>
                     </Link>
                     <Link href={'/blog' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">Blog</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.companyLinks.blog')}</Text>
                     </Link>
                 </View>
 
                 <View testID="footer-legal-links" className="items-center gap-3 text-center md:items-start md:text-left">
                     <Link href={'/terms' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">Terms of Use</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.legalLinks.terms')}</Text>
                     </Link>
                     <Link href={'/privacy' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">Privacy Policy & GDPR</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.legalLinks.privacy')}</Text>
                     </Link>
                     <Link href={'/distance-sales' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">Distance Sales Agreement</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.legalLinks.distanceSales')}</Text>
                     </Link>
                     <Link href={'/refund' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">Refund Policy</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.legalLinks.refund')}</Text>
                     </Link>
                     <Link href={'/cookies' as any} asChild>
-                        <Text className="text-sm text-white md:text-[16px]">Cookie Policy</Text>
+                        <Text className="text-sm text-white md:text-[16px]">{t('footer.legalLinks.cookies')}</Text>
                     </Link>
                 </View>
 
                 <View testID="footer-social-downloads" className="items-center gap-4 md:items-start">
-                    <Text className="text-sm font-semibold text-white md:text-[16px]">Follow Us</Text>
+                    <Text className="text-sm font-semibold text-white md:text-[16px]">{t('footer.social.title')}</Text>
 
                     <View testID="footer-social-icons" className="flex-row gap-3">
                         <Link
@@ -78,11 +81,11 @@ function Footer() {
 
             <View testID="footer-disclaimer-content" className={`mx-auto items-center ${Platform.OS === 'ios' ? 'mt-4' : 'mt-8 md:mt-12'}`}>
                 <Text className="max-w-[900px] px-2 text-center text-xs leading-[20px] text-white md:text-[14px] md:leading-[24px]">
-                    Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services.
+                    {t('footer.disclaimer.text')}
                 </Text>
 
                 <Text className="mt-4 px-2 text-center text-xs text-white md:text-[14px]">
-                    Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191
+                    {t('footer.disclaimer.emergency')}
                 </Text>
             </View>
         </View>

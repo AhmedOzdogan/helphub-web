@@ -1,0 +1,281 @@
+{
+  "SearchBar": {
+    "desktopPlaceholder": "Search for help, resources, or volunteers...",
+    "mobilePlaceholder": "Search..."
+  },
+  "LoginPage": {
+    "login": "Login",
+    "loggingIn": "Logging in...",
+    "email": "Email Address",
+    "emailPlaceholder": "Write your email",
+    "password": "Password",
+    "passwordPlaceholder": "Write your password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?"
+  },
+  "SignupPage": {
+    "signup": "Sign Up",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Write your full name",
+    "email": "Email Address",
+    "emailPlaceholder": "Write your email",
+    "password": "Password",
+    "passwordPlaceholder": "Write your password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Write your password again",
+    "haveAccount": "Already have an account?"
+  },
+  "Messages": "Messages",
+  "Get Help": "Get Help",
+  "Main Menu": "Main Menu",
+  "Home": "Home",
+  "Discover": "Discover",
+  "Categories": "Categories",
+  "My Account": "My Account",
+  "Blog": "Blog",
+  "Guide": "Guide",
+  "How does it work?": "How does it work?",
+
+  "MobileMenuSections": {
+    "forMyself": "FOR MYSELF",
+    "forMomsAndKids": "FOR MOMS AND KIDS",
+    "forWork": "FOR WORK",
+    "groupTherapies": "GROUP THERAPIES"
+  },
+
+  "MegaMenuTitles": {
+    "Mental Wellbeing": "Mental Wellbeing",
+    "Physical Wellbeing": "Physical Wellbeing",
+    "Alternative Practices": "Alternative Practices",
+    "Mother Support": "Mother Support",
+    "Child Support": "Child Support",
+    "Family Support": "Family Support",
+    "Career Support": "Career Support",
+    "Work-Life Balance": "Work-Life Balance",
+    "Team & Culture": "Team & Culture",
+    "Support Groups": "Support Groups",
+    "Growth Groups": "Growth Groups",
+    "Workshops": "Workshops"
+  },
+  "MegaMenuItems": {
+    "Psychology": "Psychology",
+    "Family Counseling": "Family Counseling",
+    "Sexual Therapy": "Sexual Therapy",
+    "Holistic Therapy": "Holistic Therapy",
+    "Life Coaching": "Life Coaching",
+    "Dietitian": "Dietitian",
+    "Sports": "Sports",
+    "Style": "Style",
+    "Physiotherapy": "Physiotherapy",
+    "Energy Therapy": "Energy Therapy",
+    "Astrology": "Astrology",
+    "Numerology": "Numerology",
+    "NLP": "NLP",
+    "Reiki": "Reiki",
+    "Family Constellation": "Family Constellation",
+    "Human Design": "Human Design",
+    "Mindfulness": "Mindfulness",
+    "Postpartum Support": "Postpartum Support",
+    "Parenting Guidance": "Parenting Guidance",
+    "Emotional Balance": "Emotional Balance",
+    "Child Anxiety": "Child Anxiety",
+    "School Stress": "School Stress",
+    "Behavior Support": "Behavior Support",
+    "Parent-Child Communication": "Parent-Child Communication",
+    "Routine Planning": "Routine Planning",
+    "Family Coaching": "Family Coaching",
+    "Burnout": "Burnout",
+    "Career Counseling": "Career Counseling",
+    "Leadership Coaching": "Leadership Coaching",
+    "Stress Management": "Stress Management",
+    "Time Management": "Time Management",
+    "Remote Work Balance": "Remote Work Balance",
+    "Conflict Resolution": "Conflict Resolution",
+    "Communication Skills": "Communication Skills",
+    "Workplace Motivation": "Workplace Motivation",
+    "Anxiety Support Group": "Anxiety Support Group",
+    "Depression Support Group": "Depression Support Group",
+    "Mindfulness Group": "Mindfulness Group",
+    "Confidence Building": "Confidence Building",
+    "Stress Recovery": "Stress Recovery",
+    "Relationship Skills": "Relationship Skills",
+    "Breathing Workshop": "Breathing Workshop",
+    "Emotional Awareness": "Emotional Awareness",
+    "Guided Reflection": "Guided Reflection"
+  },
+  "intro": {
+    "firstText": "Online psychologists, family counselors, child development experts, astrologers, and more on",
+    "secondText": "Professional guidance for personal and career growth. Reach your goals and live happier with"
+  },
+  "popularCategories": {
+    "title": "Popular Categories",
+    "description": "There will be more than 1.500 experts in 39 categories here for you...",
+    "Astrology": "Astrology",
+    "Psychology": "Psychology",
+    "Life Coach": "Life Coach",
+    "Child Development": "Child Development",
+    "Dietitian": "Dietitian",
+    "Family Counseling": "Family Counseling",
+    "buttonText": "See All Categories"
+  },
+  "howItWorks": {
+    "title": "How It Works?",
+    "subtitle": "Our consulting process is simple and effective. Quickly connect with the right expert for your needs and reach a solution.",
+    "step1": {
+      "title": "Choose Your Expert",
+      "description": "Find the right specialist easily using filters that match your needs."
+    },
+    "step2": {
+      "title": "Free Intro Chat",
+      "description": "Message the expert for free and have a short introductory conversation."
+    },
+    "step3": {
+      "title": "Schedule Your Session",
+      "description": "Pick a suitable date and time and plan your online session."
+    },
+    "step4": {
+      "title": "Start the Session",
+      "description": "Meet your consultant online at the scheduled time."
+    }
+  },
+  "advantages": {
+    "title": "Advantages of Choosing HelpHub",
+    "advantagesList": {
+      "step1": {
+        "title": "1-1 Live Consultation",
+        "description": "Live consultation from the comfort of your home, office, or anywhere you are."
+      },
+      "step2": {
+        "title": "Online Chat",
+        "description": "Message the expert for free and have a short introductory conversation."
+      },
+      "step3": {
+        "title": "Secure Payment",
+        "description": "Make secure payments using your credit card."
+      },
+      "step4": {
+        "title": "100% Refund Guarantee",
+        "description": "Get a full refund for any missed appointments."
+      }
+    }
+  },
+  "download": {
+    "title": "Download the Helphub App!",
+    "description1": "The fastest way to reach expert consultants",
+    "description2": "With the Helphub mobile app, you can access all our services muchfaster and more easily. Wherever you are, you can either book aninstant appointment or schedule one for the day and time that works best for you."
+  },
+  "details": {
+    "title": "What is HelpHub?",
+    "section1": {
+      "title": "Online Counseling and Support Services at HelpHub",
+      "description": "HelpHub provides a wide range of online counseling services for individuals seeking professional support. With services such as online therapy, family counseling, and emotional guidance, you can find solutions tailored to your mental and emotional needs. No matter how busy your schedule is, you can connect with expert consultants from the comfort of your home."
+    },
+    "section2": {
+      "title": "Simplify Your Life with Online Support",
+      "description": "HelpHub is designed to make your life easier by connecting you with professionals in various fields. Whether you need psychological support, lifestyle guidance, or personal development, you can easily find the right expert and receive personalized assistance."
+    },
+    "section3": {
+      "title": "Benefits of Online Counseling",
+      "description": "One of the biggest advantages of online counseling is the ability to receive support anytime and anywhere. You don’t need to travel—simply connect from your home or any location. This is especially helpful for busy individuals or those with limited access to local services. Online sessions also ensure privacy and comfort, allowing you to feel more secure and focused."
+    },
+    "section4": {
+      "title": "Professional Support You Can Trust",
+      "description": "HelpHub connects you with experienced professionals who provide guidance for a variety of needs. From mental health support to personal growth, our experts help you navigate challenges and improve your well-being with confidence."
+    },
+    "section5": {
+      "title": "Personalized Solutions for Everyone",
+      "description": "Our services are designed to offer personalized solutions that fit your unique needs. Whether for yourself or your loved ones, HelpHub makes it easy to access reliable, professional support and take steps toward a healthier, happier life."
+    }
+  },
+  "companies": {
+    "leftSide": {
+      "text1": "Special support for companies",
+      "text2": "HelpHub solutions",
+      "buttonText": "Contact Us"
+    },
+    "rightSide": {
+      "text1": "Companies partnering with Helphub",
+      "accesibilityLabel": "Companies partnering with HelpHub logos"
+    }
+  },
+  "numbers": {
+    "title": "Our Impact in Numbers",
+    "consultants": "Active Consultants",
+    "sessions": "Completed Sessions",
+    "customers": "Satisfied Customers",
+    "reviews": "Positive Reviews"
+  },
+  "blog": {
+    "leftSide": {
+      "blog": "Blog",
+      "text1": "You can explore blog content from our consultants here.",
+      "buttonText": "Explore"
+    },
+    "titles": {
+      "title1": "Mental Fatigue Even When Doing Nothing",
+      "title2": "Trauma and Growth After Trauma",
+      "title3": "Trust, Connection and Rebuilding",
+      "title4": "Being a Consultant in AI Search",
+      "title5": "TWhere Did We Lose Ourselves?",
+      "title6": "Being Present vs Truly Being There"
+    }
+  },
+  "footer": {
+    "brand": "HelpHub",
+    "companyLinks": {
+      "howItWorks": "How it works?",
+      "aboutUs": "About Us",
+      "contact": "Contact",
+      "blog": "Blog"
+    },
+    "legalLinks": {
+      "terms": "Terms of Use",
+      "privacy": "Privacy Policy & GDPR",
+      "distanceSales": "Distance Sales Agreement",
+      "refund": "Refund Policy",
+      "cookies": "Cookie Policy"
+    },
+    "social": {
+      "title": "Follow Us"
+    },
+    "disclaimer": {
+      "text": "Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services.",
+      "emergency": "Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191"
+    }
+  },
+  "featured": {
+    "NewConsultants": "New Consultants",
+    "OnlineConsultants": "Online Consultants",
+    "FeaturedConsultants": "Featured Consultants",
+    "TopRatedConsultants": "Top Rated Consultants"
+  },
+  "profileCard": {
+    "sponsored": "Sponsored",
+    "online": "Online",
+    "more": "+ {{count}} more",
+    "newConsultant": "New Consultant",
+    "freeIntroCall": "Free Intro Call",
+    "bookSession": "Book Session",
+    "startNow": "Start Now",
+    "titles": {
+      "psychologistFamily": "Psychologist - Family and Couples Counselor",
+      "psychologicalCounselor": "Psychological Counselor",
+      "clinicalPsychologist": "Clinical Psychologist",
+      "familyCounselor": "Family Counselor",
+      "holisticHealthCoach": "Holistic Health Coach",
+      "lifeCoach": "Life Coach"
+    },
+    "specialties": {
+      "attachmentIssues": "Attachment Issues",
+      "lowSelfEsteem": "Low Self-Esteem",
+      "anxietyDisorders": "Anxiety Disorders",
+      "examAnxiety": "Exam Anxiety",
+      "familyCounseling": "Family Counseling",
+      "relationshipIssues": "Relationship Issues",
+      "stressManagement": "Stress Management",
+      "childDevelopment": "Child Development",
+      "burnout": "Burnout",
+      "communicationIssues": "Communication Issues"
+    }
+  }
+}

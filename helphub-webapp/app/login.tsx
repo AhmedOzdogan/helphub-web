@@ -1,11 +1,12 @@
-import RedButton from '@/components/ui/RedButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import RedButton from '../components/ui/RedButton';
 import { useLogin } from '../hooks/loginSignupHook';
-import { useRouter } from 'expo-router';
 
 function Login() {
     const { login, loading, error } = useLogin();
@@ -13,6 +14,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const router = useRouter();
+    const { t, i18n } = useTranslation();
 
     const handleLogin = async () => {
         if (loading) return; // Prevent multiple login attempts
@@ -49,20 +51,20 @@ function Login() {
                         </View>
 
                         <Text className="mt-3 text-2xl font-medium text-[#ef3734]">
-                            Login
+                            {t("LoginPage.login")}
                         </Text>
                     </View>
 
                     <View className="mx-auto mt-5 w-full">
                         <Text className="mb-2 text-xl font-semibold text-[#1f2933]">
-                            Email Address
+                            {t("LoginPage.email")}
                         </Text>
 
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#b4b4be] bg-transparent px-3 py-2">
                             <Ionicons name="mail-outline" size={18} color="#9ca3af" />
                             <TextInput
                                 editable={true}
-                                placeholder="Write your email"
+                                placeholder={t("LoginPage.emailPlaceholder")}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                                 value={email}
                                 onChangeText={setEmail}
@@ -70,7 +72,7 @@ function Login() {
                         </View>
 
                         <Text className="mb-2 mt-5 text-xl font-semibold text-[#1f2933]">
-                            Password
+                            {t("LoginPage.password")}
                         </Text>
 
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#d3d3d8] bg-transparent px-3 py-2">
@@ -78,7 +80,7 @@ function Login() {
                             <TextInput
                                 editable={true}
                                 secureTextEntry={secureTextEntry}
-                                placeholder="Write your password"
+                                placeholder={t("LoginPage.passwordPlaceholder")}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                                 value={password}
                                 onChangeText={setPassword}
@@ -88,12 +90,12 @@ function Login() {
 
                         <View className="mt-4 items-end">
                             <Text className="text-base font-medium text-[#ef3734]">
-                                Forgot Password?
+                                {t("LoginPage.forgotPassword")}
                             </Text>
                         </View>
 
                         <RedButton
-                            ButtonText={loading ? 'Logging in...' : 'Login'} wfull={true} onPress={handleLogin}
+                            ButtonText={loading ? t("LoginPage.loggingIn") : t("LoginPage.login")} wfull={true} onPress={handleLogin}
                             // Disable the button while loading to prevent multiple submissions
                             disabled={loading}
                             {...loading && { Icon: { name: 'reload-circle-sharp', size: 18, color: 'white' }, rotatingIcon: true }}
@@ -101,10 +103,10 @@ function Login() {
 
                         <View className="mt-10 flex-row items-center justify-center sm:mt-12">
                             <Text className="text-base font-medium text-[#a1a7b4]">
-                                Don't have an account?
+                                {t("LoginPage.noAccount")}
                             </Text>
                             <Text className="ml-2 text-base font-medium text-[#ef3734]">
-                                Sign Up
+                                {t("SignupPage.signup")}
                             </Text>
                         </View>
                     </View>

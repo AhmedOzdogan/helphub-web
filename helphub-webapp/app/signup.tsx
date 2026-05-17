@@ -1,18 +1,34 @@
-import RedButton from '@/components/ui/RedButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useState, useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { Platform, ScrollView, Text, TextInput, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import RedButton from '../components/ui/RedButton';
 
-import { useSignUp } from '../hooks/loginSignupHook';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { useSignUp } from '../hooks/loginSignupHook';
+
+type UserState = {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+};
+
+type UserAction =
+    | { type: 'SET_NAME'; payload: string }
+    | { type: 'SET_EMAIL'; payload: string }
+    | { type: 'SET_PASSWORD'; payload: string }
+    | { type: 'SET_CONFIRM_PASSWORD'; payload: string };
 
 function Signup() {
 
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
-    const [user, dispatchUser] = useReducer((state, action) => {
+    const { t, i18n } = useTranslation();
+
+    const [user, dispatchUser] = useReducer((state: UserState, action: UserAction): UserState => {
         switch (action.type) {
             case 'SET_NAME':
                 return { ...state, name: action.payload };
@@ -74,35 +90,35 @@ function Signup() {
                         </View>
 
                         <Text className="mt-3 text-2xl font-medium text-[#ef3734]">
-                            Sign Up
+                            {t("SignupPage.signup")}
                         </Text>
                     </View>
 
 
                     <View className="mx-auto mt-5 w-full">
                         <Text className="mb-2 text-xl font-semibold text-[#1f2933]">
-                            Full Name
+                            {t("SignupPage.fullName")}
                         </Text>
 
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#b4b4be] bg-transparent px-3 py-2">
                             <Ionicons name="mail-outline" size={18} color="#9ca3af" />
                             <TextInput
                                 editable={true}
-                                placeholder="Write your full name"
+                                placeholder={t("SignupPage.fullNamePlaceholder")}
                                 value={user.name}
                                 onChangeText={(text) => dispatchUser({ type: 'SET_NAME', payload: text })}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                             />
                         </View>
                         <Text className="mb-2 mt-5 text-xl font-semibold text-[#1f2933]">
-                            Email Address
+                            {t("SignupPage.email")}
                         </Text>
 
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#b4b4be] bg-transparent px-3 py-2">
                             <Ionicons name="mail-outline" size={18} color="#9ca3af" />
                             <TextInput
                                 editable={true}
-                                placeholder="Write your email"
+                                placeholder={t("SignupPage.emailPlaceholder")}
                                 value={user.email}
                                 onChangeText={(text) => dispatchUser({ type: 'SET_EMAIL', payload: text })}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
@@ -110,7 +126,7 @@ function Signup() {
                         </View>
 
                         <Text className="mb-2 mt-5 text-xl font-semibold text-[#1f2933]">
-                            Password
+                            {t("SignupPage.password")}
                         </Text>
 
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#d3d3d8] bg-transparent px-3 py-2">
@@ -118,7 +134,7 @@ function Signup() {
                             <TextInput
                                 editable={true}
                                 secureTextEntry={secureTextEntry}
-                                placeholder="Write your password"
+                                placeholder={t("SignupPage.passwordPlaceholder")}
                                 value={user.password}
                                 onChangeText={(text) => dispatchUser({ type: 'SET_PASSWORD', payload: text })}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
@@ -127,7 +143,7 @@ function Signup() {
                         </View>
 
                         <Text className="mb-2 mt-5 text-xl font-semibold text-[#1f2933]">
-                            Password Again
+                            {t("SignupPage.confirmPassword")}
                         </Text>
 
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#d3d3d8] bg-transparent px-3 py-2">
@@ -135,7 +151,7 @@ function Signup() {
                             <TextInput
                                 editable={true}
                                 secureTextEntry={confirmSecureTextEntry}
-                                placeholder="Write your password again"
+                                placeholder={t("SignupPage.confirmPasswordPlaceholder")}
                                 value={user.confirmPassword}
                                 onChangeText={(text) => dispatchUser({ type: 'SET_CONFIRM_PASSWORD', payload: text })}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
@@ -144,7 +160,7 @@ function Signup() {
                         </View>
 
                         <RedButton
-                            ButtonText='Sign Up'
+                            ButtonText={t("SignupPage.signup")}
                             wfull={true}
                             onPress={handleSignUp}
                             disabled={loading}
@@ -153,10 +169,10 @@ function Signup() {
 
                         <View className="mt-10 flex-row items-center justify-center sm:mt-12">
                             <Text className="text-base font-medium text-[#a1a7b4]">
-                                Have an account?
+                                {t("SignupPage.haveAccount")}
                             </Text>
                             <Text className="ml-2 text-base font-medium text-[#ef3734]">
-                                Login
+                                {t("LoginPage.login")}
                             </Text>
                         </View>
                     </View>

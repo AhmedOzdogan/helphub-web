@@ -1,0 +1,281 @@
+{
+  "SearchBar": {
+    "desktopPlaceholder": "Busca ayuda, recursos o voluntarios...",
+    "mobilePlaceholder": "Buscar..."
+  },
+  "LoginPage": {
+    "login": "Iniciar sesión",
+    "loggingIn": "Iniciando sesión...",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Escribe tu correo electrónico",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Escribe tu contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes una cuenta?"
+  },
+  "SignupPage": {
+    "signup": "Regístrate",
+    "fullName": "Nombre completo",
+    "fullNamePlaceholder": "Escribe tu nombre completo",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Escribe tu correo electrónico",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Escribe tu contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "confirmPasswordPlaceholder": "Vuelve a escribir tu contraseña",
+    "haveAccount": "¿Ya tienes una cuenta?"
+  },
+  "Messages": "Mensajes",
+  "Get Help": "Obtener ayuda",
+  "Main Menu": "Menú principal",
+  "Home": "Inicio",
+  "Discover": "Descubrir",
+  "Categories": "Categorías",
+  "My Account": "Mi cuenta",
+  "Blog": "Blog",
+  "Guide": "Guía",
+  "How does it work?": "¿Cómo funciona?",
+
+  "MobileMenuSections": {
+    "forMyself": "PARA MÍ",
+    "forMomsAndKids": "PARA MAMÁS Y NIÑOS",
+    "forWork": "PARA EL TRABAJO",
+    "groupTherapies": "TERAPIAS GRUPALES"
+  },
+
+  "MegaMenuTitles": {
+    "Mental Wellbeing": "Bienestar mental",
+    "Physical Wellbeing": "Bienestar físico",
+    "Alternative Practices": "Prácticas alternativas",
+    "Mother Support": "Apoyo a madres",
+    "Child Support": "Apoyo infantil",
+    "Family Support": "Apoyo familiar",
+    "Career Support": "Apoyo profesional",
+    "Work-Life Balance": "Equilibrio vida-trabajo",
+    "Team & Culture": "Equipo y cultura",
+    "Support Groups": "Grupos de apoyo",
+    "Growth Groups": "Grupos de crecimiento",
+    "Workshops": "Talleres"
+  },
+  "MegaMenuItems": {
+    "Psychology": "Psicología",
+    "Family Counseling": "Orientación familiar",
+    "Sexual Therapy": "Terapia sexual",
+    "Holistic Therapy": "Terapia holística",
+    "Life Coaching": "Coaching de vida",
+    "Dietitian": "Nutricionista",
+    "Sports": "Deporte",
+    "Style": "Estilo",
+    "Physiotherapy": "Fisioterapia",
+    "Energy Therapy": "Terapia energética",
+    "Astrology": "Astrología",
+    "Numerology": "Numerología",
+    "NLP": "PNL",
+    "Reiki": "Reiki",
+    "Family Constellation": "Constelaciones familiares",
+    "Human Design": "Diseño humano",
+    "Mindfulness": "Mindfulness",
+    "Postpartum Support": "Apoyo posparto",
+    "Parenting Guidance": "Orientación parental",
+    "Emotional Balance": "Equilibrio emocional",
+    "Child Anxiety": "Ansiedad infantil",
+    "School Stress": "Estrés escolar",
+    "Behavior Support": "Apoyo conductual",
+    "Parent-Child Communication": "Comunicación padre-hijo",
+    "Routine Planning": "Planificación de rutinas",
+    "Family Coaching": "Coaching familiar",
+    "Burnout": "Desgaste profesional",
+    "Career Counseling": "Orientación profesional",
+    "Leadership Coaching": "Coaching de liderazgo",
+    "Stress Management": "Manejo del estrés",
+    "Time Management": "Gestión del tiempo",
+    "Remote Work Balance": "Equilibrio trabajo remoto",
+    "Conflict Resolution": "Resolución de conflictos",
+    "Communication Skills": "Habilidades de comunicación",
+    "Workplace Motivation": "Motivación laboral",
+    "Anxiety Support Group": "Grupo de apoyo para la ansiedad",
+    "Depression Support Group": "Grupo de apoyo para la depresión",
+    "Mindfulness Group": "Grupo de mindfulness",
+    "Confidence Building": "Desarrollo de confianza",
+    "Stress Recovery": "Recuperación del estrés",
+    "Relationship Skills": "Habilidades relacionales",
+    "Breathing Workshop": "Taller de respiración",
+    "Emotional Awareness": "Conciencia emocional",
+    "Guided Reflection": "Reflexión guiada"
+  },
+  "intro": {
+    "firstText": "Psicólogos en línea, orientadores familiares, expertos en desarrollo infantil, astrólogos y más en",
+    "secondText": "Orientación profesional para el crecimiento personal y profesional. Alcanza tus metas y vive más feliz con"
+  },
+  "popularCategories": {
+    "title": "Categorías populares",
+    "description": "Habrá más de 1.500 expertos en 39 categorías aquí para ti...",
+    "Astrology": "Astrología",
+    "Psychology": "Psicología",
+    "Life Coach": "Coach de vida",
+    "Child Development": "Desarrollo infantil",
+    "Dietitian": "Nutricionista",
+    "Family Counseling": "Orientación familiar",
+    "buttonText": "Ver todas las categorías"
+  },
+  "howItWorks": {
+    "title": "¿Cómo funciona?",
+    "subtitle": "Nuestro proceso de consulta es simple y eficaz. Conéctate rápidamente con el experto adecuado para tus necesidades y encuentra una solución.",
+    "step1": {
+      "title": "Elige tu experto",
+      "description": "Encuentra fácilmente al especialista adecuado usando filtros que se adapten a tus necesidades."
+    },
+    "step2": {
+      "title": "Chat introductorio gratis",
+      "description": "Envía mensajes gratis al experto y ten una breve conversación introductoria."
+    },
+    "step3": {
+      "title": "Agenda tu sesión",
+      "description": "Elige una fecha y hora adecuada y programa tu sesión en línea."
+    },
+    "step4": {
+      "title": "Inicia la sesión",
+      "description": "Reúnete con tu consultor en línea en el horario programado."
+    }
+  },
+  "advantages": {
+    "title": "Ventajas de elegir HelpHub",
+    "advantagesList": {
+      "step1": {
+        "title": "Consulta en vivo 1-1",
+        "description": "Consulta en vivo desde la comodidad de tu hogar, oficina o donde estés."
+      },
+      "step2": {
+        "title": "Chat en línea",
+        "description": "Envía mensajes gratis al experto y ten una breve conversación introductoria."
+      },
+      "step3": {
+        "title": "Pago seguro",
+        "description": "Realiza pagos seguros con tu tarjeta de crédito."
+      },
+      "step4": {
+        "title": "Garantía de reembolso 100%",
+        "description": "Recibe el reembolso completo por citas perdidas."
+      }
+    }
+  },
+  "download": {
+    "title": "¡Descarga la app de HelpHub!",
+    "description1": "La forma más rápida de contactar consultores expertos",
+    "description2": "Con la app móvil de HelpHub, puedes acceder a todos nuestros servicios mucho más rápido y fácil. Dondequiera que estés, puedes reservar una cita instantánea o programarla para el día y la hora que más te convenga."
+  },
+  "details": {
+    "title": "¿Qué es HelpHub?",
+    "section1": {
+      "title": "Servicios de apoyo y orientación online en HelpHub",
+      "description": "HelpHub ofrece una amplia gama de servicios de orientación online para personas que buscan apoyo profesional. Con servicios como terapia online, orientación familiar y guía emocional, puedes encontrar soluciones adaptadas a tus necesidades mentales y emocionales. Sin importar lo ocupada que esté tu agenda, puedes conectarte con consultores expertos desde la comodidad de tu hogar."
+    },
+    "section2": {
+      "title": "Simplifica tu vida con apoyo online",
+      "description": "HelpHub está diseñado para facilitar tu vida conectándote con profesionales de diversas áreas. Ya sea que necesites apoyo psicológico, guía de estilo de vida o desarrollo personal, puedes encontrar fácilmente al experto adecuado y recibir ayuda personalizada."
+    },
+    "section3": {
+      "title": "Beneficios de la orientación online",
+      "description": "Una de las mayores ventajas de la orientación en línea es la posibilidad de recibir apoyo en cualquier momento y lugar. No necesitas desplazarte: solo conéctate desde tu casa o cualquier sitio. Esto es especialmente útil para personas ocupadas o con acceso limitado a servicios locales. Las sesiones online también garantizan privacidad y comodidad, permitiéndote sentirte más seguro y enfocado."
+    },
+    "section4": {
+      "title": "Apoyo profesional en quien puedes confiar",
+      "description": "HelpHub te conecta con profesionales experimentados que ofrecen guía para una variedad de necesidades. Desde apoyo en salud mental hasta crecimiento personal, nuestros expertos te ayudan a superar retos y mejorar tu bienestar con confianza."
+    },
+    "section5": {
+      "title": "Soluciones personalizadas para todos",
+      "description": "Nuestros servicios están diseñados para ofrecer soluciones personalizadas que se adapten a tus necesidades únicas. Ya sea para ti o tus seres queridos, HelpHub te facilita el acceso a apoyo profesional confiable y te ayuda a dar pasos hacia una vida más saludable y feliz."
+    }
+  },
+  "companies": {
+    "leftSide": {
+      "text1": "Apoyo especial para empresas",
+      "text2": "Soluciones de HelpHub",
+      "buttonText": "Contáctanos"
+    },
+    "rightSide": {
+      "text1": "Empresas que colaboran con HelpHub",
+      "accesibilityLabel": "Logotipos de empresas asociadas con HelpHub"
+    }
+  },
+  "numbers": {
+    "title": "Nuestro impacto en cifras",
+    "consultants": "Consultores activos",
+    "sessions": "Sesiones completadas",
+    "customers": "Clientes satisfechos",
+    "reviews": "Reseñas positivas"
+  },
+  "blog": {
+    "leftSide": {
+      "blog": "Blog",
+      "text1": "Aquí puedes explorar el contenido del blog de nuestros consultores.",
+      "buttonText": "Explorar"
+    },
+    "titles": {
+      "title1": "Fatiga mental incluso sin hacer nada",
+      "title2": "Trauma y crecimiento tras el trauma",
+      "title3": "Confianza, conexión y reconstrucción",
+      "title4": "Ser consultor en búsqueda con IA",
+      "title5": "¿Dónde nos perdimos?",
+      "title6": "Estar presente vs realmente estar allí"
+    }
+  },
+  "footer": {
+    "brand": "HelpHub",
+    "companyLinks": {
+      "howItWorks": "¿Cómo funciona?",
+      "aboutUs": "Sobre nosotros",
+      "contact": "Contacto",
+      "blog": "Blog"
+    },
+    "legalLinks": {
+      "terms": "Términos de uso",
+      "privacy": "Política de privacidad y GDPR",
+      "distanceSales": "Acuerdo de ventas a distancia",
+      "refund": "Política de reembolso",
+      "cookies": "Política de cookies"
+    },
+    "social": {
+      "title": "Síguenos"
+    },
+    "disclaimer": {
+      "text": "Aviso legal: los servicios de orientación online no son adecuados para todos. Si tienes pensamientos de autolesión o suicidio, estos servicios pueden no ser apropiados para ti. En tales casos, recomendamos encarecidamente contactar con los servicios locales de emergencia.",
+      "emergency": "Línea de emergencia: 112, Policía: 155, Apoyo por violencia doméstica: 183, Apoyo por abuso de sustancias: 191"
+    }
+  },
+  "featured": {
+    "NewConsultants": "Nuevos consultores",
+    "OnlineConsultants": "Consultores en línea",
+    "FeaturedConsultants": "Consultores en destaque",
+    "TopRatedConsultants": "Consultores mejor valorados"
+  },
+  "profileCard": {
+    "sponsored": "Patrocinado",
+    "online": "En línea",
+    "more": "+ {{count}} más",
+    "newConsultant": "Nuevo consultor",
+    "freeIntroCall": "Llamada introductoria gratis",
+    "bookSession": "Reservar sesión",
+    "startNow": "Comenzar ahora",
+    "titles": {
+      "psychologistFamily": "Psicólogo - Orientador familiar y de pareja",
+      "psychologicalCounselor": "Orientador psicológico",
+      "clinicalPsychologist": "Psicólogo clínico",
+      "familyCounselor": "Orientador familiar",
+      "holisticHealthCoach": "Coach de salud holística",
+      "lifeCoach": "Coach de vida y salud integral"
+    },
+    "specialties": {
+      "attachmentIssues": "Problemas de apego",
+      "lowSelfEsteem": "Baja autoestima",
+      "anxietyDisorders": "Trastornos de ansiedad",
+      "examAnxiety": "Ansiedad ante exámenes",
+      "familyCounseling": "Orientación familiar",
+      "relationshipIssues": "Problemas de pareja",
+      "stressManagement": "Manejo del estrés",
+      "childDevelopment": "Desarrollo infantil",
+      "burnout": "Desgaste profesional",
+      "communicationIssues": "Problemas de comunicación"
+    }
+  }
+}
