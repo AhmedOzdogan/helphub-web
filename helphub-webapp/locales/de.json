@@ -275,5 +275,39 @@
       "burnout": "Burnout",
       "communicationIssues": "Kommunikationsprobleme"
     }
+  },
+  "downloadButtons": {
+    "googlePlay": {
+      "text1": "Hol dir die App auf",
+      "text2": "Google Play"
+    },
+    "appStore": {
+      "text1": "Hol dir die App im",
+      "text2": "App Store"
+    }
+  },
+  "appointment": {
+    "title": "Buche deine Sitzung",
+    "mins": "Minuten",
+    "preInterview": "Einführungsgespräch",
+    "individualCoaching": "Einzelsitzung",
+    "fiveSessions": "5-Sitzungen-Paket",
+    "selectedDateAndTime": "Ausgewähltes Datum und Uhrzeit",
+    "session": "Sitzung",
+    "notAvailable": "Nicht verfügbar",
+    "selectedPackage": "Ausgewähltes Paket:",
+    "selectedDateTime": "Ausgewähltes Datum/Uhrzeit",
+    "cancel": "Abbrechen",
+    "continue": "Weiter",
+    "calendarMonth": "Mar 2026"
+  },
+  "days": {
+    "Mon": "Mo",
+    "Tue": "Di",
+    "Wed": "Mi",
+    "Thu": "Do",
+    "Fri": "Fr",
+    "Sat": "Sa",
+    "Sun": "So"
   }
 }

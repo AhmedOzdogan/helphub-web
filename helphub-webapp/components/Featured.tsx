@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LayoutChangeEvent, Pressable, ScrollView, Text, View } from 'react-native';
+import { LayoutChangeEvent, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import ProfileCard from './ui/ProfileCard';
 
 function Featured({ categoryName }: { categoryName: string }) {
@@ -10,6 +10,10 @@ function Featured({ categoryName }: { categoryName: string }) {
     const scrollRef = useRef<ScrollView | null>(null);
     // Ref to track current scroll position
     const currentScrollX = useRef(0);
+    // Refs for web mouse drag scrolling
+    const isDraggingRef = useRef(false);
+    const dragStartXRef = useRef(0);
+    const dragStartScrollXRef = useRef(0);
 
     // State for current scroll X position
     const [scrollX, setScrollX] = useState(0);
@@ -80,6 +84,41 @@ function Featured({ categoryName }: { categoryName: string }) {
         setScrollX(nextX);
     };
 
+    // Web only: allow click-and-drag horizontal scrolling with mouse
+    const handleWebMouseDown = (event: any) => {
+        if (Platform.OS !== 'web') return;
+
+        isDraggingRef.current = true;
+        dragStartXRef.current = event?.nativeEvent?.pageX ?? event?.pageX ?? 0;
+        dragStartScrollXRef.current = currentScrollX.current;
+    };
+
+    const handleWebMouseMove = (event: any) => {
+        if (Platform.OS !== 'web' || !isDraggingRef.current) return;
+
+        const currentX = event?.nativeEvent?.pageX ?? event?.pageX ?? 0;
+        const dragDistance = dragStartXRef.current - currentX;
+        const nextX = Math.max(
+            0,
+            Math.min(dragStartScrollXRef.current + dragDistance, maxScroll)
+        );
+
+        scrollRef.current?.scrollTo({
+            x: nextX,
+            animated: false,
+        });
+
+        currentScrollX.current = nextX;
+        setScrollX(nextX);
+
+        event?.preventDefault?.();
+    };
+
+    const handleWebMouseUp = () => {
+        if (Platform.OS !== 'web') return;
+        isDraggingRef.current = false;
+    };
+
     // Render the Featured component
     return (
         <View className={`mt-10 w-full items-center justify-center bg-blue-50 ${isMobile ? 'px-3 py-6' : isTabletOrMobile ? 'px-6 py-7' : 'px-14 py-8'}`}>
@@ -104,12 +143,20 @@ function Featured({ categoryName }: { categoryName: string }) {
                 <ScrollView
                     ref={scrollRef}
                     horizontal
+                    {...(Platform.OS === 'web'
+                        ? ({
+                            onMouseDown: handleWebMouseDown,
+                            onMouseMove: handleWebMouseMove,
+                            onMouseUp: handleWebMouseUp,
+                            onMouseLeave: handleWebMouseUp,
+                        } as any)
+                        : {})}
                     scrollEnabled
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{
                         paddingHorizontal: sidePadding,
                     }}
-                    className="w-full"
+                    className="w-full cursor-grab active:cursor-grabbing"
                     onScroll={(event) => {
                         const x = event.nativeEvent.contentOffset.x;
                         currentScrollX.current = x;
@@ -117,9 +164,13 @@ function Featured({ categoryName }: { categoryName: string }) {
                     }}
                     scrollEventThrottle={16}
                     decelerationRate={isTabletOrMobile ? 'fast' : 'normal'}
-                    snapToInterval={slideStep}
-                    snapToAlignment="start"
-                    disableIntervalMomentum
+                    {...(isTabletOrMobile && Platform.OS !== 'web'
+                        ? {
+                            snapToInterval: slideStep,
+                            snapToAlignment: 'start' as const,
+                            disableIntervalMomentum: true,
+                        }
+                        : {})}
                     pagingEnabled={false}
                     bounces={false}
                 >

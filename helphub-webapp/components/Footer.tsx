@@ -72,7 +72,7 @@ function Footer() {
                         </Link>
                     </View>
 
-                    <View className="mt-2 gap-3">
+                    <View className="mt-2 gap-3 w-[145px] flex-col">
                         <GooglePlayDownload />
                         <AppStoreDownload />
                     </View>

@@ -1,6 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
@@ -84,6 +85,8 @@ const timeSlots = [
 ];
 
 function Appointment() {
+
+    const { t, i18n } = useTranslation();
     const params = useLocalSearchParams<{
         name?: string;
         title?: string;
@@ -122,13 +125,15 @@ function Appointment() {
             <Navbar />
 
             <View className="px-3 py-4 md:px-6 lg:px-10 lg:py-6 z-[-999]">
+                <View className="flex mx-auto mb-6 w-full max-w-[1400px] items-center gap-4 md:mb-10 md:flex-row md:justify-center">
+                    <Text className="text-center text-[28px] font-bold text-[#1f2937] md:text-left md:text-[32px]">
+                        {t("appointment.title")}
+                    </Text>
+                </View>
                 <View className="mx-auto w-full max-w-[1400px] rounded-[28px] border border-[#dddddd] bg-[#f8f8f8] px-5 py-5 md:px-8 md:py-7 lg:px-10 lg:py-8">
                     <View className="flex-row items-center gap-4">
 
                         <View>
-                            <Text className="text-[15px] font-medium text-[#9ca3af] md:text-[16px]">
-                                {title}
-                            </Text>
                             <Text className="text-[18px] font-semibold text-[#1f2937] md:text-[20px]">
                                 {name}
                             </Text>
@@ -145,9 +150,9 @@ function Appointment() {
                                         ) : null}
                                     </View>
                                     <View>
-                                        <Text className="text-base font-medium text-[#1f2937]">Pre-Interview </Text>
+                                        <Text className="text-base font-medium text-[#1f2937]">{t("appointment.preInterview")}</Text>
                                         <Text className="mt-1 text-[14px] text-[#1f2937]">
-                                            15 mins <Text className="text-[#9ca3af]">(1)</Text>
+                                            15 {t("appointment.mins")} <Text className="text-[#9ca3af]">(1 {t("appointment.session")})</Text>
                                         </Text>
                                     </View>
                                 </View>
@@ -165,9 +170,9 @@ function Appointment() {
                                         ) : null}
                                     </View>
                                     <View>
-                                        <Text className="text-base font-medium text-[#1f2937]">Individual Coaching</Text>
+                                        <Text className="text-base font-medium text-[#1f2937]">{t("appointment.individualCoaching")}</Text>
                                         <Text className="mt-1 text-sm text-[#1f2937]">
-                                            60 min <Text className="text-[#9ca3af]">(1 session)</Text>
+                                            60 {t("appointment.mins")} <Text className="text-[#9ca3af]">(1 {t("appointment.session")})</Text>
                                         </Text>
                                     </View>
                                 </View>
@@ -188,9 +193,9 @@ function Appointment() {
                                         ) : null}
                                     </View>
                                     <View>
-                                        <Text className="text-base font-medium text-[#1f2937] max-w-32 text-wrap">5 Sessions Ind. Coaching</Text>
+                                        <Text className="text-base font-medium text-[#1f2937] max-w-32 text-wrap">{t("appointment.fiveSessions")}</Text>
                                         <Text className="mt-1 text-sm text-[#1f2937]">
-                                            60 min <Text className="text-[#9ca3af]">(5 sessions)</Text>
+                                            60 {t("appointment.mins")} <Text className="text-[#9ca3af]">(5 {t("appointment.session")})</Text>
                                         </Text>
                                     </View>
                                 </View>
@@ -204,7 +209,7 @@ function Appointment() {
                     </View>
 
                     <Text className="mt-10 text-center text-[24px] font-medium text-[#1f2937]">
-                        Select date and time from calendar
+                        {t("appointment.selectDateAndTime")}
                     </Text>
 
                     <View className="mt-6 flex-col items-center gap-8 md:items-center lg:flex-row lg:items-start lg:justify-center">
@@ -218,7 +223,7 @@ function Appointment() {
                             <View className="mt-6 flex-row justify-between px-2">
                                 {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
                                     <Text key={day} className="w-[36px] text-center text-[16px] font-medium text-[#9ca3af]">
-                                        {day}
+                                        {t(`days.${day}`)}
                                     </Text>
                                 ))}
                             </View>
@@ -274,7 +279,7 @@ function Appointment() {
                                         return (
                                             <View key={slot.time} className="flex-row items-center justify-center rounded-[16px] border border-[#d6d6d6] bg-white px-5 py-4">
                                                 <Ionicons name="time-outline" size={18} color="#9ca3af" />
-                                                <Text className="ml-2 text-[16px] text-[#9ca3af]">{slot.time} (Not Available)</Text>
+                                                <Text className="ml-2 text-[16px] text-[#9ca3af]">{slot.time} ({t("appointment.notAvailable")})</Text>
                                             </View>
                                         );
                                     }
@@ -300,20 +305,20 @@ function Appointment() {
                     <View className="mt-10 flex-row items-center justify-end gap-5">
                         <Pressable className="flex-row items-center gap-2" onPress={() => { router.back() }}>
                             <Ionicons name="chevron-back" size={22} color="#111827" />
-                            <Text className="text-[18px] font-medium text-[#111827]">Cancel</Text>
+                            <Text className="text-[18px] font-medium text-[#111827]">{t("appointment.cancel")}</Text>
                         </Pressable>
 
                         <Pressable className="min-w-[220px] items-center rounded-[18px] bg-[#ef3734] px-8 py-4">
-                            <Text className="text-[20px] font-semibold text-white">Continue</Text>
+                            <Text className="text-[20px] font-semibold text-white">{t("appointment.continue")}</Text>
                         </Pressable>
                     </View>
 
                     <View className="mt-6 items-end">
                         <Text className="text-[14px] text-[#6b7280]">
-                            Selected package: <Text className="font-semibold text-[#1f2937]">{selectedPackagePrice === 0 ? 'Free' : formatPrice(selectedPackagePrice)}</Text>
+                            {t("appointment.selectedPackage")} <Text className="font-semibold text-[#1f2937]">{selectedPackagePrice === 0 ? 'Free' : formatPrice(selectedPackagePrice)}</Text>
                         </Text>
                         <Text className="mt-1 text-[14px] text-[#6b7280]">
-                            Selected date/time: <Text className="font-semibold text-[#1f2937]">{selectedDate} Mar 2026 - {selectedTime}</Text>
+                            {t("appointment.selectedDateTime")}: <Text className="font-semibold text-[#1f2937]">{selectedDate} Mar 2026 - {selectedTime}</Text>
                         </Text>
                     </View>
                 </View>

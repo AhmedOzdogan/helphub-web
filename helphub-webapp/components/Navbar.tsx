@@ -146,21 +146,21 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
     return (
         <View className="relative w-full border-b border-gray-200 bg-white">
             {/* Desktop/Tablet Navbar */}
-            <View className="hidden w-full max-w-7xl flex-row items-center justify-between px-4 py-4 md:px-6 md:py-5 sm:mx-auto sm:flex">
+            <View className="hidden w-full max-w-7xl flex-row items-center justify-between px-4 py-4 md:px-6 md:py-5 sm:mx-auto md:flex">
                 {/* Logo */}
                 <Link href="/" asChild>
-                    <Text className="text-3xl font-extrabold tracking-wide text-red-500 md:text-4xl md:tracking-wider">
+                    <Text className="text-3xl font-extrabold tracking-wide text-red-500 md:text-4xl md:tracking-wider cursor-pointer">
                         HelpHub
                     </Text>
                 </Link>
 
                 {/* Search */}
-                <View className="mx-4 min-w-0 flex-1 md:mx-8">
+                <View className="mx-4 flex-1 md:mx-8">
                     <TextInput
                         placeholder={t("SearchBar.desktopPlaceholder")}
-                        multiline={true}
+                        multiline={false}
                         placeholderTextColor="#9CA3AF"
-                        className="rounded-xl bg-gray-100 px-3 py-2.5 text-sm text-gray-800 md:px-2 md:py-3 md:text-base"
+                        className="rounded-xl bg-gray-100 px-3 py-2.5 text-sm text-gray-800 md:px-2 md:py-3 md:text-base max-h-120 w-full overflow-hidden text-ellipsis whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
                     />
                     <IonIcons
                         name="search"
@@ -262,19 +262,33 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     </Link>
 
                     {/* Get Help */}
-                    <Pressable className="rounded-full border border-red-500 px-4 py-2.5 md:px-5 md:py-3 hover:bg-red-400">
+                    <Pressable className="hidden xl:flex rounded-full border border-red-500 px-4 py-2.5 md:px-5 md:py-3 hover:bg-red-400">
                         <Text className="text-sm font-semibold text-red-500 hover:text-white md:text-base">
                             {t('Get Help')}
                         </Text>
                     </Pressable>
 
-                    {/* Language Dropdown */}
-                    <LanguageMenu openLanguageMenu={openLanguageMenu} setOpenLanguageMenu={setOpenLanguageMenu} />
+                    {/* Desktop Language Menu */}
+                    <View className="hidden xl:flex">
+                        <LanguageMenu
+                            openLanguageMenu={openLanguageMenu}
+                            setOpenLanguageMenu={setOpenLanguageMenu}
+                        />
+                    </View>
+
+                    {/* Medium Screen Language Menu */}
+                    <View className="flex xl:hidden">
+                        <LanguageMenu
+                            openLanguageMenu={openLanguageMenu}
+                            setOpenLanguageMenu={setOpenLanguageMenu}
+                            mobile={true}
+                        />
+                    </View>
                 </View>
             </View>
 
             <View
-                className="relative -z-10 hidden border-t border-gray-100 sm:flex"
+                className="relative -z-10 hidden border-t border-gray-100 md:flex"
                 testID='Dropdown-web-menu'
             >
                 <View className="z-[999] mx-auto flex w-full max-w-7xl flex-row items-center justify-center gap-6 px-4 py-4 md:gap-10 md:px-6">
@@ -288,7 +302,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     {/* For Moms and Kids */}
                     <MenuDropdown
                         TestID='for-moms-and-kids-dropdown'
-                        onMouseEnterFunction={() => openMegaMenu('momsAndKids')}
+                        onMouseEnterFunction={() => openMegaMenu('forMomsAndKids')}
                         onMouseLeaveFunction={closeMegaMenu}
                         menuText={t('MobileMenuSections.forMomsAndKids')}
                     />
@@ -296,7 +310,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     {/* For Work */}
                     <MenuDropdown
                         TestID='for-work-dropdown'
-                        onMouseEnterFunction={() => openMegaMenu('workRelatedIssues')}
+                        onMouseEnterFunction={() => openMegaMenu('forWork')}
                         onMouseLeaveFunction={closeMegaMenu}
                         menuText={t('MobileMenuSections.forWork')}
                     />
@@ -361,7 +375,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
 
             <View>
                 {/* Mobile Navbar */}
-                <View className="flex w-full bg-[#f5f5f5] px-5 pb-6 pt-5 sm:hidden">
+                <View className="flex w-full bg-[#f5f5f5] px-5 pb-6 pt-5 md:hidden">
                     <View className="flex-row items-center justify-between">
                         <Pressable
                             accessibilityRole="button"
@@ -413,8 +427,9 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     </View>
 
                     {!mobileMenuOpen ? (
-                        <View className="mt-6 z-[-999]">
-                            <View className="relative justify-center rounded-2xl bg-[#eceaec] px-5 py-4 z-[-999]">
+                        <View className="mt-6 "
+                            style={Platform.OS === 'web' ? { zIndex: -999 } : undefined}>
+                            <View className="relative justify-center rounded-2xl bg-[#eceaec] px-5 py-4">
                                 <TextInput
                                     testID="mobile-search-input"
                                     placeholder={t("SearchBar.mobilePlaceholder")}

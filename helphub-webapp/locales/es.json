@@ -277,5 +277,39 @@
       "burnout": "Desgaste profesional",
       "communicationIssues": "Problemas de comunicación"
     }
+  },
+  "downloadButtons": {
+    "googlePlay": {
+      "text1": "Obtener en",
+      "text2": "Google Play"
+    },
+    "appStore": {
+      "text1": "Descargar en el",
+      "text2": "App Store"
+    }
+  },
+  "appointment": {
+    "title": "Agendar una cita",
+    "preInterview": "Pre-entrevista",
+    "individualCoaching": "Coaching individual",
+    "fiveSessions": "Paquete de 5 sesiones",
+    "mins": "minutos",
+    "session": "sesión",
+    "notAvailable": "No disponible",
+    "selectedPackage": "Paquete seleccionado:",
+    "selectedDateAndTime": "Fecha y hora seleccionadas:",
+    "selectedDateTime": "Fecha/hora seleccionada:",
+    "cancel": "Cancelar",
+    "continue": "Continuar",
+    "calendarMonth": "Marzo 2026",
+    "days": {
+      "Mon": "Lun",
+      "Tue": "Mar",
+      "Wed": "Mié",
+      "Thu": "Jue",
+      "Fri": "Vie",
+      "Sat": "Sáb",
+      "Sun": "Dom"
+    }
   }
 }

@@ -5,8 +5,8 @@ interface SmallMenuData {
 
 interface MegaMenuData {
     forMyself: SmallMenuData[];
-    momsAndKids: SmallMenuData[];
-    workRelatedIssues: SmallMenuData[];
+    forMomsAndKids: SmallMenuData[];
+    forWork: SmallMenuData[];
     groupTherapies: SmallMenuData[];
 }
 
@@ -25,7 +25,7 @@ const megaMenuData: MegaMenuData = {
             items: ['Energy Therapy', 'Astrology', 'Numerology', 'NLP', 'Reiki', 'Family Constellation', 'Human Design', 'Mindfulness'],
         },
     ],
-    momsAndKids: [
+    forMomsAndKids: [
         {
             title: 'Mother Support',
             items: ['Postpartum Support', 'Parenting Guidance', 'Emotional Balance'],
@@ -39,7 +39,7 @@ const megaMenuData: MegaMenuData = {
             items: ['Parent-Child Communication', 'Routine Planning', 'Family Coaching'],
         },
     ],
-    workRelatedIssues: [
+    forWork: [
         {
             title: 'Career Support',
             items: ['Burnout', 'Career Counseling', 'Leadership Coaching'],

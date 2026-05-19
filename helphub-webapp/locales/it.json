@@ -284,5 +284,39 @@
       "text": "Disclaimer – I servizi di consulenza online non sono adatti a tutti. Se stai vivendo pensieri di autolesionismo o suicidio, questi servizi potrebbero non essere appropriati per te. In questi casi, ti consigliamo vivamente di contattare i servizi di emergenza locali.",
       "emergency": "Numero di Emergenza: 112, Polizia: 113, Supporto Violenza Domestica: 1522, Supporto Dipendenze: 800 554088"
     }
+  },
+  "downloadButtons": {
+    "googlePlay": {
+      "text1": "Scarica su",
+      "text2": "Google Play"
+    },
+    "appStore": {
+      "text1": "Scarica su",
+      "text2": "App Store"
+    }
+  },
+  "appointment": {
+    "title": "Prenota la Tua Sessione",
+    "preInterview": "Pre-Intervista",
+    "individualCoaching": "Coaching Individuale",
+    "fiveSessions": "Pacchetto di 5 Sessioni",
+    "mins": "minuti",
+    "session": "sessione",
+    "notAvailable": "Non Disponibile",
+    "selectedPackage": "Pacchetto Selezionato:",
+    "selectedDateAndTime": "Data/Ora Selezionati:",
+    "selectedDateTime": "Data/Ora Selezionati:",
+    "cancel": "Annulla",
+    "continue": "Continua",
+    "calendarMonth": "Marzo 2026",
+    "days": {
+      "Mon": "Lun",
+      "Tue": "Mar",
+      "Wed": "Mer",
+      "Thu": "Jue",
+      "Fri": "Vie",
+      "Sat": "Sáb",
+      "Sun": "Dom"
+    }
   }
 }

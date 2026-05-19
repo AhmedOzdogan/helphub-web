@@ -44,14 +44,14 @@ function Slider() {
     // Ref to track if animation is in progress
     const isAnimatingRef = useRef(false);
 
-    // Determine height class based on platform
+    // Determine responsive slider heights
     const sliderHeightClass =
         Platform.OS === 'web' || Platform.OS === 'ios' || Platform.OS === 'android'
-            ? 'h-[620px] sm:h-[620px] md:h-[360px] lg:h-[600px]'
+            ? 'h-[600px] sm:h-[700px] md:h-[360px] lg:h-[520px] xl:h-[620px]'
             : 'h-[250px]';
 
-    // Check if slider is in mobile mode (width < 640)
-    const isMobileSlider = sliderWidth > 0 && sliderWidth < 640;
+    // Check if slider is in mobile mode (width < 768)
+    const isMobileSlider = sliderWidth > 0 && sliderWidth < 768;
     // Check if slider supports touch gestures
     const isTouchSlider = sliderWidth > 0;
     // Select current slides based on mobile/desktop
@@ -278,12 +278,12 @@ function Slider() {
                         <View
                             key={index}
                             testID={`slider-slide-${index}`}
-                            style={{ width: sliderWidth, height: '100%' }}
+                            style={{ width: sliderWidth, height: '100%', backgroundColor: "white" }}
                         >
                             <Image
                                 testID={`slider-image-${index}`}
                                 source={slide}
-                                resizeMode="cover"
+                                resizeMode={isMobileSlider ? 'contain' : 'cover'}
                                 style={{ width: sliderWidth, height: '100%' }}
                             />
                         </View>

@@ -275,5 +275,39 @@
       "burnout": "Burnout",
       "communicationIssues": "Problèmes de communication"
     }
+  },
+  "downloadButtons": {
+    "googlePlay": {
+      "text1": "Obtenez-le sur",
+      "text2": "Google Play"
+    },
+    "appStore": {
+      "text1": "Téléchargez sur le",
+      "text2": "App Store"
+    }
+  },
+  "appointment": {
+    "title": "Prendre rendez-vous",
+    "preInterview": "Entretien préliminaire",
+    "individualCoaching": "Coaching individuel",
+    "fiveSessions": "5 séances de coaching",
+    "mins": "mins",
+    "session": "séance",
+    "selectedPackage": "Forfait sélectionné:",
+    "selectedDateAndTime": "Date et heure sélectionnées:",
+    "selectedDateTime": "Date/heure sélectionnée",
+    "notAvailable": "Non disponible",
+    "cancel": "Annuler",
+    "continue": "Continuer",
+    "calendarMonth": "Mars 2026",
+    "days": {
+      "Mon": "Lun",
+      "Tue": "Mar",
+      "Wed": "Mer",
+      "Thu": "Jeu",
+      "Fri": "Ven",
+      "Sat": "Sam",
+      "Sun": "Dim"
+    }
   }
 }

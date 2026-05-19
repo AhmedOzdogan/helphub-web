@@ -51,7 +51,17 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
             <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Open language menu"
-                className="flex-row items-center gap-2 rounded-full border border-gray-200 bg-gradient-to-r from-red-500 to-red-400 px-3 py-2 shadow-lg transition-all hover:scale-[1.02] hover:border-red-400 md:px-4 md:py-2.5"
+                className="flex-row items-center gap-2 rounded-full px-3 py-2 md:px-4 md:py-2.5"
+                style={{
+                    backgroundColor: '#ef4444',
+                    borderColor: '#f87171',
+                    borderWidth: 1,
+                    shadowColor: '#ef4444',
+                    shadowOffset: { width: 0, height: 6 },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 12,
+                    elevation: 6,
+                }}
                 onPress={() => setOpenLanguageMenu(!openLanguageMenu)}
             >
                 {mobile ? (
@@ -64,7 +74,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
                     </>
                 ) : (
                     <>
-                        <View className="items-center justify-center rounded-s bg-white/10 px-2 py-1 z-[999]">
+                        <View className="items-center justify-center rounded-s px-2 py-1 z-[999]">
                             <Text className="text-base md:text-lg">
                                 {currentLanguage.flag}
                             </Text>
@@ -73,10 +83,6 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
                         <View>
                             <Text className="text-[10px] font-medium uppercase tracking-[1.5px] text-black/70 md:text-[11px] z-[999]">
                                 {currentLanguage.label}
-                            </Text>
-
-                            <Text className="text-xs font-bold text-white md:text-sm z-[999]">
-                                {currentLanguage.code.toUpperCase()}
                             </Text>
                         </View>
 
