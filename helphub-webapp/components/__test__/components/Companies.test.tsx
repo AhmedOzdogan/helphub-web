@@ -38,33 +38,33 @@ describe('Companies', () => {
     it('renders the company support heading', () => {
         render(<Companies />);
 
-        expect(screen.getByText('Special support for companies')).toBeTruthy();
+        expect(screen.getByText('companies.leftSide.text1')).toBeTruthy();
     });
 
     it('renders the HelpHub Solutions title', () => {
         render(<Companies />);
 
-        expect(screen.getByText('HelpHub Solutions')).toBeTruthy();
+        expect(screen.getByText('companies.leftSide.text2')).toBeTruthy();
     });
 
     it('renders the partner companies description', () => {
         render(<Companies />);
 
-        expect(screen.getByText('Companies partnering with HelpHub')).toBeTruthy();
+        expect(screen.getByText('companies.rightSide.text1')).toBeTruthy();
     });
 
     it('renders the Contact Us button', () => {
         render(<Companies />);
 
-        expect(screen.getByText('Contact Us')).toBeTruthy();
-        expect(screen.getByRole('button', { name: 'Contact Us' })).toBeTruthy();
+        expect(screen.getByText('companies.leftSide.buttonText')).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'companies.leftSide.buttonText' })).toBeTruthy();
         expect(screen.getByTestId('companies-contact-button')).toBeTruthy();
     });
 
     it('passes the correct text to the RedButton component', () => {
         render(<Companies />);
 
-        expect(screen.getByTestId('companies-contact-button').props.accessibilityLabel).toBe('Contact Us');
+        expect(screen.getByTestId('companies-contact-button').props.accessibilityLabel).toBe('companies.leftSide.buttonText');
     });
 
     it('renders the companies logo image', () => {
@@ -82,6 +82,6 @@ describe('Companies', () => {
     it('uses the correct accessibility label for the companies logo image', () => {
         render(<Companies />);
 
-        expect(screen.getByLabelText('Companies partnering with HelpHub logos')).toBeTruthy();
+        expect(screen.getByLabelText('companies.rightSide.accesibilityLabel')).toBeTruthy();
     });
 });

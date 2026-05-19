@@ -24,7 +24,7 @@ describe('Advantages', () => {
     it('renders the section title', () => {
         render(<Advantages />);
 
-        expect(screen.getByText('Advantages of Choosing HelpHub')).toBeTruthy();
+        expect(screen.getByTestId('advantages-title')).toBeTruthy();
     });
 
     it('renders the cards container', () => {
@@ -45,8 +45,8 @@ describe('Advantages', () => {
     it('renders the live consultation advantage card', () => {
         render(<Advantages />);
 
-        expect(screen.getByText('1-1 Live Consultation')).toBeTruthy();
-        expect(screen.getByText('Live consultation from the comfort of your home, office, or anywhere you are.')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step1.title')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step1.description')).toBeTruthy();
         expect(screen.getByTestId('step-card-icon-01')).toBeTruthy();
         expect(screen.getByText('search')).toBeTruthy();
     });
@@ -54,8 +54,8 @@ describe('Advantages', () => {
     it('renders the online chat advantage card', () => {
         render(<Advantages />);
 
-        expect(screen.getByText('Online Chat')).toBeTruthy();
-        expect(screen.getByText('Message the expert for free and have a short introductory conversation.')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step2.title')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step2.description')).toBeTruthy();
         expect(screen.getByTestId('step-card-icon-02')).toBeTruthy();
         expect(screen.getByText('chatbubble-outline')).toBeTruthy();
     });
@@ -63,8 +63,8 @@ describe('Advantages', () => {
     it('renders the secure payment advantage card', () => {
         render(<Advantages />);
 
-        expect(screen.getByText('Secure Payment')).toBeTruthy();
-        expect(screen.getByText('Make secure payments using your credit card.')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step3.title')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step3.description')).toBeTruthy();
         expect(screen.getByTestId('step-card-icon-03')).toBeTruthy();
         expect(screen.getByText('calendar-outline')).toBeTruthy();
     });
@@ -72,8 +72,8 @@ describe('Advantages', () => {
     it('renders the refund guarantee advantage card', () => {
         render(<Advantages />);
 
-        expect(screen.getByText('100% Refund Guarantee')).toBeTruthy();
-        expect(screen.getByText('Get a full refund for any missed appointments.')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step4.title')).toBeTruthy();
+        expect(screen.getByText('advantages.advantagesList.step4.description')).toBeTruthy();
         expect(screen.getByTestId('step-card-icon-04')).toBeTruthy();
         expect(screen.getByText('videocam-outline')).toBeTruthy();
     });

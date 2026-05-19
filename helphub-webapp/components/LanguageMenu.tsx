@@ -49,6 +49,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
     return (
         <View className="relative z-[999]">
             <Pressable
+                testID="language-menu-button"
                 accessibilityRole="button"
                 accessibilityLabel="Open language menu"
                 className="flex-row items-center gap-2 rounded-full px-3 py-2 md:px-4 md:py-2.5"
@@ -97,11 +98,13 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
 
             {openLanguageMenu ? (
                 <View
+                    testID="language-menu"
                     className={`absolute top-full z-[999] mt-2 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl ${mobile ? 'w-[64px] right-0' : 'w-[172px] right-0'
                         }`}
                 >
                     {languages.map((lang) => (
                         <Pressable
+                            testID={lang.code}
                             key={lang.code}
                             className="flex-row items-center justify-center py-2 transition-colors hover:bg-gray-100"
                             onPress={() => {

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -135,9 +135,11 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,15 +209,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Text, View } from 'react-native';
-&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useTranslation } from 'react-i18next';
+import { Text, View } from 'react-native';
 function Details() {
+    const { t, i18n } = useTranslation();
     return (
         &lt;View
             className="w-full items-center justify-center bg-blue-50 px-6 py-16"
             testID="details-main-container"&gt;
             &lt;Text className="mb-10 text-center text-[30px] font-bold text-slate-800"&gt;
-                What is HelpHub?
+                {t('details.title')}
             &lt;/Text&gt;
 &nbsp;
             &lt;View
@@ -227,10 +230,10 @@ function Details() {
                     &lt;Text
                         className="mb-2 text-center text-2xl font-semibold text-slate-800"
                     &gt;
-                        Online Counseling and Support Services at HelpHub
+                        {t('details.section1.title')}
                     &lt;/Text&gt;
                     &lt;Text className="text-center text-sm leading-[30px] text-gray-600"&gt;
-                        HelpHub provides a wide range of online counseling services for individuals seeking professional support. With services such as online therapy, family counseling, and emotional guidance, you can find solutions tailored to your mental and emotional needs. No matter how busy your schedule is, you can connect with expert consultants from the comfort of your home.
+                        {t('details.section1.description')}
                     &lt;/Text&gt;
                 &lt;/View&gt;
 &nbsp;
@@ -239,38 +242,38 @@ function Details() {
                     &lt;Text
                         className="mb-2 text-center text-2xl font-semibold text-slate-800"
                     &gt;
-                        Simplify Your Life with Online Support
+                        {t('details.section2.title')}
                     &lt;/Text&gt;
                     &lt;Text className="text-center text-sm leading-[30px] text-gray-600"&gt;
-                        HelpHub is designed to make your life easier by connecting you with professionals in various fields. Whether you need psychological support, lifestyle guidance, or personal development, you can easily find the right expert and receive personalized assistance.
+                        {t('details.section2.description')}
                     &lt;/Text&gt;
                 &lt;/View&gt;
 &nbsp;
                 &lt;View
                     testID='Third Paragraph'&gt;
                     &lt;Text className="mb-2 text-center text-2xl font-semibold text-slate-800"&gt;
-                        Benefits of Online Counseling
+                        {t('details.section3.title')}
                     &lt;/Text&gt;
                     &lt;Text className="text-center text-sm leading-[30px] text-gray-600"&gt;
-                        One of the biggest advantages of online counseling is the ability to receive support anytime and anywhere. You don’t need to travel—simply connect from your home or any location. This is especially helpful for busy individuals or those with limited access to local services. Online sessions also ensure privacy and comfort, allowing you to feel more secure and focused.
+                        {t('details.section3.description')}
                     &lt;/Text&gt;
                 &lt;/View&gt;
 &nbsp;
                 &lt;View&gt;
                     &lt;Text className="mb-2 text-center text-2xl font-semibold text-slate-800"&gt;
-                        Professional Support You Can Trust
+                        {t('details.section4.title')}
                     &lt;/Text&gt;
                     &lt;Text className="text-center text-sm leading-[30px] text-gray-600"&gt;
-                        HelpHub connects you with experienced professionals who provide guidance for a variety of needs. From mental health support to personal growth, our experts help you navigate challenges and improve your well-being with confidence.
+                        {t('details.section4.description')}
                     &lt;/Text&gt;
                 &lt;/View&gt;
 &nbsp;
                 &lt;View&gt;
                     &lt;Text className="mb-2 text-center text-2xl font-semibold text-slate-800"&gt;
-                        Personalized Solutions for Everyone
+                        {t('details.section5.title')}
                     &lt;/Text&gt;
                     &lt;Text className="text-center text-sm leading-[30px] text-gray-600"&gt;
-                        Our services are designed to offer personalized solutions that fit your unique needs. Whether for yourself or your loved ones, HelpHub makes it easy to access reliable, professional support and take steps toward a healthier, happier life.
+                        {t('details.section5.description')}
                     &lt;/Text&gt;
                 &lt;/View&gt;
             &lt;/View&gt;
@@ -286,7 +289,7 @@ export default Details;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-04T15:56:54.510Z
+                at 2026-05-19T14:59:12.469Z
             </div>
         <script src="../prettify.js"></script>
         <script>

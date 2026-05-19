@@ -4,12 +4,20 @@ import { Platform } from 'react-native';
 import Navbar from '../../Navbar';
 
 const mockPush = jest.fn();
+const mockGetItem = jest.fn();
+const mockSetItem = jest.fn();
+const mockChangeLanguage = jest.fn();
 
 jest.mock('expo-router', () => ({
     Link: ({ children }: { children: React.ReactNode }) => children,
     useRouter: () => ({
         push: mockPush,
     }),
+}));
+
+jest.mock('@react-native-async-storage/async-storage', () => ({
+    getItem: (...args: unknown[]) => mockGetItem(...args),
+    setItem: (...args: unknown[]) => mockSetItem(...args),
 }));
 
 jest.mock('@expo/vector-icons/Ionicons', () => {
@@ -19,6 +27,11 @@ jest.mock('@expo/vector-icons/Ionicons', () => {
         return <Text>{name}</Text>;
     };
 });
+
+jest.mock('../../../i18n', () => ({
+    language: 'en',
+    changeLanguage: (...args: unknown[]) => mockChangeLanguage(...args),
+}));
 
 const renderNavbar = (onMobileMenuChange = jest.fn()) => {
     render(<Navbar onMobileMenuChange={onMobileMenuChange} />);
@@ -49,6 +62,9 @@ describe('Navbar', () => {
     const originalPlatformOS = Platform.OS;
     beforeEach(() => {
         mockPush.mockClear();
+        mockGetItem.mockReset();
+        mockSetItem.mockReset();
+        mockChangeLanguage.mockReset();
     });
 
     afterEach(() => {
@@ -66,7 +82,7 @@ describe('Navbar', () => {
         renderNavbar();
 
         expect(screen.getByTestId('mobile-search-input')).toBeTruthy();
-        expect(screen.getByPlaceholderText('Danışmanlık Uzmanlık... Ara')).toBeTruthy();
+        expect(screen.getByPlaceholderText('SearchBar.mobilePlaceholder')).toBeTruthy();
     });
 
     it('opens the mobile menu when the hamburger button is pressed', () => {
@@ -97,7 +113,7 @@ describe('Navbar', () => {
         openMobileMenu();
 
         expect(screen.queryByTestId('mobile-search-input')).toBeNull();
-        expect(screen.queryByPlaceholderText('Danışmanlık Uzmanlık... Ara')).toBeNull();
+        expect(screen.queryByPlaceholderText('SearchBar.mobilePlaceholder')).toBeNull();
     });
 
     it('closes the mobile menu when the close button is pressed', () => {
@@ -125,8 +141,8 @@ describe('Navbar', () => {
 
         openMobileAccountMenu();
         expect(screen.getByTestId('mobile-account-menu')).toBeTruthy();
-        expect(screen.getByText('Log In')).toBeTruthy();
-        expect(screen.getByText('Sign Up')).toBeTruthy();
+        expect(screen.getByTestId('mobileLoginButton')).toBeTruthy();
+        expect(screen.getByTestId('mobileSignUpButton')).toBeTruthy();
 
         openMobileAccountMenu();
         expect(screen.queryByTestId('mobile-account-menu')).toBeNull();
@@ -146,7 +162,7 @@ describe('Navbar', () => {
         renderNavbar();
 
         openMobileAccountMenu();
-        fireEvent.press(screen.getByText('Sign Up'));
+        fireEvent.press(screen.getByTestId('mobileSignUpButton'));
 
         expect(mockPush).toHaveBeenCalledWith('/signup');
         expect(screen.queryByTestId('mobile-account-menu')).toBeNull();
@@ -156,7 +172,7 @@ describe('Navbar', () => {
         renderNavbar();
 
         openMobileMenu();
-        fireEvent.press(screen.getByLabelText('Toggle FOR MYSELF'));
+        fireEvent.press(screen.getByTestId('mobile-section-forMyself'));
 
         expect(screen.getByLabelText('Toggle FOR MYSELF').props.accessibilityState.expanded).toBe(true);
     });
@@ -165,10 +181,10 @@ describe('Navbar', () => {
         renderNavbar();
 
         openMobileMenu();
-        fireEvent.press(screen.getByLabelText('Toggle FOR MYSELF'));
+        fireEvent.press(screen.getByTestId('mobile-section-forMyself'));
         expect(screen.getByLabelText('Toggle FOR MYSELF').props.accessibilityState.expanded).toBe(true);
 
-        fireEvent.press(screen.getByLabelText('Toggle FOR MYSELF'));
+        fireEvent.press(screen.getByTestId('mobile-section-forMyself'));
         expect(screen.getByLabelText('Toggle FOR MYSELF').props.accessibilityState.expanded).toBe(false);
     });
 
@@ -176,7 +192,7 @@ describe('Navbar', () => {
         renderNavbar();
 
         openMobileMenu();
-        fireEvent.press(screen.getByLabelText('Toggle FOR MYSELF'));
+        fireEvent.press(screen.getByTestId('mobile-section-forMyself'));
         expect(screen.getByLabelText('Toggle FOR MYSELF').props.accessibilityState.expanded).toBe(true);
 
         fireEvent.press(screen.getByLabelText('Toggle FOR WORK'));
@@ -206,10 +222,10 @@ describe('Navbar', () => {
         renderDesktopNavbar();
 
         expect(screen.getByTestId('Dropdown-web-menu')).toBeTruthy();
-        expect(screen.getByText('FOR MYSELF')).toBeTruthy();
-        expect(screen.getByText('FOR MOMS AND KIDS')).toBeTruthy();
-        expect(screen.getByText('FOR WORK')).toBeTruthy();
-        expect(screen.getByText('GROUP THERAPIES')).toBeTruthy();
+        expect(screen.getByText('MobileMenuSections.forMyself')).toBeTruthy();
+        expect(screen.getByText('MobileMenuSections.forMomsAndKids')).toBeTruthy();
+        expect(screen.getByText('MobileMenuSections.forWork')).toBeTruthy();
+        expect(screen.getByText('MobileMenuSections.groupTherapies')).toBeTruthy();
     });
 
     it('opens the FOR MYSELF mega menu on mouse enter and closes after mouse leave delay', () => {
@@ -235,7 +251,7 @@ describe('Navbar', () => {
         renderDesktopNavbar();
 
         fireEvent(screen.getByTestId('for-moms-and-kids-dropdown'), 'mouseEnter');
-        expect(screen.getByTestId('mega-menu-momsAndKids')).toBeTruthy();
+        expect(screen.getByTestId('mega-menu-forMomsAndKids')).toBeTruthy();
 
         fireEvent(screen.getByTestId('for-moms-and-kids-dropdown'), 'mouseLeave');
 
@@ -243,7 +259,7 @@ describe('Navbar', () => {
             jest.advanceTimersByTime(250);
         });
 
-        expect(screen.queryByTestId('mega-menu-momsAndKids')).toBeNull();
+        expect(screen.queryByTestId('mega-menu-forMomsAndKids')).toBeNull();
     });
 
     it('opens the FOR WORK mega menu on mouse enter and closes after mouse leave delay', () => {
@@ -252,7 +268,7 @@ describe('Navbar', () => {
         renderDesktopNavbar();
 
         fireEvent(screen.getByTestId('for-work-dropdown'), 'mouseEnter');
-        expect(screen.getByTestId('mega-menu-workRelatedIssues')).toBeTruthy();
+        expect(screen.getByTestId('mega-menu-forWork')).toBeTruthy();
 
         fireEvent(screen.getByTestId('for-work-dropdown'), 'mouseLeave');
 
@@ -260,7 +276,7 @@ describe('Navbar', () => {
             jest.advanceTimersByTime(250);
         });
 
-        expect(screen.queryByTestId('mega-menu-workRelatedIssues')).toBeNull();
+        expect(screen.queryByTestId('mega-menu-forWork')).toBeNull();
     });
 
     it('opens the GROUP THERAPIES mega menu on mouse enter and closes after mouse leave delay', () => {
@@ -280,4 +296,286 @@ describe('Navbar', () => {
         expect(screen.queryByTestId('mega-menu-groupTherapies')).toBeNull();
     });
 
+    it('renders the language switch button', () => {
+        renderNavbar();
+
+        expect(screen.getAllByTestId('language-menu-button').length).toBeGreaterThan(0);
+    });
+
+    it('opens the language menu when language button is pressed', () => {
+        renderNavbar();
+        // press one of the button 
+        fireEvent.press(screen.getAllByTestId('language-menu-button')[0]);
+
+        expect(screen.getAllByTestId('language-menu').length).toBeGreaterThan(0);
+    });
+
+    it('loads stored language from AsyncStorage on mount', async () => {
+        mockGetItem.mockResolvedValue('de');
+
+        renderNavbar();
+
+        await act(async () => {
+            await Promise.resolve();
+        });
+
+        expect(mockGetItem).toHaveBeenCalledWith('language');
+        expect(mockChangeLanguage).toHaveBeenCalledWith('de');
+    });
+
+    it('does not change language when stored language is invalid', async () => {
+        mockGetItem.mockResolvedValue('invalid-language');
+
+        renderNavbar();
+
+        await act(async () => {
+            await Promise.resolve();
+        });
+
+        expect(mockChangeLanguage).not.toHaveBeenCalled();
+    });
+
+    it('changes language and closes menu when a language is selected', async () => {
+        renderNavbar();
+
+        fireEvent.press(screen.getAllByTestId('language-menu-button')[0]);
+
+        const germanButton = screen.getAllByTestId('de')[0];
+
+        await act(async () => {
+            fireEvent.press(germanButton);
+        });
+
+        expect(mockSetItem).toHaveBeenCalledWith('language', 'de');
+        expect(mockChangeLanguage).toHaveBeenCalledWith('de');
+    });
+
+    it('opens desktop account menu on mouse enter', () => {
+        renderDesktopNavbar();
+
+        fireEvent.press(screen.getByLabelText('Open account menu'));
+
+        expect(screen.getByTestId('loginButton')).toBeTruthy();
+        expect(screen.getByTestId('signUpButton')).toBeTruthy();
+    });
+
+    it('closes desktop account menu when account button is pressed again', () => {
+        renderDesktopNavbar();
+
+        fireEvent.press(screen.getByLabelText('Open account menu'));
+
+        expect(screen.getByTestId('loginButton')).toBeTruthy();
+
+        fireEvent.press(screen.getByLabelText('Open account menu'));
+
+        expect(screen.queryByTestId('loginButton')).toBeNull();
+    });
+
+    it('keeps mega menu open when mouse enters again before timeout', () => {
+        jest.useFakeTimers();
+
+        renderDesktopNavbar();
+
+        const dropdown = screen.getByTestId('for-myself-dropdown');
+
+        fireEvent(dropdown, 'mouseEnter');
+
+        fireEvent(dropdown, 'mouseLeave');
+
+        fireEvent(dropdown, 'mouseEnter');
+
+        act(() => {
+            jest.advanceTimersByTime(250);
+        });
+
+        expect(screen.getByTestId('mega-menu-forMyself')).toBeTruthy();
+    });
+
+    it('opens mobile menu on web without crashing', () => {
+        setPlatformOS('web');
+
+        renderNavbar();
+
+        openMobileMenu();
+
+        expect(screen.getByTestId('MobileMenu')).toBeTruthy();
+    });
+
+    it('navigates from desktop login button', () => {
+
+        renderDesktopNavbar();
+
+        fireEvent.press(screen.getByLabelText('Open account menu'));
+
+        const loginButtons = screen.getAllByText('Login');
+
+        fireEvent.press(loginButtons[0]);
+
+        expect(mockPush).toHaveBeenCalledWith('/login');
+
+    });
+
+    it('navigates from desktop signup button', () => {
+        renderDesktopNavbar();
+
+        fireEvent.press(screen.getByLabelText('Open account menu'));
+
+        const signupButtons = screen.getAllByText('Sign Up');
+
+        fireEvent.press(signupButtons[0]);
+
+        expect(mockPush).toHaveBeenCalledWith('/signup');
+    });
+
+    it('prevents touch move on backdrop', () => {
+        renderNavbar();
+
+        openMobileMenu();
+
+        const preventDefault = jest.fn();
+
+        fireEvent(screen.getByTestId('mobile-menu-backdrop'), 'touchMove', {
+            preventDefault,
+        });
+
+        expect(preventDefault).toHaveBeenCalled();
+    });
+
+    it('stops propagation on mobile menu content touch move', () => {
+        renderNavbar();
+
+        openMobileMenu();
+
+        const stopPropagation = jest.fn();
+
+        fireEvent(screen.getByTestId('mobile-menu-content'), 'touchMove', {
+            stopPropagation,
+        });
+
+        expect(stopPropagation).toHaveBeenCalled();
+    });
+
+    it('closes mobile menu when mega menu title is pressed', () => {
+        renderNavbar();
+
+        openMobileMenu();
+
+        fireEvent.press(screen.getByTestId('mobile-section-forMyself'));
+
+        fireEvent.press(screen.getByText('MegaMenuTitles.Mental Wellbeing'));
+
+        expect(screen.queryByTestId('MobileMenu')).toBeNull();
+    });
+
+    it('closes mobile menu when mega menu item is pressed', () => {
+        renderNavbar();
+
+        openMobileMenu();
+
+        const buttons = screen.getAllByTestId('mobile-section-forMyself')
+
+        fireEvent.press(buttons[buttons.length - 1]);
+
+        fireEvent.press(screen.getByText('MegaMenuItems.Psychology'));
+
+        expect(screen.queryByTestId('MobileMenu')).toBeNull();
+    });
+
+    it('closes mobile menu when Guide link is pressed', () => {
+        renderNavbar();
+
+        openMobileMenu();
+
+        const buttons = screen.getAllByText('Guide');
+
+        fireEvent.press(buttons[buttons.length - 1]);
+
+        expect(screen.queryByTestId('MobileMenu')).toBeNull();
+    });
+
+    it('closes mobile menu when How does it work link is pressed', () => {
+        renderNavbar();
+
+        openMobileMenu();
+
+        const buttons = screen.getAllByText('How does it work?');
+
+        fireEvent.press(buttons[buttons.length - 1]);
+
+        expect(screen.queryByTestId('MobileMenu')).toBeNull();
+    });
+
+
+    it('locks and restores body scroll on web when mobile menu opens', () => {
+        setPlatformOS('web');
+
+        // mock document manually
+        const mockPage = {
+            style: {
+                overflow: '',
+                height: '',
+                touchAction: '',
+            },
+        };
+
+        const mockBody = {
+            style: {
+                overflow: '',
+            },
+        };
+
+        const mockHtml = {
+            style: {
+                overflow: '',
+            },
+        };
+
+        Object.defineProperty(global, 'document', {
+            value: {
+                getElementById: jest.fn(() => mockPage),
+                body: mockBody,
+                documentElement: mockHtml,
+            },
+            writable: true,
+        });
+
+        const { unmount } = render(
+            <Navbar onMobileMenuChange={jest.fn()} />
+        );
+
+        fireEvent.press(screen.getByLabelText('Open mobile menu'));
+
+        expect(mockPage.style.overflow).toBe('hidden');
+        expect(mockPage.style.height).toBe('100vh');
+        expect(mockPage.style.touchAction).toBe('none');
+
+        expect(mockBody.style.overflow).toBe('hidden');
+        expect(mockHtml.style.overflow).toBe('hidden');
+
+        unmount();
+
+        expect(mockPage.style.overflow).toBe('');
+        expect(mockPage.style.height).toBe('');
+        expect(mockPage.style.touchAction).toBe('');
+    });
+
+    it('keeps mega menu open when hovering menu panel', () => {
+        jest.useFakeTimers();
+
+        renderDesktopNavbar();
+
+        fireEvent(screen.getByTestId('for-myself-dropdown'), 'mouseEnter');
+
+        const megaMenu = screen.getByTestId('mega-menu-forMyself');
+
+        fireEvent(screen.getByTestId('for-myself-dropdown'), 'mouseLeave');
+
+        fireEvent(megaMenu, 'mouseEnter');
+
+        act(() => {
+            jest.advanceTimersByTime(250);
+        });
+
+        expect(screen.getByTestId('mega-menu-forMyself')).toBeTruthy();
+    });
 });

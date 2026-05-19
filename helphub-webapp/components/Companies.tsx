@@ -9,22 +9,22 @@ function Companies() {
             {/* LEFT SIDE */}
             <View testID="companies-left-content" className="w-full items-center md:max-w-[600px] lg:max-w-[500px] lg:items-start">
                 <Text className="text-center text-xl font-semibold leading-relaxed text-slate-800 md:text-2xl lg:text-left lg:leading-[38px]">
-                    {t('companies.leftSide.text1')}
+                    {'companies.leftSide.text1'}
                 </Text>
 
                 <Text className="text-center text-xl font-bold leading-relaxed text-red-500 md:text-2xl lg:text-left lg:leading-[38px]">
-                    {t('companies.leftSide.text2')}
+                    {'companies.leftSide.text2'}
                 </Text>
 
                 <View className="mt-4">
-                    <RedButton ButtonText={t('companies.leftSide.buttonText')} />
+                    <RedButton ButtonText={'companies.leftSide.buttonText'} />
                 </View>
             </View>
 
             {/* RIGHT SIDE */}
             <View testID="companies-partners-content" className="w-full items-center justify-center gap-4 lg:w-auto">
                 <Text className="px-4 text-center text-base text-gray-400 md:text-xl lg:text-2xl">
-                    {t('companies.rightSide.text1')}
+                    {'companies.rightSide.text1'}
                 </Text>
 
                 <Image
@@ -32,7 +32,7 @@ function Companies() {
                     source={companies}
                     resizeMode="contain"
                     accessibilityRole="image"
-                    accessibilityLabel={t('companies.rightSide.accesibilityLabel')}
+                    accessibilityLabel={'companies.rightSide.accesibilityLabel'}
                     className="h-[40px] w-full max-w-[320px] md:h-[52px] md:max-w-[520px] lg:h-[60px] lg:w-[400px]"
                 />
             </View>

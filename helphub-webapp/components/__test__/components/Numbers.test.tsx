@@ -18,7 +18,7 @@ describe('Numbers', () => {
     it('renders the section title', () => {
         render(<Numbers />);
 
-        expect(screen.getByText('Our Impact in Numbers')).toBeTruthy();
+        expect(screen.getByText('numbers.title')).toBeTruthy();
     });
 
     it('renders the active consultants stat', () => {
@@ -26,7 +26,7 @@ describe('Numbers', () => {
 
         expect(screen.getByTestId('numbers-stat-active-consultants')).toBeTruthy();
         expect(screen.getByText('2000')).toBeTruthy();
-        expect(screen.getByText('Active Consultants')).toBeTruthy();
+        expect(screen.getByText('numbers.consultants')).toBeTruthy();
     });
 
     it('renders the completed sessions stat', () => {
@@ -34,7 +34,7 @@ describe('Numbers', () => {
 
         expect(screen.getByTestId('numbers-stat-completed-sessions')).toBeTruthy();
         expect(screen.getByText('185.452')).toBeTruthy();
-        expect(screen.getByText('Completed Sessions')).toBeTruthy();
+        expect(screen.getByText('numbers.sessions')).toBeTruthy();
     });
 
     it('renders the satisfied customers stat', () => {
@@ -42,7 +42,7 @@ describe('Numbers', () => {
 
         expect(screen.getByTestId('numbers-stat-satisfied-customers')).toBeTruthy();
         expect(screen.getByText('40.000+')).toBeTruthy();
-        expect(screen.getByText('Satisfied Customers')).toBeTruthy();
+        expect(screen.getByText('numbers.customers')).toBeTruthy();
     });
 
     it('renders the positive reviews stat', () => {
@@ -50,7 +50,7 @@ describe('Numbers', () => {
 
         expect(screen.getByTestId('numbers-stat-positive-reviews')).toBeTruthy();
         expect(screen.getByText('7562')).toBeTruthy();
-        expect(screen.getByText('Positive Reviews')).toBeTruthy();
+        expect(screen.getByText('numbers.reviews')).toBeTruthy();
     });
 
     it('renders exactly four stat cards', () => {

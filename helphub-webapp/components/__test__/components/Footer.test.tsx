@@ -71,35 +71,35 @@ describe('Footer', () => {
     it('renders the HelpHub brand text', () => {
         render(<Footer />);
 
-        expect(screen.getByText('HelpHub')).toBeTruthy();
+        expect(screen.getByText('footer.brand')).toBeTruthy();
     });
 
     it('renders company navigation links', () => {
         render(<Footer />);
 
         expect(screen.getByTestId('footer-company-links')).toBeTruthy();
-        expect(screen.getByText('How it works?')).toBeTruthy();
-        expect(screen.getByText('About Us')).toBeTruthy();
-        expect(screen.getByText('Contact')).toBeTruthy();
-        expect(screen.getByText('Blog')).toBeTruthy();
+        expect(screen.getByText('footer.companyLinks.howItWorks')).toBeTruthy();
+        expect(screen.getByText('footer.companyLinks.aboutUs')).toBeTruthy();
+        expect(screen.getByText('footer.companyLinks.contact')).toBeTruthy();
+        expect(screen.getByText('footer.companyLinks.blog')).toBeTruthy();
     });
 
     it('renders legal navigation links', () => {
         render(<Footer />);
 
         expect(screen.getByTestId('footer-legal-links')).toBeTruthy();
-        expect(screen.getByText('Terms of Use')).toBeTruthy();
-        expect(screen.getByText('Privacy Policy & GDPR')).toBeTruthy();
-        expect(screen.getByText('Distance Sales Agreement')).toBeTruthy();
-        expect(screen.getByText('Refund Policy')).toBeTruthy();
-        expect(screen.getByText('Cookie Policy')).toBeTruthy();
+        expect(screen.getByText('footer.legalLinks.terms')).toBeTruthy();
+        expect(screen.getByText('footer.legalLinks.privacy')).toBeTruthy();
+        expect(screen.getByText('footer.legalLinks.distanceSales')).toBeTruthy();
+        expect(screen.getByText('footer.legalLinks.refund')).toBeTruthy();
+        expect(screen.getByText('footer.legalLinks.cookies')).toBeTruthy();
     });
 
     it('renders the follow us section', () => {
         render(<Footer />);
 
         expect(screen.getByTestId('footer-social-downloads')).toBeTruthy();
-        expect(screen.getByText('Follow Us')).toBeTruthy();
+        expect(screen.getByText('footer.social.title')).toBeTruthy();
     });
 
     it('renders social icons', () => {
@@ -124,67 +124,67 @@ describe('Footer', () => {
         render(<Footer />);
 
         expect(screen.getByTestId('footer-disclaimer-content')).toBeTruthy();
-        expect(screen.getByText(/Disclaimer – Online counseling services are not suitable for everyone/i)).toBeTruthy();
+        expect(screen.getByText('footer.disclaimer.text')).toBeTruthy();
     });
 
     it('renders emergency hotline information', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191')).toBeTruthy();
+        expect(screen.getByText('footer.disclaimer.emergency')).toBeTruthy();
     });
 
     it('links How it works to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('How it works?').props.href).toBe('/how-it-works');
+        expect(screen.getByText('footer.companyLinks.howItWorks').props.href).toBe('/how-it-works');
     });
 
     it('links About Us to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('About Us').props.href).toBe('/about');
+        expect(screen.getByText('footer.companyLinks.aboutUs').props.href).toBe('/about');
     });
 
     it('links Contact to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Contact').props.href).toBe('/contact');
+        expect(screen.getByText('footer.companyLinks.contact').props.href).toBe('/contact');
     });
 
     it('links Blog to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Blog').props.href).toBe('/blog');
+        expect(screen.getByText('footer.companyLinks.blog').props.href).toBe('/blog');
     });
 
     it('links Terms of Use to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Terms of Use').props.href).toBe('/terms');
+        expect(screen.getByText('footer.legalLinks.terms').props.href).toBe('/terms');
     });
 
     it('links Privacy Policy & GDPR to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Privacy Policy & GDPR').props.href).toBe('/privacy');
+        expect(screen.getByText('footer.legalLinks.privacy').props.href).toBe('/privacy');
     });
 
     it('links Distance Sales Agreement to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Distance Sales Agreement').props.href).toBe('/distance-sales');
+        expect(screen.getByText('footer.legalLinks.distanceSales').props.href).toBe('/distance-sales');
     });
 
     it('links Refund Policy to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Refund Policy').props.href).toBe('/refund');
+        expect(screen.getByText('footer.legalLinks.refund').props.href).toBe('/refund');
     });
 
     it('links Cookie Policy to the correct route', () => {
         render(<Footer />);
 
-        expect(screen.getByText('Cookie Policy').props.href).toBe('/cookies');
+        expect(screen.getByText('footer.legalLinks.cookies').props.href).toBe('/cookies');
     });
 
     it('links each social icon to the configured route', () => {

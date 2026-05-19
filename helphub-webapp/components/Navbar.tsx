@@ -185,6 +185,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                             accessibilityRole="button"
                             accessibilityLabel="Open account menu"
                             className="flex-row items-center gap-1.5 md:gap-2"
+                            onPress={() => setAccountMenuOpen((prev) => !prev)}
                         >
                             <IonIcons
                                 name="person-outline"
@@ -210,6 +211,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                 {/* Login */}
                                 <Link href="/login" asChild>
                                     <Pressable
+                                        testID="loginButton"
                                         onPress={() => {
                                             setAccountMenuOpen(false);
                                             router.push('/login');
@@ -230,7 +232,11 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                 {/* Signup */}
                                 <Link href="/signup" asChild>
                                     <Pressable
-                                        onPress={() => setAccountMenuOpen(false)}
+                                        testID="signUpButton"
+                                        onPress={() => {
+                                            setAccountMenuOpen(false);
+                                            router.push('/signup');
+                                        }}
                                         className="group mt-2 flex-row items-center gap-3 rounded-[28px] p-3 hover:bg-red-400"
                                     >
                                         <IonIcons
@@ -451,6 +457,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     <View testID="mobile-account-menu" className="absolute right-5 top-20 w-48 rounded-[28px] border border-gray-200 bg-white px-6 py-6 shadow-lg sm:hidden z-[999]">
                         <Link href="/login" asChild>
                             <Pressable
+                                testID='mobileLoginButton'
                                 onPress={() => {
                                     setMobileAccountMenuOpen(false);
                                     router.push('/login');
@@ -470,6 +477,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
 
                         <Link href="/signup" asChild>
                             <Pressable
+                                testID='mobileSignUpButton'
                                 onPress={() => {
                                     setMobileAccountMenuOpen(false);
                                     router.push('/signup');
@@ -489,6 +497,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     </View>
                 ) : null}{mobileMenuOpen ? (
                     <View
+                        testID='MobileMenu'
                         className="absolute inset-x-0 top-full z-[999] sm:hidden "
                         style={
                             Platform.OS === 'web'

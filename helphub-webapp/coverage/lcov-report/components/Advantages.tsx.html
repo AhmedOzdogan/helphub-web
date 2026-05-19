@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -113,11 +113,18 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,16 +170,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Text, View } from 'react-native';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useTranslation } from 'react-i18next';
+import { Text, View } from 'react-native';
 import StepCard from './ui/StepCard';
 &nbsp;
 &nbsp;
 function Advantages() {
+    const { t, i18n } = useTranslation();
     return (
         &lt;View testID="advantages-section" className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12"&gt;
             {/* Title */}
-            &lt;Text className="mb-2 md:mb-3 text-xl md:text-2xl font-bold text-slate-800 text-center"&gt;
-                Advantages of Choosing HelpHub
+            &lt;Text
+                className="mb-2 md:mb-3 text-xl md:text-2xl font-bold text-slate-800 text-center"
+                testID='advantages-title
+            '&gt;
+                {t('advantages.title')} &lt;Text className="text-blue-500"&gt;HelpHub&lt;/Text&gt;
             &lt;/Text&gt;
 &nbsp;
             {/* Steps */}
@@ -180,32 +195,32 @@ function Advantages() {
                 &lt;StepCard
                     icon="search"
                     step="01"
-                    title="1-1 Live Consultation"
-                    description="Live consultation from the comfort of your home, office, or anywhere you are."
+                    title={t('advantages.advantagesList.step1.title')}
+                    description={t('advantages.advantagesList.step1.description')}
                     advantages
                 /&gt;
 &nbsp;
                 &lt;StepCard
                     icon="chatbubble-outline"
                     step="02"
-                    title="Online Chat"
-                    description="Message the expert for free and have a short introductory conversation."
+                    title={t('advantages.advantagesList.step2.title')}
+                    description={t('advantages.advantagesList.step2.description')}
                     advantages
                 /&gt;
 &nbsp;
                 &lt;StepCard
                     icon="calendar-outline"
                     step="03"
-                    title="Secure Payment"
-                    description="Make secure payments using your credit card."
+                    title={t('advantages.advantagesList.step3.title')}
+                    description={t('advantages.advantagesList.step3.description')}
                     advantages
                 /&gt;
 &nbsp;
                 &lt;StepCard
                     icon="videocam-outline"
                     step="04"
-                    title="100% Refund Guarantee"
-                    description="Get a full refund for any missed appointments."
+                    title={t('advantages.advantagesList.step4.title')}
+                    description={t('advantages.advantagesList.step4.description')}
                     advantages
                 /&gt;
             &lt;/View&gt;
@@ -220,7 +235,7 @@ export default Advantages;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-04T15:56:54.510Z
+                at 2026-05-19T14:59:12.469Z
             </div>
         <script src="../prettify.js"></script>
         <script>

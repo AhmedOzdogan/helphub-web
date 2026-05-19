@@ -6,24 +6,24 @@ describe('HowItWorks', () => {
     it('renders the title and description', () => {
         render(<HowItWorks />);
 
-        expect(screen.getByText('How It Works?')).toBeTruthy();
-        expect(screen.getByText('Our consulting process is simple and effective. Quickly connect with the right expert for your needs and reach a solution.')).toBeTruthy();
+        expect(screen.getByText('howItWorks.title')).toBeTruthy();
+        expect(screen.getByText('howItWorks.subtitle')).toBeTruthy();
     });
 
     it('renders all step cards with correct content', () => {
         render(<HowItWorks />);
 
-        expect(screen.getByText('Choose an Expert')).toBeTruthy();
-        expect(screen.getByText('Find the right specialist easily using filters that match your needs.')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step1.title')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step1.description')).toBeTruthy();
 
-        expect(screen.getByText('Free Intro Chat')).toBeTruthy();
-        expect(screen.getByText('Message the expert for free and have a short introductory conversation.')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step2.title')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step2.description')).toBeTruthy();
 
-        expect(screen.getByText('Schedule a Session')).toBeTruthy();
-        expect(screen.getByText('Pick a suitable date and time and plan your online session.')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step3.title')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step3.description')).toBeTruthy();
 
-        expect(screen.getByText('Start the Session')).toBeTruthy();
-        expect(screen.getByText('Meet your consultant online at the scheduled time.')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step4.title')).toBeTruthy();
+        expect(screen.getByText('howItWorks.step4.description')).toBeTruthy();
     });
 
     it('renders whether flex-wrap is applied', () => {
