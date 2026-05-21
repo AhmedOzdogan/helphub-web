@@ -26,6 +26,9 @@ function Signup() {
 
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
+    const [signupError, setSignupError] = useState(false);
+    const [signupSuccess, setSignupSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const { t, i18n } = useTranslation();
 
     const [user, dispatchUser] = useReducer((state: UserState, action: UserAction): UserState => {
@@ -53,16 +56,58 @@ function Signup() {
     const { signup, loading, error } = useSignUp();
 
     const handleSignUp = async () => {
-        // check passwords match
-        if (user.password !== user.confirmPassword) {
-            return alert('Passwords do not match');
+
+        if (loading) return;
+
+        // Reset states
+        setSignupError(false);
+        setSignupSuccess(false);
+        setErrorMessage('');
+
+        // Empty field validation
+        if (
+            !user.name.trim() ||
+            !user.email.trim() ||
+            !user.password.trim() ||
+            !user.confirmPassword.trim()
+        ) {
+
+            setSignupError(true);
+            setErrorMessage('Please fill all fields');
+
+            return;
         }
+
+        // Password match validation
+        if (user.password !== user.confirmPassword) {
+
+            setSignupError(true);
+            setErrorMessage('Passwords do not match');
+
+            return;
+        }
+
         try {
-            const response = await signup(user.name, user.email, user.password);
-            console.log('Signup successful:', response);
-            router.push('/');
+
+            await signup(
+                user.name,
+                user.email,
+                user.password
+            );
+
+            setSignupSuccess(true);
+
+            setTimeout(() => {
+                router.push('/');
+            }, 1000);
+
         } catch (err) {
+
             console.error('Signup failed:', err);
+
+            setSignupError(true);
+
+            setErrorMessage('Signup failed. Please try again');
         }
     };
 
@@ -89,7 +134,10 @@ function Signup() {
                             <Ionicons name="person" size={28} color="#ef3734" />
                         </View>
 
-                        <Text className="mt-3 text-2xl font-medium text-[#ef3734]">
+                        <Text
+                            testID='signup-header'
+                            className="mt-3 text-2xl font-medium text-[#ef3734]"
+                        >
                             {t("SignupPage.signup")}
                         </Text>
                     </View>
@@ -103,6 +151,9 @@ function Signup() {
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#b4b4be] bg-transparent px-3 py-2">
                             <Ionicons name="mail-outline" size={18} color="#9ca3af" />
                             <TextInput
+                                testID='signup-name-input'
+                                autoCapitalize='words'
+                                autoCorrect={false}
                                 editable={true}
                                 placeholder={t("SignupPage.fullNamePlaceholder")}
                                 value={user.name}
@@ -117,6 +168,10 @@ function Signup() {
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#b4b4be] bg-transparent px-3 py-2">
                             <Ionicons name="mail-outline" size={18} color="#9ca3af" />
                             <TextInput
+                                testID='signup-email-input'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                keyboardType='email-address'
                                 editable={true}
                                 placeholder={t("SignupPage.emailPlaceholder")}
                                 value={user.email}
@@ -132,6 +187,9 @@ function Signup() {
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#d3d3d8] bg-transparent px-3 py-2">
                             <Ionicons name="lock-closed" size={18} color="#9ca3af" />
                             <TextInput
+                                testID='signup-password-input'
+                                autoCapitalize='none'
+                                autoCorrect={false}
                                 editable={true}
                                 secureTextEntry={secureTextEntry}
                                 placeholder={t("SignupPage.passwordPlaceholder")}
@@ -149,6 +207,9 @@ function Signup() {
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#d3d3d8] bg-transparent px-3 py-2">
                             <Ionicons name="lock-closed" size={18} color="#9ca3af" />
                             <TextInput
+                                testID='signup-confirm-password-input'
+                                autoCapitalize='none'
+                                autoCorrect={false}
                                 editable={true}
                                 secureTextEntry={confirmSecureTextEntry}
                                 placeholder={t("SignupPage.confirmPasswordPlaceholder")}
@@ -160,12 +221,35 @@ function Signup() {
                         </View>
 
                         <RedButton
+                            testID='signup-button'
                             ButtonText={t("SignupPage.signup")}
                             wfull={true}
                             onPress={handleSignUp}
                             disabled={loading}
                             {...loading && { Icon: { name: 'reload-circle-sharp', size: 18, color: 'white' }, rotatingIcon: true }}
                         />
+
+                        {signupError && (
+                            <View className="mt-4 items-center">
+                                <Text
+                                    testID='signup-error'
+                                    className="text-base font-medium text-red-500 text-center"
+                                >
+                                    {errorMessage}
+                                </Text>
+                            </View>
+                        )}
+
+                        {signupSuccess && (
+                            <View className="mt-4 items-center">
+                                <Text
+                                    testID='signup-success'
+                                    className="text-base font-medium text-green-500 text-center"
+                                >
+                                    Signup successful. Redirecting...
+                                </Text>
+                            </View>
+                        )}
 
                         <View className="mt-10 flex-row items-center justify-center sm:mt-12">
                             <Text className="text-base font-medium text-[#a1a7b4]">

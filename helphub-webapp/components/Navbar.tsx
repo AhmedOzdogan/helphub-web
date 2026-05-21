@@ -20,8 +20,9 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
     // Dropdown open state
     const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
-    const [openLanguageMenu, setOpenLanguageMenu] = useState(false);
-
+    const [openDesktopLanguageMenu, setOpenDesktopLanguageMenu] = useState(false);
+    const [openMediumLanguageMenu, setOpenMediumLanguageMenu] = useState(false);
+    const [openMobileLanguageMenu, setOpenMobileLanguageMenu] = useState(false);
     //Mobile Dropdown open state
     const [mobileAccountMenuOpen, setMobileAccountMenuOpen] = useState(false);
 
@@ -149,7 +150,9 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
             <View className="hidden w-full max-w-7xl flex-row items-center justify-between px-4 py-4 md:px-6 md:py-5 sm:mx-auto md:flex">
                 {/* Logo */}
                 <Link href="/" asChild>
-                    <Text className="text-3xl font-extrabold tracking-wide text-red-500 md:text-4xl md:tracking-wider cursor-pointer">
+                    <Text
+                        testID='helphub-logo-text-desktop'
+                        className="text-3xl font-extrabold tracking-wide text-red-500 md:text-4xl md:tracking-wider cursor-pointer">
                         HelpHub
                     </Text>
                 </Link>
@@ -157,6 +160,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                 {/* Search */}
                 <View className="mx-4 flex-1 md:mx-8">
                     <TextInput
+                        testID='searchBar'
                         placeholder={t("SearchBar.desktopPlaceholder")}
                         multiline={false}
                         placeholderTextColor="#9CA3AF"
@@ -209,9 +213,10 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                 })}
                             >
                                 {/* Login */}
-                                <Link href="/login" asChild>
+                                <Link
+                                    testID="loginButton"
+                                    href="/login" asChild>
                                     <Pressable
-                                        testID="loginButton"
                                         onPress={() => {
                                             setAccountMenuOpen(false);
                                             router.push('/login');
@@ -261,7 +266,10 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                 size={24}
                                 className="text-red-500 group-hover:text-gray-300"
                             />
-                            <Text className="text-base font-medium text-gray-700 group-hover:text-gray-300 md:text-lg">
+                            <Text
+                                testID='messages-button'
+                                className="text-base font-medium text-gray-700 group-hover:text-gray-300 md:text-lg"
+                            >
                                 {t('Messages')}
                             </Text>
                         </Pressable>
@@ -275,19 +283,25 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     </Pressable>
 
                     {/* Desktop Language Menu */}
-                    <View className="hidden xl:flex">
+                    <View
+                        testID="desktop-language-button"
+                        className="hidden xl:flex">
                         <LanguageMenu
-                            openLanguageMenu={openLanguageMenu}
-                            setOpenLanguageMenu={setOpenLanguageMenu}
+                            openLanguageMenu={openDesktopLanguageMenu}
+                            setOpenLanguageMenu={setOpenDesktopLanguageMenu}
+                            testId='desktop'
                         />
                     </View>
 
                     {/* Medium Screen Language Menu */}
-                    <View className="flex xl:hidden">
+                    <View
+                        testID="medium-language-button"
+                        className="flex xl:hidden">
                         <LanguageMenu
-                            openLanguageMenu={openLanguageMenu}
-                            setOpenLanguageMenu={setOpenLanguageMenu}
+                            openLanguageMenu={openMediumLanguageMenu}
+                            setOpenLanguageMenu={setOpenMediumLanguageMenu}
                             mobile={true}
+                            testId='medium'
                         />
                     </View>
                 </View>
@@ -384,6 +398,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                 <View className="flex w-full bg-[#f5f5f5] px-5 pb-6 pt-5 md:hidden">
                     <View className="flex-row items-center justify-between">
                         <Pressable
+                            testID='MobileMenuHamburgerButton'
                             accessibilityRole="button"
                             accessibilityLabel={mobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
                             className="rounded-full p-2"
@@ -398,7 +413,9 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
 
                         <Link href="/" asChild>
                             <Pressable>
-                                <Text className="text-2xl font-extrabold tracking-[6px] text-red-500">
+                                <Text
+                                    testID='helphub-logo-text-mobile'
+                                    className="text-2xl font-extrabold tracking-[6px] text-red-500">
                                     HelpHub
                                 </Text>
                             </Pressable>
@@ -428,7 +445,14 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                     />
                                 </Pressable>
                             </Link>
-                            <LanguageMenu openLanguageMenu={openLanguageMenu} setOpenLanguageMenu={setOpenLanguageMenu} mobile={true} />
+                            <View testID='mobile-language-button'>
+                                <LanguageMenu
+                                    openLanguageMenu={openMobileLanguageMenu}
+                                    setOpenLanguageMenu={setOpenMobileLanguageMenu}
+                                    mobile={true}
+                                    testId='mobile'
+                                />
+                            </View>
                         </View>
                     </View>
 

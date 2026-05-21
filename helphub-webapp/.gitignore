@@ -1,5 +1,9 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+
+#env
+env
+.env
 # dependencies
 node_modules/
 
@@ -41,3 +45,10 @@ app-example
 # generated native folders
 /ios
 /android
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

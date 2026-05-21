@@ -15,15 +15,46 @@ function Login() {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const router = useRouter();
     const { t, i18n } = useTranslation();
+    const [loginError, setLoginError] = useState(false);
+    const [loginSuccess, setLoginSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = async () => {
-        if (loading) return; // Prevent multiple login attempts
+
+        if (loading) return;
+
+        // Reset states
+        setLoginError(false);
+        setLoginSuccess(false);
+        setErrorMessage('');
+
+        // Basic validation
+        if (!email.trim() || !password.trim()) {
+
+            setLoginError(true);
+            setErrorMessage('Please fill all fields');
+
+            return;
+        }
+
         try {
-            const response = await login(email, password);
-            console.log('Login successful:', response);
-            router.push('/');
+
+            await login(email, password);
+
+            setLoginSuccess(true);
+
+            // Small delay so success message becomes visible
+            setTimeout(() => {
+                router.push('/');
+            }, 1000);
+
         } catch (err) {
+
             console.error('Login failed:', err);
+
+            setLoginError(true);
+
+            setErrorMessage('Invalid password/email');
         }
     };
 
@@ -50,7 +81,10 @@ function Login() {
                             <Ionicons name="person" size={28} color="#ef3734" />
                         </View>
 
-                        <Text className="mt-3 text-2xl font-medium text-[#ef3734]">
+                        <Text
+                            testID='login-header'
+                            className="mt-3 text-2xl font-medium text-[#ef3734]"
+                        >
                             {t("LoginPage.login")}
                         </Text>
                     </View>
@@ -63,11 +97,15 @@ function Login() {
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#b4b4be] bg-transparent px-3 py-2">
                             <Ionicons name="mail-outline" size={18} color="#9ca3af" />
                             <TextInput
+                                testID='login-email-input'
                                 editable={true}
                                 placeholder={t("LoginPage.emailPlaceholder")}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                                 value={email}
                                 onChangeText={setEmail}
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                keyboardType='email-address'
                             />
                         </View>
 
@@ -78,12 +116,15 @@ function Login() {
                         <View className="flex-row items-center rounded-[16px] border-[2px] border-[#d3d3d8] bg-transparent px-3 py-2">
                             <Ionicons name="lock-closed" size={18} color="#9ca3af" />
                             <TextInput
+                                testID='login-password-input'
                                 editable={true}
                                 secureTextEntry={secureTextEntry}
                                 placeholder={t("LoginPage.passwordPlaceholder")}
                                 className="ml-4 flex-1 text-base text-[#1f2933] h-10 border-none outline-none"
                                 value={password}
                                 onChangeText={setPassword}
+                                autoCapitalize='none'
+                                autoCorrect={false}
                             />
                             <Ionicons name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'} size={18} color="#9ca3af" onPress={() => setSecureTextEntry(!secureTextEntry)} />
                         </View>
@@ -98,6 +139,7 @@ function Login() {
                             ButtonText={loading ? t("LoginPage.loggingIn") : t("LoginPage.login")} wfull={true} onPress={handleLogin}
                             // Disable the button while loading to prevent multiple submissions
                             disabled={loading}
+                            testID='login-button'
                             {...loading && { Icon: { name: 'reload-circle-sharp', size: 18, color: 'white' }, rotatingIcon: true }}
                         />
 
@@ -109,6 +151,26 @@ function Login() {
                                 {t("SignupPage.signup")}
                             </Text>
                         </View>
+                        {loginError && (
+                            <View className="mt-4 items-center">
+                                <Text
+                                    testID='login-error'
+                                    className="text-base font-medium text-red-500 text-center"
+                                >
+                                    {errorMessage}
+                                </Text>
+                            </View>
+                        )}
+                        {loginSuccess && (
+                            <View className="mt-4 items-center">
+                                <Text
+                                    testID='login-success'
+                                    className="text-base font-medium text-green-500"
+                                >
+                                    Login successful. Redirecting...
+                                </Text>
+                            </View>
+                        )}
                     </View>
                 </View>
             </View>

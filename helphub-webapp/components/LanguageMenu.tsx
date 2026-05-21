@@ -1,8 +1,8 @@
 import IonIcons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
-import i18n from '../i18n';
 
 const languages = [
     { code: 'en', label: 'English', flag: '🇺🇸' },
@@ -16,9 +16,12 @@ type LanguageMenuProps = {
     openLanguageMenu: boolean;
     setOpenLanguageMenu: (open: boolean) => void;
     mobile?: boolean;
+    testId: string;
 };
 
-function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: LanguageMenuProps) {
+function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }: LanguageMenuProps) {
+    const { i18n } = useTranslation();
+
     useEffect(() => {
         const loadLanguage = async () => {
             try {
@@ -40,16 +43,22 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
     }, []);
 
     const currentLanguage = useMemo(() => {
+        console.log(i18n.language)
+
+        const normalizedLanguage =
+            i18n.language.split('-')[0];
+
         return (
-            languages.find((lang) => lang.code === i18n.language) ||
-            languages[0]
+            languages.find(
+                (lang) => lang.code === normalizedLanguage
+            ) || languages[0]
         );
+
     }, [i18n.language]);
 
     return (
         <View className="relative z-[999]">
             <Pressable
-                testID="language-menu-button"
                 accessibilityRole="button"
                 accessibilityLabel="Open language menu"
                 className="flex-row items-center gap-2 rounded-full px-3 py-2 md:px-4 md:py-2.5"
@@ -98,7 +107,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
 
             {openLanguageMenu ? (
                 <View
-                    testID="language-menu"
+                    testID={`${testId}-language-menu`}
                     className={`absolute top-full z-[999] mt-2 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl ${mobile ? 'w-[64px] right-0' : 'w-[172px] right-0'
                         }`}
                 >

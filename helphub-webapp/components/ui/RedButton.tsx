@@ -12,11 +12,21 @@ interface RedButtonProps {
     onPress?: () => void;
     disabled?: boolean;
     rotatingIcon?: boolean;
+    testID?: string;
 }
 
-function RedButton({ Icon, ButtonText, wfull, onPress, disabled, rotatingIcon }: RedButtonProps) {
+function RedButton({
+    Icon,
+    ButtonText,
+    wfull,
+    onPress,
+    disabled,
+    rotatingIcon,
+    testID
+}: RedButtonProps) {
     return (
         <Pressable
+            testID={testID}
             className={`mt-6 px-6 py-3 bg-red-500 rounded-full ${wfull ? 'w-full' : 'w-52'} h-12 flex-row items-center justify-center`}
             onPress={onPress}
             disabled={disabled}
