@@ -1,0 +1,46 @@
+appId: org.name.helphubwebapp
+
+---
+
+- launchApp
+
+- runFlow:
+    label: "Navigate To Login"
+    commands:
+      - tapOn: "Toggle account menu"
+      - tapOn: "\uf3ce, Log In"
+
+
+- runFlow:
+    label: "Invalid Login Attempt"
+    commands:
+      - tapOn: "Write your email"
+      - inputText: "Ahmed123@gmail.com"
+
+      - tapOn:
+          point: 0%,23%
+
+      - tapOn: "Write your password"
+      - inputText: "1234567"
+
+      - tapOn:
+          point: 0%,23%
+
+      - tapOn:
+          id: "login-button"
+
+      - assertVisible: "Invalid password/email"
+
+- runFlow:
+    label: "Successful Login Attempt"
+    commands:
+      - tapOn: "Write your password"
+      - eraseText
+      - inputText: "123456"
+      - tapOn:
+          point: 2%,27%
+
+      - tapOn:
+          id: "login-button"
+
+      - assertVisible: "Login successful. Redirecting..."
