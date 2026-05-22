@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { DESKTOP_VIEWPORT, MEDIUM_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
 
 async function waitForNavbar(page: any) {
-    await page.goto(process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:8081');
+    await page.goto('/');
     await page.waitForLoadState('networkidle');
     const desktopLogo = page.getByTestId('helphub-logo-text-desktop');
     const mobileLogo = page.getByTestId('helphub-logo-text-mobile');
@@ -157,7 +157,7 @@ test.describe('Navbar Desktop', () => {
         await expect(page).toHaveURL(/\/login$/);
 
         // Go back to homepage
-        await page.goto(process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:8081');
+        await page.goto('/');
 
         await page.waitForLoadState('networkidle');
 

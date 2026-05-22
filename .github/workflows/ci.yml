@@ -25,6 +25,10 @@ jobs:
       testUsername: ${{ secrets.testUsername }}
       testPassword: ${{ secrets.testPassword }}
       PLAYWRIGHT_TEST_BASE_URL: ${{ secrets.PLAYWRIGHT_TEST_BASE_URL }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
 
     defaults:
       run:
@@ -39,6 +43,36 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Start backend and postgres containers
+        run: docker compose up -d
+        working-directory: helphub-backend
+
+
+      - name: Wait for backend
+        run: |
+          for i in {1..30}; do
+            curl http://127.0.0.1:4000/health && break
+            echo "Waiting for backend..."
+            sleep 5
+          done
+
+      - name: Run Prisma migrations
+        run: npx prisma migrate deploy
+        working-directory: helphub-backend
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+        working-directory: helphub-backend
+
+      - name: Seed database
+        run: npm run seed
+        working-directory: helphub-backend
+
+      - name: Show docker logs on failure
+        if: failure()
+        run: docker compose logs
+        working-directory: helphub-backend
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
