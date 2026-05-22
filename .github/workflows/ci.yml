@@ -53,10 +53,26 @@ jobs:
           echo "PORT=4000" >> .env
         working-directory: helphub-backend
 
-      - name: Start backend and postgres containers
-        run: docker compose up -d
+      - name: Start postgres container
+        run: docker compose up -d db
         working-directory: helphub-backend
 
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+        working-directory: helphub-backend
+
+      - name: Run Prisma migrations
+        run: npx prisma migrate deploy
+        working-directory: helphub-backend
+
+      - name: Seed database
+        run: npm run seed
+        working-directory: helphub-backend
+
+      - name: Start backend container
+        run: docker compose up -d backend
+        working-directory: helphub-backend
 
       - name: Wait for backend
         run: |
@@ -65,18 +81,6 @@ jobs:
             echo "Waiting for backend..."
             sleep 5
           done
-
-      - name: Run Prisma migrations
-        run: npx prisma migrate deploy
-        working-directory: helphub-backend
-
-      - name: Generate Prisma client
-        run: npx prisma generate
-        working-directory: helphub-backend
-
-      - name: Seed database
-        run: npm run seed
-        working-directory: helphub-backend
 
       - name: Show docker logs on failure
         if: failure()
