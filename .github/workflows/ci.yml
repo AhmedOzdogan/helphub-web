@@ -66,14 +66,20 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
         working-directory: helphub-backend
+        env:
+          DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
 
       - name: Run Prisma migrations
         run: npx prisma migrate deploy
         working-directory: helphub-backend
+        env:
+          DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
 
       - name: Seed database
         run: npm run seed
         working-directory: helphub-backend
+        env:
+          DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
 
       - name: Start backend container
         run: docker compose up -d backend
