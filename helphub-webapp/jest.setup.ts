@@ -4,11 +4,14 @@ jest.mock('@react-native-async-storage/async-storage', () =>
     require('@react-native-async-storage/async-storage/jest/async-storage-mock')
 );
 
+export const mockChangeLanguage = jest.fn();
+
 jest.mock('react-i18next', () => ({
     useTranslation: () => ({
         t: (key: string) => key,
         i18n: {
-            changeLanguage: jest.fn(),
+            language: 'en',
+            changeLanguage: mockChangeLanguage,
         },
     }),
 
