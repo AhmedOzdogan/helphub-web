@@ -44,6 +44,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create backend .env file
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "PORT=4000" >> .env
+        working-directory: helphub-backend
+
       - name: Start backend and postgres containers
         run: docker compose up -d
         working-directory: helphub-backend
