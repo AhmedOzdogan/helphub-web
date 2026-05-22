@@ -1,20 +1,17 @@
 import { expect, test } from '@playwright/test';
 import { DESKTOP_VIEWPORT, MEDIUM_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
 
-const BASE_URL =
-    process.env.PLAYWRIGHT_TEST_BASE_URL ||
-    'http://localhost:8081';
 
 const TEST_EMAIL = process.env.testUsername!;
 const TEST_PASSWORD = process.env.testPassword!;
 
 async function navigateToLogin(page: any) {
 
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
     await page.waitForLoadState('networkidle');
 
-    await page.goto(`${BASE_URL}/login`);
+    await page.goto('/login');
 
     await page.waitForLoadState('networkidle');
 }

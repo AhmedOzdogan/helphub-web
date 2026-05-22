@@ -2,11 +2,11 @@ import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
 import { Platform } from 'react-native';
 import Navbar from '../../Navbar';
+import { mockChangeLanguage } from '../../../jest.setup';
 
 const mockPush = jest.fn();
 const mockGetItem = jest.fn();
 const mockSetItem = jest.fn();
-const mockChangeLanguage = jest.fn();
 
 jest.mock('expo-router', () => ({
     Link: ({ children }: { children: React.ReactNode }) => children,
@@ -27,11 +27,6 @@ jest.mock('@expo/vector-icons/Ionicons', () => {
         return <Text>{name}</Text>;
     };
 });
-
-jest.mock('../../../i18n', () => ({
-    language: 'en',
-    changeLanguage: (...args: unknown[]) => mockChangeLanguage(...args),
-}));
 
 const renderNavbar = (onMobileMenuChange = jest.fn()) => {
     render(<Navbar onMobileMenuChange={onMobileMenuChange} />);
@@ -299,15 +294,19 @@ describe('Navbar', () => {
     it('renders the language switch button', () => {
         renderNavbar();
 
-        expect(screen.getAllByTestId('language-menu-button').length).toBeGreaterThan(0);
+        expect(screen.getAllByTestId('desktop-language-button').length).toBeGreaterThan(0);
     });
 
     it('opens the language menu when language button is pressed', () => {
         renderNavbar();
         // press one of the button 
-        fireEvent.press(screen.getAllByTestId('language-menu-button')[0]);
+        fireEvent.press(
 
-        expect(screen.getAllByTestId('language-menu').length).toBeGreaterThan(0);
+            screen.getAllByLabelText('Open language menu')[0]
+
+        );
+
+        expect(screen.getAllByTestId('desktop-language-menu').length).toBeGreaterThan(0);
     });
 
     it('loads stored language from AsyncStorage on mount', async () => {
@@ -338,9 +337,13 @@ describe('Navbar', () => {
     it('changes language and closes menu when a language is selected', async () => {
         renderNavbar();
 
-        fireEvent.press(screen.getAllByTestId('language-menu-button')[0]);
+        fireEvent.press(
 
-        const germanButton = screen.getAllByTestId('de')[0];
+            screen.getAllByLabelText('Open language menu')[0]
+
+        );
+
+        const germanButton = screen.getByTestId('de');
 
         await act(async () => {
             fireEvent.press(germanButton);
@@ -350,25 +353,25 @@ describe('Navbar', () => {
         expect(mockChangeLanguage).toHaveBeenCalledWith('de');
     });
 
-    it('opens desktop account menu on mouse enter', () => {
+    it('opens desktop account menu on mouse enter', async () => {
         renderDesktopNavbar();
 
         fireEvent.press(screen.getByLabelText('Open account menu'));
 
-        expect(screen.getByTestId('loginButton')).toBeTruthy();
-        expect(screen.getByTestId('signUpButton')).toBeTruthy();
+        await expect(screen.getByTestId('loginButton')).toBeTruthy();
+        await expect(screen.getByTestId('signUpButton')).toBeTruthy();
     });
 
-    it('closes desktop account menu when account button is pressed again', () => {
+    it('closes desktop account menu when account button is pressed again', async () => {
         renderDesktopNavbar();
 
         fireEvent.press(screen.getByLabelText('Open account menu'));
 
-        expect(screen.getByTestId('loginButton')).toBeTruthy();
+        await expect(screen.getByTestId('loginButton')).toBeTruthy();
 
         fireEvent.press(screen.getByLabelText('Open account menu'));
 
-        expect(screen.queryByTestId('loginButton')).toBeNull();
+        await expect(screen.queryByTestId('loginButton')).toBeNull();
     });
 
     it('keeps mega menu open when mouse enters again before timeout', () => {

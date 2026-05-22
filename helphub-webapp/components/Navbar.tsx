@@ -214,9 +214,10 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                             >
                                 {/* Login */}
                                 <Link
-                                    testID="loginButton"
+
                                     href="/login" asChild>
                                     <Pressable
+                                        testID="loginButton"
                                         onPress={() => {
                                             setAccountMenuOpen(false);
                                             router.push('/login');

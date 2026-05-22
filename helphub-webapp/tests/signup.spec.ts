@@ -32,11 +32,11 @@ function generateTestEmail() {
 
 async function navigateToSignup(page: any) {
 
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
     await page.waitForLoadState('networkidle');
 
-    await page.goto(`${BASE_URL}/signup`);
+    await page.goto('/signup');
 
     await page.waitForLoadState('networkidle');
 }

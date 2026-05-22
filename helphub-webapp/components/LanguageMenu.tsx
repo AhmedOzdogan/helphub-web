@@ -43,10 +43,9 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
     }, []);
 
     const currentLanguage = useMemo(() => {
-        console.log(i18n.language)
 
         const normalizedLanguage =
-            i18n.language.split('-')[0];
+            (i18n.language || 'en').split('-')[0];
 
         return (
             languages.find(

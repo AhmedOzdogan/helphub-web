@@ -4,10 +4,7 @@ import { DESKTOP_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
 
 async function waitForNavbar(page: any) {
 
-    await page.goto(
-        process.env.PLAYWRIGHT_TEST_BASE_URL ||
-        'http://localhost:8081'
-    );
+    await page.goto('/');
 
     await page.waitForLoadState('networkidle');
 
@@ -37,9 +34,7 @@ async function checkLanguagePersistence(
     await assertion();
 
     // Navigate to login page
-    await page.goto(
-        `${process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:8081'}/login`
-    );
+    await page.goto('/');
 
     await page.waitForLoadState('networkidle');
 
@@ -47,10 +42,7 @@ async function checkLanguagePersistence(
     await loginAssertion();
 
     // Return home page
-    await page.goto(
-        process.env.PLAYWRIGHT_TEST_BASE_URL ||
-        'http://localhost:8081'
-    );
+    await page.goto('/');
 
     await page.waitForLoadState('networkidle');
 }
