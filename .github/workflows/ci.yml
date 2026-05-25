@@ -19,7 +19,7 @@ jobs:
   test:
     timeout-minutes: 60
 
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64]
 
     env:
       testUsername: ${{ secrets.testUsername }}
