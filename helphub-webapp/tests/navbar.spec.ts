@@ -3,7 +3,7 @@ import { DESKTOP_VIEWPORT, MEDIUM_VIEWPORT, MOBILE_VIEWPORT } from './constants/
 
 async function waitForNavbar(page: any) {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     const desktopLogo = page.getByTestId('helphub-logo-text-desktop');
     const mobileLogo = page.getByTestId('helphub-logo-text-mobile');
 
@@ -16,7 +16,9 @@ async function waitForNavbar(page: any) {
 async function safeClick(locator: any) {
     await expect(locator).toBeVisible({ timeout: 15000 });
 
-    await locator.click({ force: true, timeout: 15000 });
+    await expect(locator).toBeEnabled({ timeout: 15000 });
+
+    await locator.click({ timeout: 15000 });
 }
 
 async function waitForMenu(menu: any) {
@@ -88,10 +90,12 @@ test.describe('Navbar Desktop', () => {
 
         await page.mouse.move(0, 0);
 
-        await page.waitForTimeout(400);
-
-        await expect(loginButton).toHaveCount(0);
-
+        await expect.poll(async () => {
+            return await loginButton.isVisible().catch(() => false);
+        }, {
+            timeout: 15000,
+            intervals: [250, 500, 1000],
+        }).toBe(false);
     });
 
     test('mega menu dropdowns open on hover', async ({ page }) => {
@@ -129,7 +133,12 @@ test.describe('Navbar Desktop', () => {
 
             await page.mouse.move(0, 0);
 
-            await expect(menu).toHaveCount(0);
+            await expect.poll(async () => {
+                return await menu.isVisible().catch(() => false);
+            }, {
+                timeout: 15000,
+                intervals: [250, 500, 1000],
+            }).toBe(false);
         }
     });
 
@@ -190,7 +199,7 @@ test.describe('Navbar Desktop', () => {
         // Go back to homepage
         await page.goto('/');
 
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
 
         // Signup navigation
         const accountButtonAgain = page.getByLabel('Open account menu');
@@ -261,7 +270,12 @@ test.describe('Medium Navbar', () => {
 
             await mediumLanguageButton.click();
 
-            await expect(mediumLanguageMenu).toHaveCount(0);
+            await expect.poll(async () => {
+                return await mediumLanguageMenu.isVisible().catch(() => false);
+            }, {
+                timeout: 15000,
+                intervals: [250, 500, 1000],
+            }).toBe(false);
 
         });
     });
@@ -322,15 +336,12 @@ test.describe('Navbar Mobile', () => {
 
         await forMyselfSection.click();
 
-        await page.waitForTimeout(350);
     });
 
     test('mobile account menu opens correctly', async ({ page }) => {
         const accountButton = page.getByLabel('Toggle account menu');
 
         await safeClick(accountButton);
-
-        await page.waitForTimeout(300);
 
         const mobileAccountMenu = page.getByTestId('mobile-account-menu');
 

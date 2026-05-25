@@ -19,7 +19,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry */
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 2,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -34,7 +34,7 @@ export default defineConfig({
       process.env.PLAYWRIGHT_TEST_BASE_URL ||
       'http://127.0.0.1:8081',
 
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     actionTimeout: 15 * 1000,
     navigationTimeout: 30 * 1000,
 
@@ -44,7 +44,11 @@ export default defineConfig({
     },
 
     launchOptions: {
-      args: ['--disable-dev-shm-usage'],
+      args: [
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--no-sandbox',
+      ],
     },
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -57,7 +61,7 @@ export default defineConfig({
       use: {
         browserName: 'chromium',
         viewport: {
-          width: 1440,
+          width: 1600,
           height: 900,
         },
         deviceScaleFactor: 1,
@@ -69,7 +73,7 @@ export default defineConfig({
       use: {
         browserName: 'firefox',
         viewport: {
-          width: 1440,
+          width: 1600,
           height: 900,
         },
         deviceScaleFactor: 1,
@@ -81,7 +85,7 @@ export default defineConfig({
       use: {
         browserName: 'webkit',
         viewport: {
-          width: 1440,
+          width: 1600,
           height: 900,
         },
         deviceScaleFactor: 1,

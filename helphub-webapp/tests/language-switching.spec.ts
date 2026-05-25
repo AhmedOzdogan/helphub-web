@@ -10,7 +10,7 @@ async function waitForNavbar(page: any) {
 
     await page.goto('/');
 
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     const desktopLogo = page.getByTestId('helphub-logo-text-desktop');
     const mobileLogo = page.getByTestId('helphub-logo-text-mobile');
@@ -29,7 +29,10 @@ async function openLanguageMenu(
     await expect(languageButton)
         .toBeVisible({ timeout: 10000 });
 
-    await languageButton.click({ force: true });
+    await expect(languageButton)
+        .toBeEnabled({ timeout: 10000 });
+
+    await languageButton.click();
 
     await expect(languageMenu)
         .toBeVisible({ timeout: 10000 });
@@ -47,14 +50,14 @@ async function checkLanguagePersistence(
     // Refresh index page and check again
     await page.reload();
 
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     await assertion();
 
     // Navigate to login page
     await page.goto('/login');
 
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Check login page translation
     await loginAssertion();
@@ -62,7 +65,7 @@ async function checkLanguagePersistence(
     // Return home page
     await page.goto('/');
 
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 }
 
 test.describe('Language Switching on Desktop', () => {
@@ -258,7 +261,7 @@ test.describe('Language Switching on Desktop', () => {
 
         await page.reload();
 
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
 
         await expect(languageButton)
             .toContainText('Español');
@@ -452,7 +455,7 @@ test.describe('Language Switching on Mobile', () => {
 
         await page.reload();
 
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
 
         await expect(languageButton)
             .toContainText('🇪🇸');
@@ -491,7 +494,7 @@ test.describe('Language Switching on Medium', () => {
 
         await page.reload();
 
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
 
         await expect(languageButton)
             .toContainText('🇪🇸');
