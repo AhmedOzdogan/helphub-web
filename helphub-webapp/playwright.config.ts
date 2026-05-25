@@ -56,10 +56,17 @@ export default defineConfig({
       },
     },
 
-    //{
-    //  name: 'firefox',
-    //  use: { ...devices['Desktop Firefox'] },
-    //},
+    {
+      name: 'firefox',
+      use: {
+        browserName: 'firefox',
+        viewport: {
+          width: 1440,
+          height: 900,
+        },
+        deviceScaleFactor: 1,
+      },
+    },
 
     //{
     //  name: 'webkit',
