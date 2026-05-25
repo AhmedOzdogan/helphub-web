@@ -65,10 +65,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                     backgroundColor: '#ef4444',
                     borderColor: '#f87171',
                     borderWidth: 1,
-                    shadowColor: '#ef4444',
-                    shadowOffset: { width: 0, height: 6 },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 12,
+                    boxShadow: '0px 6px 12px rgba(239, 68, 68, 0.25)',
                     elevation: 6,
                 }}
                 onPress={() => setOpenLanguageMenu(!openLanguageMenu)}

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/22</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.11% </span>
+                <span class="strong">78.94% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>15/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/22</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
@@ -196,7 +196,12 @@
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,6 +221,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">297x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">297x</span>
 <span class="cline-any cline-yes">117x</span>
@@ -238,17 +246,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">297x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">297x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,7 +311,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -332,8 +342,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import IonIcons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
-import i18n from '../i18n';
 &nbsp;
 const languages = [
     { code: 'en', label: 'English', flag: '🇺🇸' },
@@ -347,9 +357,12 @@ type LanguageMenuProps = {
     openLanguageMenu: boolean;
     setOpenLanguageMenu: (open: boolean) =&gt; void;
     mobile?: boolean;
+    testId: string;
 };
 &nbsp;
-function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: LanguageMenuProps) {
+function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }: LanguageMenuProps) {
+    const { i18n } = useTranslation();
+&nbsp;
     useEffect(() =&gt; {
         const loadLanguage = async () =&gt; {
             try {
@@ -371,16 +384,21 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
     }, []);
 &nbsp;
     const currentLanguage = useMemo(() =&gt; {
+&nbsp;
+        const normalizedLanguage =
+            (i18n.language || <span class="branch-1 cbranch-no" title="branch not covered" >'en')</span>.split('-')[0];
+&nbsp;
         return (
-            languages.find((lang) =&gt; lang.code === i18n.language) ||
-<span class="branch-1 cbranch-no" title="branch not covered" >            languages[0]</span>
+            languages.find(
+                (lang) =&gt; lang.code === normalizedLanguage
+            ) || <span class="branch-1 cbranch-no" title="branch not covered" >languages[0]</span>
         );
+&nbsp;
     }, [i18n.language]);
 &nbsp;
     return (
         &lt;View className="relative z-[999]"&gt;
             &lt;Pressable
-                testID="language-menu-button"
                 accessibilityRole="button"
                 accessibilityLabel="Open language menu"
                 className="flex-row items-center gap-2 rounded-full px-3 py-2 md:px-4 md:py-2.5"
@@ -388,10 +406,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
                     backgroundColor: '#ef4444',
                     borderColor: '#f87171',
                     borderWidth: 1,
-                    shadowColor: '#ef4444',
-                    shadowOffset: { width: 0, height: 6 },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 12,
+                    boxShadow: '0px 6px 12px rgba(239, 68, 68, 0.25)',
                     elevation: 6,
                 }}
                 onPress={() =&gt; setOpenLanguageMenu(!openLanguageMenu)}
@@ -429,8 +444,8 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
 &nbsp;
             {openLanguageMenu ? (
                 &lt;View
-                    testID="language-menu"
-                    className={`absolute top-full z-[999] mt-2 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl ${mobile ? 'w-[64px] right-0' : 'w-[172px] right-0'
+                    testID={`${testId}-language-menu`}
+                    className={`absolute top-full z-[999] mt-2 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl ${mobile ? <span class="branch-0 cbranch-no" title="branch not covered" >'w-[64px] right-0' </span>: 'w-[172px] right-0'
                         }`}
                 &gt;
                     {languages.map((lang) =&gt; (
@@ -451,7 +466,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile }: Languag
                             }}
                         &gt;
                             &lt;Text className="text-lg text-center"&gt;{lang.flag}&lt;/Text&gt;
-                            {mobile ? null : (
+                            {mobile ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: (
                                 &lt;Text className="text-sm font-medium"&gt;{lang.label}&lt;/Text&gt;
                             )}
                         &lt;/Pressable&gt;
@@ -469,7 +484,7 @@ export default LanguageMenu;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-19T14:59:12.469Z
+                at 2026-05-25T11:57:15.489Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -46,7 +46,13 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        browserName: 'chromium',
+        viewport: {
+          width: 1440,
+          height: 900,
+        },
+      },
     },
 
     //{
@@ -82,7 +88,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npx expo start --web --non-interactive',
+    command: 'CI=1 npx expo start --web',
     url:
       process.env.PLAYWRIGHT_TEST_BASE_URL ||
       'http://127.0.0.1:8081',

@@ -1,5 +1,9 @@
 import { expect, test } from '@playwright/test';
-import { DESKTOP_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
+import {
+    DESKTOP_VIEWPORT,
+    MEDIUM_VIEWPORT,
+    MOBILE_VIEWPORT,
+} from './constants/viewports';
 
 
 async function waitForNavbar(page: any) {
@@ -15,6 +19,19 @@ async function waitForNavbar(page: any) {
     const mobileVisible = await mobileLogo.isVisible().catch(() => false);
 
     expect(desktopVisible || mobileVisible).toBeTruthy();
+}
+
+async function openLanguageMenu(
+    languageButton: any,
+    languageMenu: any,
+) {
+
+    await languageButton.click();
+
+    await expect(languageMenu)
+        .toBeVisible({ timeout: 5000 });
+
+    await languageButton.page().waitForTimeout(500);
 }
 
 async function checkLanguagePersistence(
@@ -66,7 +83,10 @@ test.describe('Language Switching on Desktop', () => {
         const messagesText = () =>
             page.getByTestId('messages-button');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('en').click();
 
@@ -96,7 +116,10 @@ test.describe('Language Switching on Desktop', () => {
         const messagesText = () =>
             page.getByTestId('messages-button');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('de').click();
 
@@ -126,7 +149,10 @@ test.describe('Language Switching on Desktop', () => {
         const messagesText = () =>
             page.getByTestId('messages-button');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('fr').click();
 
@@ -156,7 +182,10 @@ test.describe('Language Switching on Desktop', () => {
         const messagesText = () =>
             page.getByTestId('messages-button');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
@@ -186,7 +215,10 @@ test.describe('Language Switching on Desktop', () => {
         const messagesText = () =>
             page.getByTestId('messages-button');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('it').click();
 
@@ -213,7 +245,10 @@ test.describe('Language Switching on Desktop', () => {
         const languageMenu =
             page.getByTestId('desktop-language-menu');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
@@ -252,7 +287,10 @@ test.describe('Language Switching on Mobile', () => {
         const mobileSearchInput =
             page.getByTestId('mobile-search-input');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('en').click();
 
@@ -280,7 +318,10 @@ test.describe('Language Switching on Mobile', () => {
         const mobileSearchInput =
             page.getByTestId('mobile-search-input');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('de').click();
 
@@ -308,7 +349,10 @@ test.describe('Language Switching on Mobile', () => {
         const mobileSearchInput =
             page.getByTestId('mobile-search-input');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('fr').click();
 
@@ -336,7 +380,10 @@ test.describe('Language Switching on Mobile', () => {
         const mobileSearchInput =
             page.getByTestId('mobile-search-input');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
@@ -364,7 +411,10 @@ test.describe('Language Switching on Mobile', () => {
         const mobileSearchInput =
             page.getByTestId('mobile-search-input');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('it').click();
 
@@ -389,7 +439,10 @@ test.describe('Language Switching on Mobile', () => {
         const languageMenu =
             page.getByTestId('mobile-language-menu');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
@@ -411,10 +464,7 @@ test.describe('Language Switching on Medium', () => {
 
     test.beforeEach(async ({ page }) => {
 
-        await page.setViewportSize({
-            width: 1024,
-            height: 768,
-        });
+        await page.setViewportSize(MEDIUM_VIEWPORT);
 
         await waitForNavbar(page);
 
@@ -428,7 +478,10 @@ test.describe('Language Switching on Medium', () => {
         const languageMenu =
             page.getByTestId('medium-language-menu');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
