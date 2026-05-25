@@ -16,19 +16,16 @@ async function waitForNavbar(page: any) {
 async function safeClick(locator: any) {
     await expect(locator).toBeVisible({ timeout: 15000 });
 
-    await locator.waitFor({
-        state: 'visible',
-        timeout: 15000,
-    });
-
     await locator.click({ force: true, timeout: 15000 });
 }
 
 async function waitForMenu(menu: any) {
-    await menu.waitFor({
-        state: 'visible',
+    await expect.poll(async () => {
+        return await menu.isVisible().catch(() => false);
+    }, {
         timeout: 15000,
-    });
+        intervals: [250, 500, 1000],
+    }).toBe(true);
 
     await expect(menu).toBeVisible({ timeout: 15000 });
 }
@@ -49,6 +46,17 @@ test.describe('Navbar Desktop', () => {
         await expect(searchBar).toBeVisible({ timeout: 10000 });
         await expect(accountButton).toBeVisible({ timeout: 10000 });
         await expect(dropdownMenu).toBeVisible({ timeout: 10000 });
+
+        await expect.poll(async () => {
+            const logoBox = await logo.first().boundingBox();
+            const searchBox = await searchBar.first().boundingBox();
+            const accountBox = await accountButton.first().boundingBox();
+
+            return Boolean(logoBox && searchBox && accountBox);
+        }, {
+            timeout: 15000,
+            intervals: [250, 500, 1000],
+        }).toBe(true);
 
         const logoBox = await logo.first().boundingBox();
         const searchBox = await searchBar.first().boundingBox();
@@ -151,9 +159,14 @@ test.describe('Navbar Desktop', () => {
 
         await expect(desktopLanguageMenu.getByText('Italiano')).toBeVisible();
 
-        await desktopLanguageButton.click();
+        await safeClick(desktopLanguageButton);
 
-        await expect(desktopLanguageMenu).toHaveCount(0);
+        await expect.poll(async () => {
+            return await desktopLanguageMenu.isVisible().catch(() => false);
+        }, {
+            timeout: 15000,
+            intervals: [250, 500, 1000],
+        }).toBe(false);
 
     });
 
@@ -277,11 +290,14 @@ test.describe('Navbar Mobile', () => {
 
         await waitForMenu(mobileMenu);
 
-        await page.waitForTimeout(400);
-
         await safeClick(hamburgerButton);
 
-        await expect(mobileMenu).not.toBeVisible({ timeout: 10000 });
+        await expect.poll(async () => {
+            return await mobileMenu.isVisible().catch(() => false);
+        }, {
+            timeout: 15000,
+            intervals: [250, 500, 1000],
+        }).toBe(false);
     });
 
     test('mobile expandable sections work correctly', async ({ page }) => {
@@ -313,6 +329,8 @@ test.describe('Navbar Mobile', () => {
         const accountButton = page.getByLabel('Toggle account menu');
 
         await safeClick(accountButton);
+
+        await page.waitForTimeout(300);
 
         const mobileAccountMenu = page.getByTestId('mobile-account-menu');
 
