@@ -110,6 +110,8 @@ async function performLogin(
 
     await page.waitForLoadState('networkidle');
 
+    await page.waitForTimeout(200);
+
     const emailInput =
         page.getByTestId('login-email-input');
 

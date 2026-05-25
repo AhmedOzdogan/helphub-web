@@ -161,6 +161,10 @@ async function performInvalidSignup(page: any) {
 
     await signupButton.click();
 
+    await page.mouse.wheel(0, 600);
+
+    await page.waitForTimeout(200);
+
     await page.getByTestId('signup-error')
         .scrollIntoViewIfNeeded();
 
@@ -246,6 +250,8 @@ test.describe('Desktop Signup', () => {
 
         await navigateToSignup(page);
 
+        await page.waitForTimeout(200);
+
         await performSignup(page);
 
     });
@@ -282,6 +288,8 @@ test.describe('Medium Signup', () => {
 
         await navigateToSignup(page);
 
+        await page.waitForTimeout(200);
+
         await performSignup(page);
 
     });
@@ -317,6 +325,8 @@ test.describe('Mobile Signup', () => {
     test('mobile user can signup successfully', async ({ page }) => {
 
         await navigateToSignup(page);
+
+        await page.waitForTimeout(200);
 
         await performSignup(page);
 
