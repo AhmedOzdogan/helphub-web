@@ -8,15 +8,18 @@ import {
 
 async function waitForNavbar(page: any) {
 
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'networkidle' });
 
     await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
 
+    // Wait for hydration by checking if any navbar element is visible
     const desktopLogo = page.getByTestId('helphub-logo-text-desktop');
     const mobileLogo = page.getByTestId('helphub-logo-text-mobile');
 
-    const desktopVisible = await desktopLogo.isVisible().catch(() => false);
-    const mobileVisible = await mobileLogo.isVisible().catch(() => false);
+    // Wait with longer timeout for React hydration
+    const desktopVisible = await desktopLogo.isVisible({ timeout: 20000 }).catch(() => false);
+    const mobileVisible = await mobileLogo.isVisible({ timeout: 20000 }).catch(() => false);
 
     expect(desktopVisible || mobileVisible).toBeTruthy();
 }

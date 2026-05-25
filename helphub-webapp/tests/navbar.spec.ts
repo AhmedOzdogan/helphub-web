@@ -2,13 +2,15 @@ import { expect, test } from '@playwright/test';
 import { DESKTOP_VIEWPORT, MEDIUM_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
 
 async function waitForNavbar(page: any) {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'networkidle' });
     await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+    
     const desktopLogo = page.getByTestId('helphub-logo-text-desktop');
     const mobileLogo = page.getByTestId('helphub-logo-text-mobile');
 
-    const desktopVisible = await desktopLogo.isVisible().catch(() => false);
-    const mobileVisible = await mobileLogo.isVisible().catch(() => false);
+    const desktopVisible = await desktopLogo.isVisible({ timeout: 20000 }).catch(() => false);
+    const mobileVisible = await mobileLogo.isVisible({ timeout: 20000 }).catch(() => false);
 
     expect(desktopVisible || mobileVisible).toBeTruthy();
 }

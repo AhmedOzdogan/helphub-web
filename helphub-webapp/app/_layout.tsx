@@ -5,6 +5,11 @@ import 'react-native-reanimated';
 import '../global.css';
 import '../i18n';
 
+// Suppress expo-router pointerEvents deprecation warning
+if (!__DEV__) {
+  console.warn = () => { };
+}
+
 export const unstable_settings = {
   anchor: '(tabs)',
 };

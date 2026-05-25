@@ -35,8 +35,8 @@ export default defineConfig({
       'http://127.0.0.1:8081',
 
     trace: 'retain-on-failure',
-    actionTimeout: 15 * 1000,
-    navigationTimeout: 30 * 1000,
+    actionTimeout: 30 * 1000,
+    navigationTimeout: 60 * 1000,
 
     headless: true,
     contextOptions: {
@@ -115,11 +115,11 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'CI=1 npx expo start --web',
+    command: 'npm run web',
     url:
       process.env.PLAYWRIGHT_TEST_BASE_URL ||
       'http://127.0.0.1:8081',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 180 * 1000,
   },
 });

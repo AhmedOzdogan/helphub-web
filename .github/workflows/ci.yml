@@ -109,11 +109,14 @@ jobs:
 
       - name: Run Jest tests
         run: npm test
+        working-directory: helphub-webapp
 
-      - name: Run Chromium Playwright tests
+      - name: Run Playwright tests
         run: npx playwright test --project=chromium --reporter=html
+        working-directory: helphub-webapp
         env:
           CI: true
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
       - name: Upload Chromium report
         uses: actions/upload-artifact@v4
