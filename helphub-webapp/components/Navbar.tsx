@@ -284,9 +284,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     </Pressable>
 
                     {/* Desktop Language Menu */}
-                    <View
-                        testID="desktop-language-button"
-                        className="hidden xl:flex">
+                    <View className="hidden xl:flex">
                         <LanguageMenu
                             openLanguageMenu={openDesktopLanguageMenu}
                             setOpenLanguageMenu={setOpenDesktopLanguageMenu}
@@ -295,9 +293,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                     </View>
 
                     {/* Medium Screen Language Menu */}
-                    <View
-                        testID="medium-language-button"
-                        className="flex xl:hidden">
+                    <View className="flex xl:hidden">
                         <LanguageMenu
                             openLanguageMenu={openMediumLanguageMenu}
                             setOpenLanguageMenu={setOpenMediumLanguageMenu}
@@ -446,7 +442,7 @@ export default function Navbar({ onMobileMenuChange }: NavbarProps) {
                                     />
                                 </Pressable>
                             </Link>
-                            <View testID='mobile-language-button'>
+                            <View>
                                 <LanguageMenu
                                     openLanguageMenu={openMobileLanguageMenu}
                                     setOpenLanguageMenu={setOpenMobileLanguageMenu}

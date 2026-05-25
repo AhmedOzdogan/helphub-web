@@ -11,6 +11,43 @@ const BASE_URL =
 
 const TEST_PASSWORD = process.env.testPassword!;
 
+async function fillInputWithRetry(
+    input: any,
+    value: string,
+) {
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        await input.focus();
+
+        await input.fill(value);
+
+        try {
+
+            await expect(input)
+                .toHaveValue(value, {
+                    timeout: 2000,
+                });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    `Failed to fill input with value: ${value}`,
+                );
+            }
+
+            await input.clear();
+
+            await input.blur();
+
+            await input.page().waitForTimeout(300);
+        }
+    }
+}
+
 function generateTestEmail() {
 
     const now = new Date();
@@ -66,25 +103,25 @@ async function performSignup(page: any) {
     const signupButton =
         page.getByTestId('signup-button');
 
-    await nameInput.fill('Playwright User');
+    await fillInputWithRetry(
+        nameInput,
+        'Playwright User',
+    );
 
-    await expect(nameInput)
-        .toHaveValue('Playwright User');
+    await fillInputWithRetry(
+        emailInput,
+        testEmail,
+    );
 
-    await emailInput.fill(testEmail);
+    await fillInputWithRetry(
+        passwordInput,
+        TEST_PASSWORD,
+    );
 
-    await expect(emailInput)
-        .toHaveValue(testEmail);
-
-    await passwordInput.fill(TEST_PASSWORD);
-
-    await expect(passwordInput)
-        .toHaveValue(TEST_PASSWORD);
-
-    await confirmPasswordInput.fill(TEST_PASSWORD);
-
-    await expect(confirmPasswordInput)
-        .toHaveValue(TEST_PASSWORD);
+    await fillInputWithRetry(
+        confirmPasswordInput,
+        TEST_PASSWORD,
+    );
 
     await signupButton.click();
 
@@ -110,11 +147,73 @@ async function performInvalidSignup(page: any) {
 }
 
 
+async function verifySignupRedirect(
+    page: any,
+    signupButtonTestId: string,
+) {
+
+    await page.goto('/');
+
+    await page.waitForLoadState('networkidle');
+
+    const accountMenuButton =
+        page.getByRole('button', {
+            name: /open account menu|toggle account menu/i,
+        }).first();
+
+    await expect(accountMenuButton)
+        .toBeVisible({ timeout: 30000 });
+
+    const signupButton =
+        page.getByTestId(signupButtonTestId);
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        try {
+
+            await accountMenuButton.click();
+
+            await expect(signupButton)
+                .toBeVisible({ timeout: 5000 });
+
+            await signupButton.click();
+
+            await expect(page)
+                .toHaveURL(/\/signup/, {
+                    timeout: 10000,
+                });
+
+            await expect(
+                page.getByTestId('signup-name-input'),
+            ).toBeVisible({ timeout: 10000 });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    `Failed to navigate to signup page using ${signupButtonTestId}`,
+                );
+            }
+        }
+    }
+}
+
 test.describe('Desktop Signup', () => {
 
     test.beforeEach(async ({ page }) => {
 
         await page.setViewportSize(DESKTOP_VIEWPORT);
+
+    });
+
+    test('desktop signup button redirects to signup page', async ({ page }) => {
+
+        await verifySignupRedirect(
+            page,
+            'signUpButton',
+        );
 
     });
 
@@ -145,6 +244,15 @@ test.describe('Medium Signup', () => {
 
     });
 
+    test('medium signup button redirects to signup page', async ({ page }) => {
+
+        await verifySignupRedirect(
+            page,
+            'signUpButton',
+        );
+
+    });
+
     test('medium user can signup successfully', async ({ page }) => {
 
         await navigateToSignup(page);
@@ -169,6 +277,15 @@ test.describe('Mobile Signup', () => {
     test.beforeEach(async ({ page }) => {
 
         await page.setViewportSize(MOBILE_VIEWPORT);
+
+    });
+
+    test('mobile signup button redirects to signup page', async ({ page }) => {
+
+        await verifySignupRedirect(
+            page,
+            'mobileSignUpButton',
+        );
 
     });
 

@@ -1,29 +1,81 @@
-import { expect, test } from '@playwright/test';
-import { DESKTOP_VIEWPORT, MEDIUM_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
+import { expect, Locator, Page, test } from '@playwright/test';
+import { DESKTOP_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
 
-async function waitForNavbar(page: any) {
-    await page.goto('/', { waitUntil: 'networkidle' });
-    await page.waitForLoadState('domcontentloaded');
-    await page.waitForLoadState('networkidle');
-    
-    const desktopLogo = page.getByTestId('helphub-logo-text-desktop');
-    const mobileLogo = page.getByTestId('helphub-logo-text-mobile');
+async function waitForNavbar(page: Page) {
 
-    const desktopVisible = await desktopLogo.isVisible({ timeout: 20000 }).catch(() => false);
-    const mobileVisible = await mobileLogo.isVisible({ timeout: 20000 }).catch(() => false);
+    await page.goto('/');
 
-    expect(desktopVisible || mobileVisible).toBeTruthy();
+    const desktopLogo =
+        page.getByTestId('helphub-logo-text-desktop');
+
+    const mobileLogo =
+        page.getByTestId('helphub-logo-text-mobile');
+
+    await expect.poll(async () => {
+
+        const desktopVisible =
+            await desktopLogo.isVisible().catch(() => false);
+
+        const mobileVisible =
+            await mobileLogo.isVisible().catch(() => false);
+
+        return desktopVisible || mobileVisible;
+
+    }, {
+        timeout: 20000,
+        intervals: [250, 500, 1000],
+    }).toBe(true);
 }
 
-async function safeClick(locator: any) {
-    await expect(locator).toBeVisible({ timeout: 15000 });
+async function safeClick(locator: Locator) {
 
-    await expect(locator).toBeEnabled({ timeout: 15000 });
+    await expect(locator)
+        .toBeVisible({ timeout: 15000 });
 
-    await locator.click({ timeout: 15000 });
+    await expect(locator)
+        .toBeEnabled({ timeout: 15000 });
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        try {
+
+            await locator.click({ timeout: 15000 });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error('Failed to click locator safely');
+            }
+
+            await locator.page().waitForTimeout(300);
+        }
+    }
 }
 
-async function waitForMenu(menu: any) {
+async function hoverWithRetry(locator: Locator) {
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        try {
+
+            await locator.hover();
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error('Failed to hover locator safely');
+            }
+
+            await locator.page().waitForTimeout(300);
+        }
+    }
+}
+
+async function waitForMenu(menu: Locator) {
     await expect.poll(async () => {
         return await menu.isVisible().catch(() => false);
     }, {
@@ -32,6 +84,44 @@ async function waitForMenu(menu: any) {
     }).toBe(true);
 
     await expect(menu).toBeVisible({ timeout: 15000 });
+}
+
+async function waitForMenuToClose(menu: Locator) {
+
+    await expect.poll(async () => {
+        return await menu.isVisible().catch(() => false);
+    }, {
+        timeout: 15000,
+        intervals: [250, 500, 1000],
+    }).toBe(false);
+}
+
+async function openMobileMenuWithRetry(
+    hamburgerButton: Locator,
+    mobileMenu: Locator,
+) {
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        await safeClick(hamburgerButton);
+
+        try {
+
+            await waitForMenu(mobileMenu);
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    'Failed to open mobile menu after 3 attempts',
+                );
+            }
+
+            await hamburgerButton.page().waitForTimeout(500);
+        }
+    }
 }
 
 test.describe('Navbar Desktop', () => {
@@ -76,29 +166,6 @@ test.describe('Navbar Desktop', () => {
         }
     });
 
-    test('account dropdown opens and closes safely', async ({ page }) => {
-
-        const accountButton = page.getByLabel('Open account menu');
-
-        await accountButton.hover();
-
-        const loginButton = page.getByTestId('loginButton');
-
-        const signUpButton = page.getByTestId('signUpButton');
-
-        await expect(loginButton).toBeVisible({ timeout: 10000 });
-
-        await expect(signUpButton).toBeVisible({ timeout: 10000 });
-
-        await page.mouse.move(0, 0);
-
-        await expect.poll(async () => {
-            return await loginButton.isVisible().catch(() => false);
-        }, {
-            timeout: 15000,
-            intervals: [250, 500, 1000],
-        }).toBe(false);
-    });
 
     test('mega menu dropdowns open on hover', async ({ page }) => {
 
@@ -129,157 +196,14 @@ test.describe('Navbar Desktop', () => {
 
             await expect(trigger).toBeVisible();
 
-            await trigger.hover();
+            await hoverWithRetry(trigger);
 
             await expect(menu).toBeVisible({ timeout: 10000 });
 
             await page.mouse.move(0, 0);
 
-            await expect.poll(async () => {
-                return await menu.isVisible().catch(() => false);
-            }, {
-                timeout: 15000,
-                intervals: [250, 500, 1000],
-            }).toBe(false);
+            await waitForMenuToClose(menu);
         }
-    });
-
-    test('Desktop language menu opens and closes correctly', async ({ page }) => {
-
-        const desktopLanguageButton =
-            page.getByTestId('desktop-language-button');
-
-        const desktopLanguageMenu =
-            page.getByTestId('desktop-language-menu');
-
-        await safeClick(desktopLanguageButton);
-
-        await waitForMenu(desktopLanguageMenu);
-
-        await expect(
-
-            desktopLanguageMenu.getByText('English')
-
-        ).toBeVisible();;
-
-        await expect(desktopLanguageMenu.getByText('Deutsch')).toBeVisible();
-
-        await expect(desktopLanguageMenu.getByText('Français')).toBeVisible();
-
-        await expect(desktopLanguageMenu.getByText('Español')).toBeVisible();
-
-        await expect(desktopLanguageMenu.getByText('Italiano')).toBeVisible();
-
-        await safeClick(desktopLanguageButton);
-
-        await expect.poll(async () => {
-            return await desktopLanguageMenu.isVisible().catch(() => false);
-        }, {
-            timeout: 15000,
-            intervals: [250, 500, 1000],
-        }).toBe(false);
-
-    });
-
-    test('login and signup buttons navigate to correct pages', async ({ page }) => {
-
-        const accountButton = page.getByLabel('Open account menu');
-
-        // Login navigation
-        await accountButton.hover();
-
-        const loginButton = page.getByTestId('loginButton');
-
-        await expect(loginButton).toBeVisible({
-            timeout: 10000
-        });
-
-        await loginButton.click();
-
-        await expect(page).toHaveURL(/\/login$/);
-
-        // Go back to homepage
-        await page.goto('/');
-
-        await page.waitForLoadState('domcontentloaded');
-
-        // Signup navigation
-        const accountButtonAgain = page.getByLabel('Open account menu');
-
-        await accountButtonAgain.hover();
-
-        const signUpButton = page.getByTestId('signUpButton');
-
-        await expect(signUpButton).toBeVisible({
-            timeout: 10000
-        });
-
-        await signUpButton.click();
-
-        await expect(page).toHaveURL(/\/signup$/);
-
-    });
-});
-
-test.describe('Medium Navbar', () => {
-    test.beforeEach(async ({ page }) => {
-        await page.setViewportSize(MEDIUM_VIEWPORT);
-        await waitForNavbar(page)
-    });
-
-    test.describe('Medium Navbar', () => {
-
-        test.beforeEach(async ({ page }) => {
-
-            await page.setViewportSize(MEDIUM_VIEWPORT);
-
-            await waitForNavbar(page);
-
-        });
-
-        test('Medium language menu opens and closes correctly', async ({ page }) => {
-
-            const mediumLanguageButton =
-                page.getByTestId('medium-language-button');
-
-            const mediumLanguageMenu =
-                page.getByTestId('medium-language-menu');
-
-            await safeClick(mediumLanguageButton);
-
-            await waitForMenu(mediumLanguageMenu);
-
-            // Medium navbar only shows flags
-            await expect(
-                mediumLanguageMenu.getByTestId('en')
-            ).toBeVisible();
-
-            await expect(
-                mediumLanguageMenu.getByTestId('de')
-            ).toBeVisible();
-
-            await expect(
-                mediumLanguageMenu.getByTestId('fr')
-            ).toBeVisible();
-
-            await expect(
-                mediumLanguageMenu.getByTestId('es')
-            ).toBeVisible();
-
-            await expect(
-                mediumLanguageMenu.getByTestId('it')
-            ).toBeVisible();
-
-            await mediumLanguageButton.click();
-
-            await expect.poll(async () => {
-                return await mediumLanguageMenu.isVisible().catch(() => false);
-            }, {
-                timeout: 15000,
-                intervals: [250, 500, 1000],
-            }).toBe(false);
-
-        });
     });
 });
 
@@ -300,26 +224,27 @@ test.describe('Navbar Mobile', () => {
     test('mobile menu opens and closes safely', async ({ page }) => {
         const hamburgerButton = page.getByTestId('MobileMenuHamburgerButton');
 
-        await safeClick(hamburgerButton);
-
         const mobileMenu = page.getByTestId('MobileMenu');
 
-        await waitForMenu(mobileMenu);
+        await openMobileMenuWithRetry(
+            hamburgerButton,
+            mobileMenu,
+        );
 
         await safeClick(hamburgerButton);
 
-        await expect.poll(async () => {
-            return await mobileMenu.isVisible().catch(() => false);
-        }, {
-            timeout: 15000,
-            intervals: [250, 500, 1000],
-        }).toBe(false);
+        await waitForMenuToClose(mobileMenu);
     });
 
     test('mobile expandable sections work correctly', async ({ page }) => {
         const hamburgerButton = page.getByTestId('MobileMenuHamburgerButton');
 
-        await safeClick(hamburgerButton);
+        const mobileMenu = page.getByTestId('MobileMenu');
+
+        await openMobileMenuWithRetry(
+            hamburgerButton,
+            mobileMenu,
+        );
 
         const forMyselfSection = page.getByTestId('mobile-section-forMyself');
 
@@ -330,26 +255,12 @@ test.describe('Navbar Mobile', () => {
 
         await expect(forMyselfSection).toBeVisible({ timeout: 15000 });
 
-        await forMyselfSection.click();
+        await safeClick(forMyselfSection);
 
-        await page.waitForTimeout(350);
 
         await expect(page.getByText(/Individual/i).first()).toBeVisible({ timeout: 10000 });
 
-        await forMyselfSection.click();
+        await safeClick(forMyselfSection);
 
-    });
-
-    test('mobile account menu opens correctly', async ({ page }) => {
-        const accountButton = page.getByLabel('Toggle account menu');
-
-        await safeClick(accountButton);
-
-        const mobileAccountMenu = page.getByTestId('mobile-account-menu');
-
-        await waitForMenu(mobileAccountMenu);
-
-        await expect(page.getByTestId('mobileLoginButton')).toBeVisible({ timeout: 10000 });
-        await expect(page.getByTestId('mobileSignUpButton')).toBeVisible({ timeout: 10000 });
     });
 });

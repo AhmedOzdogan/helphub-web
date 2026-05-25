@@ -58,6 +58,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
     return (
         <View className="relative z-[999]">
             <Pressable
+                testID={`${testId}-language-button`}
                 accessibilityRole="button"
                 accessibilityLabel="Open language menu"
                 className="flex-row items-center gap-2 rounded-full px-3 py-2 md:px-4 md:py-2.5"
@@ -72,7 +73,10 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
             >
                 {mobile ? (
                     <>
-                        <View className="items-center justify-center rounded-full bg-white/10 px-2 py-1 ">
+                        <View
+                            testID={`${testId}-${currentLanguage.code}-language-button`}
+                            className="items-center justify-center rounded-full bg-white/10 px-2 py-1"
+                        >
                             <Text className="text-base md:text-lg">
                                 {currentLanguage.flag}
                             </Text>
@@ -80,7 +84,9 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                     </>
                 ) : (
                     <>
-                        <View className="items-center justify-center rounded-s px-2 py-1 z-[999]">
+                        <View
+                            testID={`${testId}-${currentLanguage.code}-language-button`}
+                            className="items-center justify-center rounded-s px-2 py-1 z-[999]">
                             <Text className="text-base md:text-lg">
                                 {currentLanguage.flag}
                             </Text>
