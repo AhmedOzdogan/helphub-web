@@ -68,10 +68,16 @@ export default defineConfig({
       },
     },
 
-    //{
-    //  name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
+    {
+      name: 'webkit',
+      use: {
+        browserName: 'webkit',
+        viewport: {
+          width: 1440,
+          height: 900,
+        },
+      },
+    },
 
     /* Test against mobile viewports. */
     // {
