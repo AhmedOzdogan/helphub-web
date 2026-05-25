@@ -34,7 +34,7 @@ async function checkLanguagePersistence(
     await assertion();
 
     // Navigate to login page
-    await page.goto('/');
+    await page.goto('/login');
 
     await page.waitForLoadState('networkidle');
 
