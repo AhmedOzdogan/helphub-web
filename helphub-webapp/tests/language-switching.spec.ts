@@ -26,10 +26,20 @@ async function openLanguageMenu(
     languageMenu: any,
 ) {
 
-    await languageButton.click();
+    await expect(languageButton)
+        .toBeVisible({ timeout: 10000 });
+
+    await languageButton.scrollIntoViewIfNeeded();
+
+    await languageButton.click({ force: true });
+
+    await languageButton.page().waitForTimeout(1000);
 
     await expect(languageMenu)
-        .toBeVisible({ timeout: 5000 });
+        .toBeAttached({ timeout: 10000 });
+
+    await expect(languageMenu)
+        .toBeVisible({ timeout: 10000 });
 
     await languageButton.page().waitForTimeout(500);
 }

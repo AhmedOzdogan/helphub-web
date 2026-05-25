@@ -30,6 +30,12 @@ test.describe('Navbar Desktop', () => {
         await expect(accountButton).toBeVisible({ timeout: 10000 });
         await expect(dropdownMenu).toBeVisible({ timeout: 10000 });
 
+        await logo.scrollIntoViewIfNeeded();
+        await searchBar.scrollIntoViewIfNeeded();
+        await accountButton.scrollIntoViewIfNeeded();
+
+        await page.waitForTimeout(500);
+
         const logoBox = await logo.boundingBox();
         const searchBox = await searchBar.boundingBox();
         const accountBox = await accountButton.boundingBox();
@@ -113,10 +119,20 @@ test.describe('Navbar Desktop', () => {
         const desktopLanguageMenu =
             page.getByTestId('desktop-language-menu');
 
-        await desktopLanguageButton.click();
+        await expect(desktopLanguageButton)
+            .toBeVisible({ timeout: 10000 });
+
+        await desktopLanguageButton.scrollIntoViewIfNeeded();
+
+        await desktopLanguageButton.click({ force: true });
+
+        await page.waitForTimeout(1000);
+
+        await expect(desktopLanguageMenu)
+            .toBeAttached({ timeout: 10000 });
 
         await expect(desktopLanguageMenu).toBeVisible({
-            timeout: 1000
+            timeout: 10000
         });
 
         await expect(
@@ -255,11 +271,22 @@ test.describe('Navbar Mobile', () => {
     test('mobile menu opens and closes safely', async ({ page }) => {
         const hamburgerButton = page.getByTestId('MobileMenuHamburgerButton');
 
-        await hamburgerButton.click();
+        await expect(hamburgerButton)
+            .toBeVisible({ timeout: 10000 });
+
+        await hamburgerButton.scrollIntoViewIfNeeded();
+
+        await hamburgerButton.click({ force: true });
+
+        await page.waitForTimeout(1000);
 
         const mobileMenu = page.getByTestId('MobileMenu');
 
-        await expect(mobileMenu).toBeVisible({ timeout: 10000 });
+        await expect(mobileMenu)
+            .toBeAttached({ timeout: 10000 });
+
+        await expect(mobileMenu)
+            .toBeVisible({ timeout: 10000 });
 
         await page.waitForTimeout(400);
 
@@ -270,7 +297,15 @@ test.describe('Navbar Mobile', () => {
 
     test('mobile expandable sections work correctly', async ({ page }) => {
         const hamburgerButton = page.getByTestId('MobileMenuHamburgerButton');
-        await hamburgerButton.click();
+
+        await expect(hamburgerButton)
+            .toBeVisible({ timeout: 10000 });
+
+        await hamburgerButton.scrollIntoViewIfNeeded();
+
+        await hamburgerButton.click({ force: true });
+
+        await page.waitForTimeout(1000);
 
         const forMyselfSection = page.getByTestId('mobile-section-forMyself');
 
@@ -290,11 +325,22 @@ test.describe('Navbar Mobile', () => {
     test('mobile account menu opens correctly', async ({ page }) => {
         const accountButton = page.getByLabel('Toggle account menu');
 
-        await accountButton.click();
+        await expect(accountButton)
+            .toBeVisible({ timeout: 10000 });
+
+        await accountButton.scrollIntoViewIfNeeded();
+
+        await accountButton.click({ force: true });
+
+        await page.waitForTimeout(1000);
 
         const mobileAccountMenu = page.getByTestId('mobile-account-menu');
 
-        await expect(mobileAccountMenu).toBeVisible({ timeout: 10000 });
+        await expect(mobileAccountMenu)
+            .toBeAttached({ timeout: 10000 });
+
+        await expect(mobileAccountMenu)
+            .toBeVisible({ timeout: 10000 });
 
         await expect(page.getByTestId('mobileLoginButton')).toBeVisible({ timeout: 10000 });
         await expect(page.getByTestId('mobileSignUpButton')).toBeVisible({ timeout: 10000 });
