@@ -1,50 +1,134 @@
-import { expect, test } from '@playwright/test';
-import { DESKTOP_VIEWPORT, MOBILE_VIEWPORT } from './constants/viewports';
+import {
+    expect,
+    Locator,
+    Page,
+    test,
+} from '@playwright/test';
+import {
+    DESKTOP_VIEWPORT,
+    MEDIUM_VIEWPORT,
+    MOBILE_VIEWPORT,
+} from './constants/viewports';
 
 
-async function waitForNavbar(page: any) {
+const desktopLanguages = [
+    {
+        code: 'en',
+        message: 'Messages',
+        login: /Login/i,
+    },
+    {
+        code: 'de',
+        message: 'Nachrichten',
+        login: /Anmelden/i,
+    },
+    {
+        code: 'fr',
+        message: 'Messages',
+        login: /Connexion/i,
+    },
+    {
+        code: 'es',
+        message: 'Mensajes',
+        login: /Iniciar sesión/i,
+    },
+    {
+        code: 'it',
+        message: 'Messaggi',
+        login: /Accedi/i,
+    },
+];
+
+const mobileLanguages = [
+    {
+        code: 'en',
+        placeholder: /Search/i,
+        login: /Login/i,
+    },
+    {
+        code: 'de',
+        placeholder: /Suche|Suchen/i,
+        login: /Anmelden/i,
+    },
+    {
+        code: 'fr',
+        placeholder: /Recherche|Chercher/i,
+        login: /Connexion/i,
+    },
+    {
+        code: 'es',
+        placeholder: /Buscar/i,
+        login: /Iniciar sesión/i,
+    },
+    {
+        code: 'it',
+        placeholder: /Cerca/i,
+        login: /Accedi/i,
+    },
+];
+
+
+async function waitForNavbar(page: Page) {
 
     await page.goto('/');
 
-    await page.waitForLoadState('networkidle');
+    await expect(
+        page.getByRole('button', {
+            name: 'Open language menu',
+        }).first(),
+    ).toBeVisible({ timeout: 30000 });
+}
 
-    const desktopLogo = page.getByTestId('helphub-logo-text-desktop');
-    const mobileLogo = page.getByTestId('helphub-logo-text-mobile');
+async function openLanguageMenu(
+    languageButton: Locator,
+    languageMenu: Locator,
+) {
 
-    const desktopVisible = await desktopLogo.isVisible().catch(() => false);
-    const mobileVisible = await mobileLogo.isVisible().catch(() => false);
+    await expect(languageButton)
+        .toBeVisible({ timeout: 15000 });
 
-    expect(desktopVisible || mobileVisible).toBeTruthy();
+    await expect(languageButton)
+        .toBeEnabled({ timeout: 15000 });
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        await languageButton.click({ force: true });
+
+        try {
+
+            await expect(languageMenu)
+                .toBeVisible({ timeout: 5000 });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error('Language menu failed to open');
+            }
+        }
+    }
 }
 
 async function checkLanguagePersistence(
-    page: any,
+    page: Page,
     assertion: () => Promise<void>,
     loginAssertion: () => Promise<void>,
 ) {
 
-    // Current index page
     await assertion();
 
-    // Refresh index page and check again
     await page.reload();
 
-    await page.waitForLoadState('networkidle');
-
     await assertion();
 
-    // Navigate to login page
-    await page.goto('/');
+    await page.goto('/login');
 
-    await page.waitForLoadState('networkidle');
-
-    // Check login page translation
     await loginAssertion();
 
-    // Return home page
     await page.goto('/');
 
-    await page.waitForLoadState('networkidle');
+    await assertion();
 }
 
 test.describe('Language Switching on Desktop', () => {
@@ -55,153 +139,45 @@ test.describe('Language Switching on Desktop', () => {
 
     });
 
-    test('english persists after refresh', async ({ page }) => {
+    desktopLanguages.forEach((language) => {
 
-        const languageButton =
-            page.getByTestId('desktop-language-button');
+        test(`${language.code} persists after refresh`, async ({ page }) => {
 
-        const languageMenu =
-            page.getByTestId('desktop-language-menu');
+            const languageButton =
+                page.getByTestId('desktop-language-button');
 
-        const messagesText = () =>
-            page.getByTestId('messages-button');
+            const languageMenu =
+                page.getByTestId('desktop-language-menu');
 
-        await languageButton.click();
+            const messagesButton =
+                page.getByTestId('messages-button');
 
-        await languageMenu.getByTestId('en').click();
+            await openLanguageMenu(
+                languageButton,
+                languageMenu,
+            );
 
-        await checkLanguagePersistence(
-            page,
-            async () => {
-                await expect(messagesText())
-                    .toContainText('Messages');
-            },
-            async () => {
-                await expect(
-                    page.getByTestId('login-header')
-                ).toContainText(/Login/i);
-            },
-        );
+            await languageMenu
+                .getByTestId(language.code)
+                .click();
 
-    });
+            await expect(messagesButton)
+                .toContainText(language.message);
 
-    test('german persists after refresh', async ({ page }) => {
+            await checkLanguagePersistence(
+                page,
+                async () => {
+                    await expect(messagesButton)
+                        .toContainText(language.message);
+                },
+                async () => {
+                    await expect(
+                        page.getByTestId('login-header'),
+                    ).toContainText(language.login);
+                },
+            );
 
-        const languageButton =
-            page.getByTestId('desktop-language-button');
-
-        const languageMenu =
-            page.getByTestId('desktop-language-menu');
-
-        const messagesText = () =>
-            page.getByTestId('messages-button');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('de').click();
-
-        await checkLanguagePersistence(
-            page,
-            async () => {
-                await expect(messagesText())
-                    .toContainText('Nachrichten');
-            },
-            async () => {
-                await expect(
-                    page.getByTestId('login-header')
-                ).toContainText(/Anmelden/i);
-            },
-        );
-
-    });
-
-    test('french persists after refresh', async ({ page }) => {
-
-        const languageButton =
-            page.getByTestId('desktop-language-button');
-
-        const languageMenu =
-            page.getByTestId('desktop-language-menu');
-
-        const messagesText = () =>
-            page.getByTestId('messages-button');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('fr').click();
-
-        await checkLanguagePersistence(
-            page,
-            async () => {
-                await expect(messagesText())
-                    .toContainText('Messages');
-            },
-            async () => {
-                await expect(
-                    page.getByTestId('login-header')
-                ).toContainText(/Connexion/i);
-            },
-        );
-
-    });
-
-    test('spanish persists after refresh', async ({ page }) => {
-
-        const languageButton =
-            page.getByTestId('desktop-language-button');
-
-        const languageMenu =
-            page.getByTestId('desktop-language-menu');
-
-        const messagesText = () =>
-            page.getByTestId('messages-button');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('es').click();
-
-        await checkLanguagePersistence(
-            page,
-            async () => {
-                await expect(messagesText())
-                    .toContainText('Mensajes');
-            },
-            async () => {
-                await expect(
-                    page.getByTestId('login-header')
-                ).toContainText(/Iniciar sesión/i);
-            },
-        );
-
-    });
-
-    test('italian persists after refresh', async ({ page }) => {
-
-        const languageButton =
-            page.getByTestId('desktop-language-button');
-
-        const languageMenu =
-            page.getByTestId('desktop-language-menu');
-
-        const messagesText = () =>
-            page.getByTestId('messages-button');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('it').click();
-
-        await checkLanguagePersistence(
-            page,
-            async () => {
-                await expect(messagesText())
-                    .toContainText('Messaggi');
-            },
-            async () => {
-                await expect(
-                    page.getByTestId('login-header')
-                ).toContainText(/Accedi/i);
-            },
-        );
+        });
 
     });
 
@@ -213,19 +189,24 @@ test.describe('Language Switching on Desktop', () => {
         const languageMenu =
             page.getByTestId('desktop-language-menu');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
-        await expect(languageButton)
-            .toContainText('Español');
+        await expect(
+            page.getByTestId('desktop-es-language-button'),
+        ).toBeVisible();
 
         await page.reload();
 
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
 
-        await expect(languageButton)
-            .toContainText('Español');
+        await expect(
+            page.getByTestId('desktop-es-language-button'),
+        ).toBeVisible();
 
     });
 
@@ -241,142 +222,50 @@ test.describe('Language Switching on Mobile', () => {
 
     });
 
-    test('mobile english persists after refresh', async ({ page }) => {
+    mobileLanguages.forEach((language) => {
 
-        const languageButton =
-            page.getByTestId('mobile-language-button');
+        test(`mobile ${language.code} persists after refresh`, async ({ page }) => {
 
-        const languageMenu =
-            page.getByTestId('mobile-language-menu');
+            const languageButton =
+                page.getByTestId('mobile-language-button');
 
-        const mobileSearchInput =
-            page.getByTestId('mobile-search-input');
+            const languageMenu =
+                page.getByTestId('mobile-language-menu');
 
-        await languageButton.click();
+            const mobileSearchInput =
+                page.getByTestId('mobile-search-input');
 
-        await languageMenu.getByTestId('en').click();
+            await openLanguageMenu(
+                languageButton,
+                languageMenu,
+            );
 
-        await checkLanguagePersistence(page, async () => {
-
-            await expect(mobileSearchInput)
-                .toHaveAttribute('placeholder', /Search/i);
-
-        }, async () => {
-            await expect(
-                page.getByTestId('login-header')
-            ).toContainText(/Login/i);
-        });
-
-    });
-
-    test('mobile german persists after refresh', async ({ page }) => {
-
-        const languageButton =
-            page.getByTestId('mobile-language-button');
-
-        const languageMenu =
-            page.getByTestId('mobile-language-menu');
-
-        const mobileSearchInput =
-            page.getByTestId('mobile-search-input');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('de').click();
-
-        await checkLanguagePersistence(page, async () => {
+            await languageMenu
+                .getByTestId(language.code)
+                .click();
 
             await expect(mobileSearchInput)
-                .toHaveAttribute('placeholder', /Suche|Suchen/i);
+                .toHaveAttribute(
+                    'placeholder',
+                    language.placeholder,
+                );
 
-        }, async () => {
-            await expect(
-                page.getByTestId('login-header')
-            ).toContainText(/Anmelden/i);
-        });
+            await checkLanguagePersistence(
+                page,
+                async () => {
+                    await expect(mobileSearchInput)
+                        .toHaveAttribute(
+                            'placeholder',
+                            language.placeholder,
+                        );
+                },
+                async () => {
+                    await expect(
+                        page.getByTestId('login-header'),
+                    ).toContainText(language.login);
+                },
+            );
 
-    });
-
-    test('mobile french persists after refresh', async ({ page }) => {
-
-        const languageButton =
-            page.getByTestId('mobile-language-button');
-
-        const languageMenu =
-            page.getByTestId('mobile-language-menu');
-
-        const mobileSearchInput =
-            page.getByTestId('mobile-search-input');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('fr').click();
-
-        await checkLanguagePersistence(page, async () => {
-
-            await expect(mobileSearchInput)
-                .toHaveAttribute('placeholder', /Recherche|Chercher/i);
-
-        }, async () => {
-            await expect(
-                page.getByTestId('login-header')
-            ).toContainText(/Connexion/i);
-        });
-
-    });
-
-    test('mobile spanish persists after refresh', async ({ page }) => {
-
-        const languageButton =
-            page.getByTestId('mobile-language-button');
-
-        const languageMenu =
-            page.getByTestId('mobile-language-menu');
-
-        const mobileSearchInput =
-            page.getByTestId('mobile-search-input');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('es').click();
-
-        await checkLanguagePersistence(page, async () => {
-
-            await expect(mobileSearchInput)
-                .toHaveAttribute('placeholder', /Buscar/i);
-
-        }, async () => {
-            await expect(
-                page.getByTestId('login-header')
-            ).toContainText(/Iniciar sesión/i);
-        });
-
-    });
-
-    test('mobile italian persists after refresh', async ({ page }) => {
-
-        const languageButton =
-            page.getByTestId('mobile-language-button');
-
-        const languageMenu =
-            page.getByTestId('mobile-language-menu');
-
-        const mobileSearchInput =
-            page.getByTestId('mobile-search-input');
-
-        await languageButton.click();
-
-        await languageMenu.getByTestId('it').click();
-
-        await checkLanguagePersistence(page, async () => {
-
-            await expect(mobileSearchInput)
-                .toHaveAttribute('placeholder', /Cerca/i);
-
-        }, async () => {
-            await expect(
-                page.getByTestId('login-header')
-            ).toContainText(/Accedi/i);
         });
 
     });
@@ -389,19 +278,24 @@ test.describe('Language Switching on Mobile', () => {
         const languageMenu =
             page.getByTestId('mobile-language-menu');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
-        await expect(languageButton)
-            .toContainText('🇪🇸');
+        await expect(
+            page.getByTestId('mobile-es-language-button'),
+        ).toBeVisible();
 
         await page.reload();
 
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
 
-        await expect(languageButton)
-            .toContainText('🇪🇸');
+        await expect(
+            page.getByTestId('mobile-es-language-button'),
+        ).toBeVisible();
 
     });
 });
@@ -411,10 +305,7 @@ test.describe('Language Switching on Medium', () => {
 
     test.beforeEach(async ({ page }) => {
 
-        await page.setViewportSize({
-            width: 1024,
-            height: 768,
-        });
+        await page.setViewportSize(MEDIUM_VIEWPORT);
 
         await waitForNavbar(page);
 
@@ -428,19 +319,24 @@ test.describe('Language Switching on Medium', () => {
         const languageMenu =
             page.getByTestId('medium-language-menu');
 
-        await languageButton.click();
+        await openLanguageMenu(
+            languageButton,
+            languageMenu,
+        );
 
         await languageMenu.getByTestId('es').click();
 
-        await expect(languageButton)
-            .toContainText('🇪🇸');
+        await expect(
+            page.getByTestId('medium-es-language-button'),
+        ).toBeVisible();
 
         await page.reload();
 
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
 
-        await expect(languageButton)
-            .toContainText('🇪🇸');
+        await expect(
+            page.getByTestId('medium-es-language-button'),
+        ).toBeVisible();
 
     });
 

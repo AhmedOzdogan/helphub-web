@@ -58,6 +58,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
     return (
         <View className="relative z-[999]">
             <Pressable
+                testID={`${testId}-language-button`}
                 accessibilityRole="button"
                 accessibilityLabel="Open language menu"
                 className="flex-row items-center gap-2 rounded-full px-3 py-2 md:px-4 md:py-2.5"
@@ -65,17 +66,17 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                     backgroundColor: '#ef4444',
                     borderColor: '#f87171',
                     borderWidth: 1,
-                    shadowColor: '#ef4444',
-                    shadowOffset: { width: 0, height: 6 },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 12,
+                    boxShadow: '0px 6px 12px rgba(239, 68, 68, 0.25)',
                     elevation: 6,
                 }}
                 onPress={() => setOpenLanguageMenu(!openLanguageMenu)}
             >
                 {mobile ? (
                     <>
-                        <View className="items-center justify-center rounded-full bg-white/10 px-2 py-1 ">
+                        <View
+                            testID={`${testId}-${currentLanguage.code}-language-button`}
+                            className="items-center justify-center rounded-full bg-white/10 px-2 py-1"
+                        >
                             <Text className="text-base md:text-lg">
                                 {currentLanguage.flag}
                             </Text>
@@ -83,7 +84,9 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                     </>
                 ) : (
                     <>
-                        <View className="items-center justify-center rounded-s px-2 py-1 z-[999]">
+                        <View
+                            testID={`${testId}-${currentLanguage.code}-language-button`}
+                            className="items-center justify-center rounded-s px-2 py-1 z-[999]">
                             <Text className="text-base md:text-lg">
                                 {currentLanguage.flag}
                             </Text>

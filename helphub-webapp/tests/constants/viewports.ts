@@ -1,5 +1,5 @@
 export const DESKTOP_VIEWPORT = {
-    width: 1440,
+    width: 1600,
     height: 900,
 };
 

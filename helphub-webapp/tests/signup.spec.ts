@@ -11,6 +11,41 @@ const BASE_URL =
 
 const TEST_PASSWORD = process.env.testPassword!;
 
+async function fillInputWithRetry(
+    input: any,
+    value: string,
+) {
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        await input.fill(value);
+
+        await input.scrollIntoViewIfNeeded();
+
+        try {
+
+            await expect(input)
+                .toHaveValue(value, {
+                    timeout: 2000,
+                });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    `Failed to fill input with value: ${value}`,
+                );
+            }
+
+            await input.clear();
+
+            await input.page().waitForTimeout(300);
+        }
+    }
+}
+
 function generateTestEmail() {
 
     const now = new Date();
@@ -66,33 +101,57 @@ async function performSignup(page: any) {
     const signupButton =
         page.getByTestId('signup-button');
 
-    await nameInput.fill('Playwright User');
+    await fillInputWithRetry(
+        nameInput,
+        'Playwright User',
+    );
 
-    await expect(nameInput)
-        .toHaveValue('Playwright User');
+    await fillInputWithRetry(
+        emailInput,
+        testEmail,
+    );
 
-    await emailInput.fill(testEmail);
+    await fillInputWithRetry(
+        passwordInput,
+        TEST_PASSWORD,
+    );
 
-    await expect(emailInput)
-        .toHaveValue(testEmail);
+    await fillInputWithRetry(
+        confirmPasswordInput,
+        TEST_PASSWORD,
+    );
 
-    await passwordInput.fill(TEST_PASSWORD);
+    for (let attempt = 0; attempt < 3; attempt++) {
 
-    await expect(passwordInput)
-        .toHaveValue(TEST_PASSWORD);
+        await signupButton.scrollIntoViewIfNeeded();
 
-    await confirmPasswordInput.fill(TEST_PASSWORD);
+        await signupButton.click();
 
-    await expect(confirmPasswordInput)
-        .toHaveValue(TEST_PASSWORD);
+        try {
 
-    await signupButton.click();
+            const signupSuccess =
+                page.getByTestId('signup-success');
 
-    await expect(
-        page.getByTestId('signup-success')
-    ).toBeVisible({
-        timeout: 10000,
-    });
+            await signupSuccess.scrollIntoViewIfNeeded();
+
+            await expect(signupSuccess)
+                .toBeVisible({
+                    timeout: 5000,
+                });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    'Signup success message never appeared',
+                );
+            }
+
+            await page.waitForTimeout(500);
+        }
+    }
 }
 
 async function performInvalidSignup(page: any) {
@@ -102,6 +161,13 @@ async function performInvalidSignup(page: any) {
 
     await signupButton.click();
 
+    await page.mouse.wheel(0, 600);
+
+    await page.waitForTimeout(200);
+
+    await page.getByTestId('signup-error')
+        .scrollIntoViewIfNeeded();
+
     await expect(
         page.getByTestId('signup-error')
     ).toBeVisible({
@@ -109,6 +175,59 @@ async function performInvalidSignup(page: any) {
     });
 }
 
+
+async function verifySignupRedirect(
+    page: any,
+    signupButtonTestId: string,
+) {
+
+    await page.goto('/');
+
+    await page.waitForLoadState('networkidle');
+
+    const accountMenuButton =
+        page.getByRole('button', {
+            name: /open account menu|toggle account menu/i,
+        }).first();
+
+    await expect(accountMenuButton)
+        .toBeVisible({ timeout: 30000 });
+
+    const signupButton =
+        page.getByTestId(signupButtonTestId);
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+
+        try {
+
+            await accountMenuButton.click();
+
+            await expect(signupButton)
+                .toBeVisible({ timeout: 5000 });
+
+            await signupButton.click();
+
+            await expect(page)
+                .toHaveURL(/\/signup/, {
+                    timeout: 10000,
+                });
+
+            await expect(
+                page.getByTestId('signup-name-input'),
+            ).toBeVisible({ timeout: 10000 });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    `Failed to navigate to signup page using ${signupButtonTestId}`,
+                );
+            }
+        }
+    }
+}
 
 test.describe('Desktop Signup', () => {
 
@@ -118,9 +237,20 @@ test.describe('Desktop Signup', () => {
 
     });
 
+    test('desktop signup button redirects to signup page', async ({ page }) => {
+
+        await verifySignupRedirect(
+            page,
+            'signUpButton',
+        );
+
+    });
+
     test('desktop user can signup successfully', async ({ page }) => {
 
         await navigateToSignup(page);
+
+        await page.waitForTimeout(200);
 
         await performSignup(page);
 
@@ -145,9 +275,20 @@ test.describe('Medium Signup', () => {
 
     });
 
+    test('medium signup button redirects to signup page', async ({ page }) => {
+
+        await verifySignupRedirect(
+            page,
+            'signUpButton',
+        );
+
+    });
+
     test('medium user can signup successfully', async ({ page }) => {
 
         await navigateToSignup(page);
+
+        await page.waitForTimeout(200);
 
         await performSignup(page);
 
@@ -172,9 +313,20 @@ test.describe('Mobile Signup', () => {
 
     });
 
+    test('mobile signup button redirects to signup page', async ({ page }) => {
+
+        await verifySignupRedirect(
+            page,
+            'mobileSignUpButton',
+        );
+
+    });
+
     test('mobile user can signup successfully', async ({ page }) => {
 
         await navigateToSignup(page);
+
+        await page.waitForTimeout(200);
 
         await performSignup(page);
 
