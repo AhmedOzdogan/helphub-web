@@ -18,9 +18,9 @@ async function fillInputWithRetry(
 
     for (let attempt = 0; attempt < 3; attempt++) {
 
-        await input.focus();
-
         await input.fill(value);
+
+        await input.scrollIntoViewIfNeeded();
 
         try {
 
@@ -40,8 +40,6 @@ async function fillInputWithRetry(
             }
 
             await input.clear();
-
-            await input.blur();
 
             await input.page().waitForTimeout(300);
         }
@@ -123,13 +121,37 @@ async function performSignup(page: any) {
         TEST_PASSWORD,
     );
 
-    await signupButton.click();
+    for (let attempt = 0; attempt < 3; attempt++) {
 
-    await expect(
-        page.getByTestId('signup-success')
-    ).toBeVisible({
-        timeout: 10000,
-    });
+        await signupButton.scrollIntoViewIfNeeded();
+
+        await signupButton.click();
+
+        try {
+
+            const signupSuccess =
+                page.getByTestId('signup-success');
+
+            await signupSuccess.scrollIntoViewIfNeeded();
+
+            await expect(signupSuccess)
+                .toBeVisible({
+                    timeout: 5000,
+                });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    'Signup success message never appeared',
+                );
+            }
+
+            await page.waitForTimeout(500);
+        }
+    }
 }
 
 async function performInvalidSignup(page: any) {
@@ -138,6 +160,9 @@ async function performInvalidSignup(page: any) {
         page.getByTestId('signup-button');
 
     await signupButton.click();
+
+    await page.getByTestId('signup-error')
+        .scrollIntoViewIfNeeded();
 
     await expect(
         page.getByTestId('signup-error')

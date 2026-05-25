@@ -139,6 +139,18 @@ test.describe('Navbar Desktop', () => {
         await expect(logo).toBeVisible({ timeout: 10000 });
         await expect(searchBar).toBeVisible({ timeout: 10000 });
         await expect(accountButton).toBeVisible({ timeout: 10000 });
+
+        await expect.poll(async () => {
+
+            const box = await accountButton.first().boundingBox();
+
+            return box !== null;
+
+        }, {
+            timeout: 15000,
+            intervals: [250, 500, 1000],
+        }).toBe(true);
+
         await expect(dropdownMenu).toBeVisible({ timeout: 10000 });
 
         await expect.poll(async () => {
@@ -154,11 +166,13 @@ test.describe('Navbar Desktop', () => {
 
         const logoBox = await logo.first().boundingBox();
         const searchBox = await searchBar.first().boundingBox();
+
+        // retrieve the bounding box now that we've polled for its existence
         const accountBox = await accountButton.first().boundingBox();
 
         expect(logoBox).not.toBeNull();
         expect(searchBox).not.toBeNull();
-        expect(accountBox).not.toBeNull();
+        expect(accountBox).toBeTruthy();
 
         if (logoBox && searchBox && accountBox) {
             expect(searchBox.x).toBeGreaterThan(logoBox.x);

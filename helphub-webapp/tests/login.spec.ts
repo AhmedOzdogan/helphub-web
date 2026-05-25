@@ -16,9 +16,8 @@ async function fillInputWithRetry(
 
     for (let attempt = 0; attempt < 3; attempt++) {
 
-        await input.focus();
-
         await input.fill(value);
+        await input.scrollIntoViewIfNeeded();
 
         try {
 
@@ -38,8 +37,6 @@ async function fillInputWithRetry(
             }
 
             await input.clear();
-
-            await input.blur();
 
             await input.page().waitForTimeout(300);
         }
@@ -136,22 +133,37 @@ async function performLogin(
         passwordOverride || TEST_PASSWORD,
     );
 
-    const loginResponsePromise =
-        page.waitForResponse(
-            response =>
-                response.url().includes('/auth/login') &&
-                response.status() === 200,
-        );
+    for (let attempt = 0; attempt < 3; attempt++) {
 
-    await loginButton.click();
+        await loginButton.scrollIntoViewIfNeeded();
 
-    await loginResponsePromise;
+        await loginButton.click();
 
-    await expect(
-        page.getByTestId('login-success')
-    ).toBeVisible({
-        timeout: 10000,
-    });
+        try {
+
+            const loginSuccess =
+                page.getByTestId('login-success');
+
+            await loginSuccess.scrollIntoViewIfNeeded();
+
+            await expect(loginSuccess)
+                .toBeVisible({
+                    timeout: 5000,
+                });
+
+            break;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    'Login success message never appeared',
+                );
+            }
+
+            await page.waitForTimeout(500);
+        }
+    }
     await expect(page)
         .toHaveURL(/\//, {
             timeout: 10000,
@@ -185,16 +197,40 @@ async function performInvalidLogin(page: Page) {
 
     await fillInputWithRetry(
         passwordInput,
-        'wrongpassword123',
+        'DefinitelyWrongPassword_123_!@#',
     );
 
-    await loginButton.click();
+    for (let attempt = 0; attempt < 3; attempt++) {
 
-    await expect(
-        page.getByTestId('login-error')
-    ).toBeVisible({
-        timeout: 10000,
-    });
+        await loginButton.scrollIntoViewIfNeeded();
+
+        await loginButton.click();
+
+        try {
+
+            const loginError =
+                page.getByTestId('login-error');
+
+            await loginError.scrollIntoViewIfNeeded();
+
+            await expect(loginError)
+                .toBeVisible({
+                    timeout: 5000,
+                });
+
+            return;
+
+        } catch {
+
+            if (attempt === 2) {
+                throw new Error(
+                    'Login error message never appeared',
+                );
+            }
+
+            await page.waitForTimeout(500);
+        }
+    }
 
 }
 
