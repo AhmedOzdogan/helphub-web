@@ -19,7 +19,7 @@ export default function HomeScreen() {
   // State to control scroll enabled status for ScrollView 
   // when mobile menu is open
   const [scrollEnabled, setScrollEnabled] = useState(true);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <ScrollView

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 function AppStoreDownload() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (<TouchableOpacity className="flex-row items-center rounded-[10px] bg-black px-2 py-2">
         <Ionicons name="logo-apple" size={20} color="#ffffff" />

@@ -29,7 +29,7 @@ function Signup() {
     const [signupError, setSignupError] = useState(false);
     const [signupSuccess, setSignupSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const [user, dispatchUser] = useReducer((state: UserState, action: UserAction): UserState => {
         switch (action.type) {
@@ -53,7 +53,7 @@ function Signup() {
 
     const router = useRouter();
 
-    const { signup, loading, error } = useSignUp();
+    const { signup, loading } = useSignUp();
 
     const handleSignUp = async () => {
 

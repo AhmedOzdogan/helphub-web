@@ -9,6 +9,7 @@ import es from './locales/es.json';
 import fr from './locales/fr.json';
 import it from './locales/it.json';
 
+// eslint-disable-next-line import/no-named-as-default-member
 i18n
     .use(initReactI18next)
     .init({

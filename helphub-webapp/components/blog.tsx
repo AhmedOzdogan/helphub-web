@@ -18,7 +18,7 @@ const blogs = [
 ];
 
 function BlogCard({ image, title }: { image: any; title: string }) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         <View className="relative mb-4 h-[120px] w-[37%] overflow-hidden rounded-xl sm:w-[48%] md:h-[140px] md:w-[47%] lg:mb-5 lg:w-[240px]">
             <Image
@@ -31,7 +31,7 @@ function BlogCard({ image, title }: { image: any; title: string }) {
             {/* Overlay */}
             <View className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-1">
                 <Text className="text-xs md:text-sm font-semibold text-white">
-                    {title}
+                    {t('title')}
                 </Text>
             </View>
         </View>

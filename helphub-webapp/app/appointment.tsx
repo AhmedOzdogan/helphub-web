@@ -86,7 +86,7 @@ const timeSlots = [
 
 function Appointment() {
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const params = useLocalSearchParams<{
         name?: string;
         title?: string;
@@ -98,7 +98,7 @@ function Appointment() {
     const [selectedTime, setSelectedTime] = useState('18:00');
 
     const name = params.name ? decodeURIComponent(String(params.name)) : 'John Smith';
-    const title = params.title ? decodeURIComponent(String(params.title)) : 'Life and Holistic Health Coach';
+    //const title = params.title ? decodeURIComponent(String(params.title)) : 'Life and Holistic Health Coach';
     const price = params.price ? Number(params.price) : 3000;
 
     const packageCardClass = (key: PackageKey) => {

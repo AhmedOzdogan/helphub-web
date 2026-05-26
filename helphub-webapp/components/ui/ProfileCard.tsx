@@ -62,7 +62,7 @@ function ProfileCard({
     cardWidth?: number;
 }) {
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const handlePress = (name: string, title: string, price: number, image: string) => {
         router.push({
             pathname: '/appointment' as any,

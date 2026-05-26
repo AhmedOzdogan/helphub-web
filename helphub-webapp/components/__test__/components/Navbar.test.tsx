@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import Navbar from '../../Navbar';
 import { mockChangeLanguage } from '../../../jest.setup';
 
@@ -21,7 +21,6 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 }));
 
 jest.mock('@expo/vector-icons/Ionicons', () => {
-    const { Text } = require('react-native');
 
     return function MockIonicons({ name }: { name: string }) {
         return <Text>{name}</Text>;

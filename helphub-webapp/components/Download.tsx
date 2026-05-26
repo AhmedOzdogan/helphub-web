@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 function Download() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         <View className="w-full items-center justify-center bg-[#f5f5f5] px-4 py-10 sm:px-6 sm:py-16">
             <Image

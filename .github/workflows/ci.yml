@@ -44,6 +44,7 @@ jobs:
         run: npm ci
 
 
+      # Backend setup
       - name: Create backend .env file
         run: |
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
@@ -118,6 +119,7 @@ jobs:
         run: docker compose -f docker-compose.yml logs
         working-directory: helphub-backend
 
+      # Frontend testing
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
@@ -125,8 +127,31 @@ jobs:
         run: npm test
         working-directory: helphub-webapp
 
-      - name: Run Playwright tests
+      - name: Run frontend lint
+        run: npm run lint
+        working-directory: helphub-webapp
+
+      - name: Run backend lint
+        run: npm run lint
+        working-directory: helphub-backend
+
+      # Playwright browser testing
+      - name: Run Chromium Playwright tests
         run: npx playwright test --project=chromium --reporter=html
+        working-directory: helphub-webapp
+        env:
+          CI: true
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+
+      - name: Run Firefox Playwright tests
+        run: npx playwright test --project=firefox --reporter=html
+        working-directory: helphub-webapp
+        env:
+          CI: true
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+
+      - name: Run Webkit Playwright tests
+        run: npx playwright test --project=webkit --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
@@ -140,11 +165,6 @@ jobs:
           path: helphub-webapp/playwright-report/
           retention-days: 30
 
-      - name: Run Firefox Playwright tests
-        run: npx playwright test --project=firefox --reporter=html
-        env:
-          CI: true
-
       - name: Upload Firefox report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -152,11 +172,6 @@ jobs:
           name: playwright-report-firefox
           path: helphub-webapp/playwright-report/
           retention-days: 30
-
-      - name: Run Webkit Playwright tests
-        run: npx playwright test --project=webkit --reporter=html
-        env:
-          CI: true
 
       - name: Upload Webkit report
         uses: actions/upload-artifact@v4
@@ -166,6 +181,7 @@ jobs:
           path: helphub-webapp/playwright-report/
           retention-days: 30
 
+      # Cleanup
       - name: Cleanup Docker
         if: always()
         run: |

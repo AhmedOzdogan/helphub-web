@@ -43,59 +43,6 @@ async function fillInputWithRetry(
     }
 }
 
-async function openAccountMenu(
-    page: Page,
-    loginButtonTestId: string,
-) {
-
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-
-    const accountMenuButton =
-        page.getByRole('button', {
-            name: /open account menu|toggle account menu/i,
-        }).first();
-
-    await expect(accountMenuButton)
-        .toBeVisible({ timeout: 30000 });
-
-    await expect(accountMenuButton)
-        .toBeEnabled({ timeout: 15000 });
-
-    const loginButton =
-        page.getByTestId(loginButtonTestId);
-
-    for (let attempt = 0; attempt < 3; attempt++) {
-
-        await accountMenuButton.click();
-
-        try {
-
-            await expect(loginButton)
-                .toBeVisible({ timeout: 3000 });
-
-            await expect(loginButton)
-                .toBeEnabled({ timeout: 3000 });
-
-        } catch {
-
-            if (attempt === 2) {
-                throw new Error(
-                    `Account menu failed to open using ${loginButtonTestId}`,
-                );
-            }
-
-            await page.waitForTimeout(500);
-
-            continue;
-        }
-
-        await loginButton.click();
-
-        return;
-    }
-}
-
 async function performLogin(
     page: Page,
     passwordOverride?: string,

@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react-native';
 import React from 'react';
 import Companies from '../../Companies';
+import { Text, Pressable } from 'react-native';
 
 jest.mock('../../../assets/companies.webp', () => 1);
 
 jest.mock('../../ui/RedButton', () => {
-    const { Text, Pressable } = require('react-native');
 
     return function MockRedButton({ ButtonText }: { ButtonText: string }) {
         return (

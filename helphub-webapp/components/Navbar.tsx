@@ -15,9 +15,9 @@ type NavbarProps = {
 
 export default function Navbar({ onMobileMenuChange }: NavbarProps) {
     const router = useRouter();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
-    // Dropdown open state
+    // Dropdown open state 
     const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
     const [openDesktopLanguageMenu, setOpenDesktopLanguageMenu] = useState(false);
