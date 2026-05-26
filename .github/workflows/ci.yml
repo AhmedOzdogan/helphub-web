@@ -33,6 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fix workspace permissions
+        run: sudo chown -R $USER:staff .
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -56,6 +59,21 @@ jobs:
 
       - name: Start postgres container
         run: docker compose up -d db
+        working-directory: helphub-backend
+
+      - name: Wait for postgres
+        run: |
+          for i in {1..30}; do
+            if docker compose exec -T db pg_isready -U ${{ secrets.POSTGRES_USER }}; then
+              exit 0
+            fi
+
+            echo "Waiting for postgres..."
+            sleep 2
+          done
+
+          echo "Postgres did not start"
+          exit 1
         working-directory: helphub-backend
 
 
@@ -97,7 +115,7 @@ jobs:
 
       - name: Show docker logs on failure
         if: failure()
-        run: docker compose logs
+        run: docker compose -f docker-compose.yml logs
         working-directory: helphub-backend
 
       - name: Install Playwright Browsers
@@ -147,3 +165,10 @@ jobs:
           name: playwright-report-webkit
           path: helphub-webapp/playwright-report/
           retention-days: 30
+
+      - name: Cleanup Docker
+        if: always()
+        run: |
+          docker compose down -v
+          sudo chown -R $USER:staff .
+        working-directory: helphub-backend

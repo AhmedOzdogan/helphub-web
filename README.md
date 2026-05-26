@@ -1,240 +1,266 @@
-# helphub-web
 # HelpHub
 
-HelpHub is a cross-platform online counseling marketplace project. The repository currently contains a polished Expo React Native application that runs on web, iOS, and Android. A separate backend service will be added next.
+HelpHub is a full-stack online counseling marketplace project with a React Native / Expo frontend and Express.js / TypeScript backend.
 
 ## Repository Structure
 
 ```text
 helphub-web/
-├── helphub-webapp/      Expo React Native app for web, iOS, and Android
-└── helphub-backend/     Planned Express.js + TypeScript backend
+├── helphub-webapp/      Frontend: Expo React Native app (web, iOS, Android)
+└── helphub-backend/     Backend: Express.js + TypeScript API
 ```
 
-## Current Status
+## Project Status
 
-The frontend application is already implemented inside `helphub-webapp/`.
+Both frontend and backend are implemented and functional.
 
-Current frontend highlights:
+### Frontend Highlights
 
-- Expo Router application
-- React Native and React Native Web support
-- TypeScript
-- NativeWind / Tailwind styling
-- Responsive web, iOS, and Android UI
-- Mobile hamburger navigation
-- Desktop mega-menu navigation
-- Hero slider with autoplay and swipe behavior
-- Consultant carousel sections
-- Login and sign-up screens
-- Appointment selection UI
-- Footer, company, numbers, details, advantages, and category sections
-- Jest and React Native Testing Library setup
-- Component-level UI test coverage
+- **Expo Router** application with React Native and React Native Web support
+- **TypeScript** for type safety
+- **NativeWind / Tailwind** styling with responsive design
+- **Web, iOS, and Android** support
+- **Mobile hamburger** navigation and **desktop mega-menu** navigation
+- **Hero slider** with autoplay and swipe behavior
+- **Consultant carousel** sections
+- **Login and sign-up** screens with form validation
+- **Appointment selection** UI
+- **Multi-language support** (i18n) - English, German, Spanish, French, Italian
+- **Jest and React Native Testing Library** with component tests
+- **Playwright** for end-to-end testing
 
-The project is currently a strong frontend prototype. Authentication, consultant data, appointment booking, and persistence are still mock/local and will be connected to a real backend later.
+### Backend Implementation
 
-## Planned Backend
+- **Express.js** with **TypeScript** for type-safe API development
+- **PostgreSQL** database with **Prisma ORM**
+- **Authentication endpoints**: `/auth/signup` and `/auth/login`
+- **User model** with email, password, and profile fields
+- **CORS** enabled for frontend integration
+- **Health check** endpoint at `/health`
+- **Docker Compose** setup for local PostgreSQL database
+- **Dockerfile** for containerized deployment
+- Zod validation integration (configured in dependencies)
 
-A backend folder will be added as:
+## Getting Started
 
-```text
-helphub-backend/
-```
+### Frontend
 
-Planned backend stack:
-
-- Node.js
-- Express.js
-- TypeScript
-- PostgreSQL
-- Prisma
-- Zod validation
-- JWT or session-based authentication
-- Jest and Supertest for API tests
-- Docker / Docker Compose for local development
-
-Planned backend features:
-
-- User registration and login
-- Consultant profiles
-- Consultant search and filtering
-- Appointment creation
-- Availability and time-slot management
-- User profile management
-- Saved consultants or favorites
-- Contact/help messages
-- Admin-ready data structure for future expansion
-
-## Frontend App
-
-Frontend location:
+Navigate to the frontend directory:
 
 ```bash
 cd helphub-webapp
-```
-
-Install dependencies:
-
-```bash
 npm install
 ```
 
-Start the Expo development server:
+Run in development mode:
 
 ```bash
-npm run start
-```
-
-Run on web:
-
-```bash
-npm run web
-```
-
-Run on iOS:
-
-```bash
-npm run ios
-```
-
-Run on Android:
-
-```bash
-npm run android
+npm run start          # Expo development server
+npm run web           # Run on web
+npm run ios           # Run on iOS
+npm run android       # Run on Android
 ```
 
 Run tests:
 
 ```bash
-npm test
+npm test              # Run Jest tests
+npm test:watch        # Watch mode
+npm run test:coverage # Coverage report
 ```
 
-Run test coverage:
+### Backend
+
+Navigate to the backend directory:
 
 ```bash
-npm run test:coverage
+cd helphub-backend
+npm install
 ```
 
-## Testing
+Set up environment variables (create a `.env` file):
 
-The frontend includes Jest and React Native Testing Library tests for core UI components and user interactions, including:
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/helphub"
+PORT=4000
+```
 
-- Navbar mobile menu behavior
-- Account menu behavior
-- Login and sign-up navigation
-- Desktop mega-menu hover behavior
-- Slider rendering, autoplay, dots, and swipe behavior
-- Footer links and platform-specific branches
-- Numbers, companies, details, categories, advantages, and reusable UI cards
+Start the PostgreSQL database:
+
+```bash
+docker compose up -d
+```
+
+Run database migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+Run the backend server:
+
+```bash
+npm run dev    # Development with hot reload
+npm run build  # Build for production
+npm run start  # Start production server
+```
+
+Seed the database (optional):
+
+```bash
+npm run seed
+```
 
 ## Development Roadmap
 
-Current next steps:
+### Completed
 
-1. Create `helphub-backend/`
-2. Set up Express.js with TypeScript
-3. Add PostgreSQL and Prisma
-4. Implement authentication endpoints
-5. Replace frontend mock consultant data with API data
-6. Connect appointment selection to backend booking endpoints
-7. Add API tests with Jest and Supertest
-8. Add Docker Compose for backend and database
-9. Add CI for linting, type checks, and tests
-10. Add end-to-end tests for important mobile/web flows
+- ✅ Create `helphub-backend/` folder structure
+- ✅ Set up Express.js with TypeScript
+- ✅ Add PostgreSQL and Prisma ORM
+- ✅ Implement authentication endpoints (signup/login)
+- ✅ Create User model in database
+- ✅ Docker Compose setup for local development
+- ✅ Frontend UI with responsive design
+- ✅ Multi-language support (i18n)
+- ✅ Component-level tests with Jest and React Native Testing Library
+- ✅ End-to-end tests with Playwright
+- ✅ CI/CD pipeline with GitHub Actions
 
-## Project Goal
+### CI/CD Pipeline
 
-The goal is to build a realistic full-stack counseling marketplace project:
+The project includes a **GitHub Actions workflow** (`.github/workflows/ci.yml`) that automatically:
 
-```text
-React Native / Expo frontend
-+
-Express.js / TypeScript backend
-+
-PostgreSQL database
-+
-automated frontend and backend tests
-```
+The CI/CD pipeline runs on a **self-hosted macOS GitHub Actions runner** for improved Playwright stability, browser consistency, Docker caching, and faster end-to-end test execution.
 
-This structure is intended to demonstrate practical cross-platform frontend development, backend API development, database modeling, testing, and deployment readiness.
-# HelpHub
+1. **Installs dependencies** for both frontend and backend
+2. **Sets up the environment** with PostgreSQL database via Docker
+3. **Runs database migrations** using Prisma
+4. **Seeds the database** with test data
+5. **Starts the backend** server and verifies health check
+6. **Runs Jest tests** for the frontend components
+7. **Runs Playwright tests** across multiple browsers:
+   - Chromium
+   - Firefox
+   - WebKit
+8. **Uploads test reports** as artifacts for each browser
+9. **Cleans up Docker resources** after completion
 
-HelpHub is a full-stack online counseling marketplace project.
+The CI pipeline runs on:
+- **Push to main** branch
+- **Pull requests** to main branch
+- **Manual trigger** via workflow_dispatch
 
-The repository will contain two main folders:
+**Triggers:** The workflow uses a self-hosted runner with Node.js LTS and requires these GitHub secrets:
+- `testUsername` and `testPassword` for E2E testing
+- `PLAYWRIGHT_TEST_BASE_URL` for test environment URL
+- `DATABASE_URL` for PostgreSQL connection
+- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` for database setup
 
-```text
-helphub-web/
-├── helphub-webapp/      Frontend: React Native / Expo app for web, iOS, and Android
-└── helphub-backend/     Backend: Express.js / TypeScript API
-```
+### Next Steps
 
-## Frontend
+1. Extend authentication with JWT tokens or sessions
+2. Implement Consultant profiles and search API
+3. Create Appointment booking endpoints
+4. Add availability and time-slot management
+5. Implement user profile management endpoints
+6. Add API tests with Jest and Supertest
+7. Create Saved consultants / favorites functionality
+8. Implement Contact/help messages system
+9. Deploy to production (backend and database)
+10. Add linting (ESLint) and type checks to CI pipeline
+11. Add Redis caching for frequently accessed data
+12. Implement rate limiting and API security middleware
+13. Add email notifications and password reset flows
+14. Introduce role-based access control (RBAC)
+15. Add monitoring and logging infrastructure
 
-The frontend is built with React Native, Expo, TypeScript, NativeWind, and React Native Web.
+## Testing
 
-It includes:
+### Frontend Tests
 
-- Web, iOS, and Android support
-- Responsive homepage UI
-- Mobile hamburger menu
-- Desktop navigation and mega menu
-- Consultant cards and carousel sections
-- Login and sign-up screens
-- Appointment selection UI
-- Jest and React Native Testing Library tests
+The frontend includes Jest and React Native Testing Library tests covering:
 
-Frontend folder:
+- Navbar and mobile menu behavior
+- Account menu interactions
+- Login and sign-up navigation flows
+- Desktop mega-menu hover behavior
+- Slider rendering, autoplay, dots, and swipe behavior
+- Footer links and platform-specific branches
+- UI component rendering and interactions
+
+### End-to-End Tests
+
+Playwright tests validate critical user flows across web, Firefox, and WebKit browsers.
+
+### Backend Tests
+
+API endpoints can be tested using:
 
 ```bash
-cd helphub-webapp
+curl http://localhost:4000/health
+curl -X POST http://localhost:4000/auth/signup -H "Content-Type: application/json" -d '{"email":"user@example.com","password":"password123","name":"User"}'
 ```
 
-Run the frontend:
+Tests with Jest and Supertest coming soon.
 
-```bash
-npm install
-npm run start
-```
+### Automated CI/CD Testing
 
-## Backend
+The GitHub Actions workflow automatically:
 
-The backend will be created in a separate folder:
+- **Sets up the test environment** with PostgreSQL via Docker
+- **Runs all Jest tests** for frontend components
+- **Executes Playwright E2E tests** across three browsers (Chromium, Firefox, WebKit)
+- **Generates test reports** with HTML artifacts for failed tests
+- **Uploads results** for each browser separately for detailed analysis
+- **Cleans up resources** after each run
 
-```bash
-helphub-backend/
-```
+All tests run automatically on every push and pull request to the main branch.
 
-Planned backend stack:
+## Project Architecture
 
-- Express.js
-- TypeScript
-- PostgreSQL
-- Prisma
-- Authentication for login and sign-up
-- Consultant and appointment APIs
-- Backend tests with Jest and Supertest
-
-Planned backend features:
-
-- User registration
-- User login
-- Consultant profiles
-- Consultant search/filtering
-- Appointment booking
-- User profile management
-
-## Goal
-
-The goal is to build a realistic full-stack project with:
+This is a full-stack application demonstrating:
 
 ```text
-React Native / Expo frontend
-+
-Express.js / TypeScript backend
-+
-PostgreSQL database
-+
-automated tests
+React Native / Expo Frontend (web, iOS, Android)
+        ↓ (HTTP/REST)
+Express.js / TypeScript Backend API
+        ↓ (Prisma ORM)
+PostgreSQL Database
+        ↓
+Automated Testing (Jest, Playwright, Supertest)
 ```
+
+The project showcases:
+
+- **Cross-platform frontend development** with React Native and Expo
+- **Type-safe backend development** with Express.js and TypeScript  
+- **Database modeling** with Prisma
+- **Authentication flows** with security best practices
+- **Testing strategies** for frontend, backend, and E2E scenarios
+- **Docker containerization** for reproducible environments
+- **Production-ready structure** for scaling
+
+## Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | Expo, React Native, TypeScript, NativeWind, TailwindCSS, i18next |
+| Backend | Express.js, TypeScript, Node.js |
+| Database | PostgreSQL, Prisma ORM |
+| Testing | Jest, React Native Testing Library, Playwright, Supertest |
+| DevOps | Docker, Docker Compose |
+| Language | TypeScript, JavaScript |
+
+## Contributing
+
+When contributing, ensure:
+
+1. Both frontend and backend tests pass
+2. TypeScript types are properly defined
+3. Code follows the existing project structure
+4. New features include test coverage
+
+## License
+
+ISC
