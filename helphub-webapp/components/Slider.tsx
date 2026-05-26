@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     Animated,
     Easing,
@@ -59,18 +59,19 @@ function Slider() {
     // Create track slides with extra first slide for infinite loop
     const trackSlides = useMemo(() => [...currentSlides, currentSlides[0]], [currentSlides]);
 
+
     // Function to reset track position to specific index
-    const resetTrackPosition = (index: number) => {
+    const resetTrackPosition = useCallback((index: number) => {
         translateX.setValue(-(index * sliderWidth));
-    };
+    }, [sliderWidth, translateX]);
 
     // Function to stop autoplay
-    const stopAutoPlay = () => {
+    const stopAutoPlay = useCallback(() => {
         if (autoPlayRef.current) {
             clearInterval(autoPlayRef.current);
             autoPlayRef.current = null;
         }
-    };
+    }, []);
 
     // Handle layout changes to update slider width
     const handleLayout = (event: LayoutChangeEvent) => {
@@ -85,7 +86,7 @@ function Slider() {
     };
 
     // Animate to a specific slide index
-    const animateToIndex = (nextIndex: number, onDone?: () => void) => {
+    const animateToIndex = useCallback((nextIndex: number, onDone?: () => void) => {
         if (!sliderWidth || isAnimatingRef.current) {
             return;
         }
@@ -101,20 +102,20 @@ function Slider() {
             isAnimatingRef.current = false;
             onDone?.();
         });
-    };
+    }, [sliderWidth, translateX]);
 
     // Go to a specific slide index
-    const goToIndex = (nextIndex: number) => {
+    const goToIndex = useCallback((nextIndex: number) => {
         if (nextIndex === activeIndex || !sliderWidth) {
             return;
         }
 
         setActiveIndex(nextIndex);
         animateToIndex(nextIndex);
-    };
+    }, [activeIndex, sliderWidth, animateToIndex]);
 
     // Go to previous slide
-    const goToPrevious = () => {
+    const goToPrevious = useCallback(() => {
         if (!sliderWidth) {
             return;
         }
@@ -122,10 +123,10 @@ function Slider() {
         const previousIndex = activeIndex === 0 ? currentSlides.length - 1 : activeIndex - 1;
         setActiveIndex(previousIndex);
         animateToIndex(previousIndex);
-    };
+    }, [activeIndex, currentSlides.length, sliderWidth, animateToIndex]);
 
     // Go to next slide
-    const goToNext = () => {
+    const goToNext = useCallback(() => {
         if (!sliderWidth) {
             return;
         }
@@ -141,10 +142,10 @@ function Slider() {
         const nextIndex = activeIndex + 1;
         setActiveIndex(nextIndex);
         animateToIndex(nextIndex);
-    };
+    }, [activeIndex, currentSlides.length, sliderWidth, animateToIndex, resetTrackPosition]);
 
     // Go to previous from first slide (for infinite loop)
-    const goToPreviousFromFirst = () => {
+    const goToPreviousFromFirst = useCallback(() => {
         if (!sliderWidth) {
             return;
         }
@@ -155,7 +156,23 @@ function Slider() {
         requestAnimationFrame(() => {
             animateToIndex(currentSlides.length - 1);
         });
-    };
+    }, [currentSlides.length, sliderWidth, translateX, animateToIndex]);
+
+
+    // Start autoplay
+    const startAutoPlay = useCallback(() => {
+        stopAutoPlay();
+
+        if (!sliderWidth) {
+            return;
+        }
+
+        autoPlayRef.current = setInterval(() => {
+            if (!isAnimatingRef.current) {
+                goToNext();
+            }
+        }, AUTO_PLAY_DELAY);
+    }, [sliderWidth, stopAutoPlay, goToNext]);
 
     // Create PanResponder for swipe gestures
     const panResponder = useMemo(
@@ -199,23 +216,20 @@ function Slider() {
                     startAutoPlay();
                 },
             }),
-        [activeIndex, currentSlides.length, isTouchSlider, sliderWidth]
+        [
+            activeIndex,
+            goToNext,
+            goToPrevious,
+            goToPreviousFromFirst,
+            isTouchSlider,
+            resetTrackPosition,
+            sliderWidth,
+            startAutoPlay,
+            translateX,
+            stopAutoPlay
+        ]
     );
 
-    // Start autoplay
-    const startAutoPlay = () => {
-        stopAutoPlay();
-
-        if (!sliderWidth) {
-            return;
-        }
-
-        autoPlayRef.current = setInterval(() => {
-            if (!isAnimatingRef.current) {
-                goToNext();
-            }
-        }, AUTO_PLAY_DELAY);
-    };
 
     // Effect to start autoplay when slider width is set
     useEffect(() => {
@@ -229,14 +243,14 @@ function Slider() {
         return () => {
             stopAutoPlay();
         };
-    }, [sliderWidth]);
+    }, [sliderWidth, activeIndex, startAutoPlay, translateX, stopAutoPlay]);
 
     // Effect to cleanup autoplay on unmount
     useEffect(() => {
         return () => {
             stopAutoPlay();
         };
-    }, []);
+    }, [stopAutoPlay]);
 
     // Render the slider component
     return (

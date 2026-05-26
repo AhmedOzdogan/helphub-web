@@ -9,12 +9,12 @@ import RedButton from '../components/ui/RedButton';
 import { useLogin } from '../hooks/loginSignupHook';
 
 function Login() {
-    const { login, loading, error } = useLogin();
+    const { login, loading } = useLogin();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const router = useRouter();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const [loginError, setLoginError] = useState(false);
     const [loginSuccess, setLoginSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');

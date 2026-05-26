@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import StepCard from './ui/StepCard';
 
 function HowItWorks() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         <View
             className="w-full items-center justify-center bg-white px-4 md:px-16 py-8 md:py-12"

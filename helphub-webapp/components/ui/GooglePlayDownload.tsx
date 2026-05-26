@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 function GooglePlayDownload() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         <TouchableOpacity className="flex-row items-center justify-center rounded-[10px] bg-black px-2 py-2">
             <Ionicons name="logo-google-playstore" size={20} color="#ffffff" />

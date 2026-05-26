@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 function Details() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         <View
             className="w-full items-center justify-center bg-blue-50 px-6 py-16"

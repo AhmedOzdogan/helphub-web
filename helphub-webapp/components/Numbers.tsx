@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 function Numbers() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <View testID="numbers-section" className="flex-col w-full items-center justify-center bg-blue-50 px-4 md:px-6 py-8 md:py-16">

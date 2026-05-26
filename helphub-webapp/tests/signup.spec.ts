@@ -5,10 +5,6 @@ import {
     MOBILE_VIEWPORT,
 } from './constants/viewports';
 
-const BASE_URL =
-    process.env.PLAYWRIGHT_TEST_BASE_URL ||
-    'http://localhost:8081';
-
 const TEST_PASSWORD = process.env.testPassword!;
 
 async function fillInputWithRetry(

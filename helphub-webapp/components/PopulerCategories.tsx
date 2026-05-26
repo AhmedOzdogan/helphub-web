@@ -12,7 +12,7 @@ import CategoryCard from "./ui/CategoryCard";
 import RedButton from "./ui/RedButton";
 
 function PopulerCategories() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         <View className="flex p-10 justify-center items-center w-full z-[-999]">
             <Text className="text-2xl font-bold mb-4">{t('popularCategories.title')}</Text>

@@ -40,7 +40,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
         };
 
         loadLanguage();
-    }, []);
+    }, [i18n]);
 
     const currentLanguage = useMemo(() => {
 
