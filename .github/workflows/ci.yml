@@ -299,8 +299,7 @@ jobs:
           pkill -f "expo" || true
           pkill -f "node.*8081" || true
 
-          export EXPO_ROUTER_APP_ROOT=app
-          nohup env EXPO_ROUTER_APP_ROOT=app NODE_ENV=test npx expo start --dev-client --clear --host localhost > metro-ios.log 2>&1 &
+          nohup npx expo start --dev-client --clear --host localhost > metro-ios.log 2>&1 &
 
           echo "Waiting for Metro bundler..."
           for i in {1..60}; do
@@ -315,13 +314,12 @@ jobs:
 
           sleep 10
 
-          EXPO_ROUTER_APP_ROOT=app NODE_ENV=test npx expo run:ios \
+          NODE_ENV=test npx expo run:ios \
             --device "iPhone 17 Pro"
         working-directory: helphub-webapp
         env:
           CI: true
           NODE_ENV: test
-          EXPO_ROUTER_APP_ROOT: app
 
       - name: Wait for iOS app to open
         run: |
