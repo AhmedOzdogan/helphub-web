@@ -330,21 +330,7 @@ jobs:
         working-directory: helphub-webapp
         env:
           CI: true
-
-      - name: Wait for iOS app to open
-        run: |
-          xcrun simctl bootstatus "iPhone 17 Pro" -b
-          sleep 10
-
-      - name: Launch iOS app manually
-        run: |
-          echo "Opening Expo development client..."
-
-          xcrun simctl openurl booted "com.anonymous.helphub-webapp://expo-development-client/?url=http://127.0.0.1:8081"
-
-          echo "Waiting for Expo app startup..."
-          sleep 60
-
+          
       - name: Run iOS Maestro tests
         run: |
           maestro test maestro/ios --format junit
