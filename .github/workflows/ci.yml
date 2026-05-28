@@ -150,12 +150,56 @@ jobs:
           CI: true
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
+
       - name: Run Webkit Playwright tests
         run: npx playwright test --project=webkit --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+
+      # Maestro Mobile E2E Testing
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: Verify Maestro installation
+        run: maestro --version
+
+      # Android setup
+      - name: Boot Android emulator
+        run: |
+          $ANDROID_HOME/emulator/emulator -avd Pixel_10_Pro_XL -no-window -no-audio &
+          adb wait-for-device
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+
+      - name: Build and install Android app
+        run: |
+          npx expo run:android
+        working-directory: helphub-webapp
+
+      - name: Run Android Maestro tests
+        run: maestro test maestro/android
+        working-directory: helphub-webapp
+
+      # iOS setup
+      - name: Boot iOS simulator
+        run: |
+          xcrun simctl boot "iPhone 17 Pro" || true
+          open -a Simulator
+
+      - name: Build and install iOS app
+        run: |
+          npx expo run:ios --device "iPhone 17 Pro"
+        working-directory: helphub-webapp
+
+      - name: Run iOS Maestro tests
+        run: |
+          MAESTRO_DRIVER_STARTUP_TIMEOUT=120000 maestro test maestro/ios
+        working-directory: helphub-webapp
 
       - name: Upload Chromium report
         uses: actions/upload-artifact@v4
