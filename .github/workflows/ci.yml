@@ -326,8 +326,11 @@ jobs:
           EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
           npx expo run:ios \
             --device "iPhone 17 Pro" \
-            --no-install \
             --no-bundler
+
+          sleep 10
+
+          xcrun simctl launch booted com.anonymous.helphub-webapp || true
         working-directory: helphub-webapp
         env:
           CI: true
