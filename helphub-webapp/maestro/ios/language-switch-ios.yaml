@@ -27,6 +27,10 @@ appId: com.anonymous.helphub-webapp
         - tapOn:
             id: "de"
         - assertVisible: "Suchen..."
+        
+        - tapOn: "Open language menu"
+        - tapOn:
+            id: "en"
 
 
 
