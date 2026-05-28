@@ -213,7 +213,7 @@ jobs:
 
       - name: Build Android app
         run: |
-          cd helphub-webapp/android
+          cd android
           ./gradlew assembleDebug
 
       - name: Install Android app
