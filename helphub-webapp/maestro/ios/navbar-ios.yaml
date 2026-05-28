@@ -1,0 +1,26 @@
+appId: com.anonymous.helphub-webapp
+---
+- launchApp:
+    clearState: true
+
+- runFlow: 
+    label: "Check navbar is visible"
+    commands: 
+        - assertVisible: "Open mobile menu"
+        - assertVisible: "HelpHub"
+        - assertVisible: "Toggle account menu"
+        - assertVisible: "Open language menu"
+
+- runFlow: 
+    label: "Click the hamburger menu"
+    commands: 
+        - tapOn: "Open mobile menu"
+        - assertVisible: "Main Menu"
+        - assertVisible: "Toggle FOR MYSELF"
+        - tapOn: "Toggle FOR MYSELF"
+        - assertVisible: "Psychology"
+        - tapOn: "Close mobile menu"
+        - assertNotVisible: "Main Menu"
+
+
+

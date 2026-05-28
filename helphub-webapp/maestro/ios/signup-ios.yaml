@@ -1,0 +1,73 @@
+
+
+appId: com.anonymous.helphub-webapp
+
+---
+
+- launchApp:
+    clearState: true
+
+- runFlow:
+    label : "Check app is running"
+    commands: 
+        - assertVisible: "HelpHub"
+        - assertVisible: "Search..."
+
+- runFlow:
+    label: "Navigate To Signup"
+    commands:
+      - tapOn: "Toggle account menu"
+      - tapOn: "\uf105, Sign Up"
+
+
+- runFlow:
+    label: "Generate Unique Test Email"
+    commands:
+      - evalScript: ${
+          output.testEmail =
+          'maestro-' +
+          Date.now() +
+          '@gmail.com'}
+
+- runFlow:
+    label: "Fill Signup Form"
+    commands:
+      - tapOn: "Write your full name"
+
+      - inputText: "Maestro User"
+
+      - tapOn:
+          point: 0%,23%
+
+      - tapOn: "Write your email"
+
+      - inputText: ${output.testEmail}
+
+      - tapOn:
+          point: 0%,23%
+
+      - tapOn:
+          id: "signup-password-input"
+
+      - tapOn:
+          point: 88%,54%
+
+      - inputText: "123456"
+
+      - tapOn:
+          id: "signup-confirm-password-input"
+
+      - inputText: "123456"
+
+      - tapOn:
+          point: 0%,23%
+
+- runFlow:
+    label: "Submit Signup"
+    commands:
+      - swipe:
+          direction: UP
+
+      - tapOn: "Sign Up"
+
+      - assertVisible: "Signup successful. Redirecting..."

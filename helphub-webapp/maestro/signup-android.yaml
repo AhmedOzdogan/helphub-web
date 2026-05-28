@@ -1,11 +1,17 @@
 
 
-appId: org.name.helphubwebapp
+appId: com.anonymous.helphubwebapp
 
 ---
 
-- launchApp
+- launchApp:
+    clearState: true
 
+- runFlow:
+    label : "Check app is running"
+    commands: 
+        - assertVisible: "HelpHub"
+        - assertVisible: "Search..."
 
 - runFlow:
     label: "Navigate To Signup"

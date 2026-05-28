@@ -1,8 +1,8 @@
 import IonIcons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Text, View } from 'react-native';
+import { Modal, Platform, Pressable, Text, View } from 'react-native';
 
 const languages = [
     { code: 'en', label: 'English', flag: '🇺🇸' },
@@ -21,6 +21,27 @@ type LanguageMenuProps = {
 
 function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }: LanguageMenuProps) {
     const { i18n } = useTranslation();
+    const buttonRef = useRef<View>(null);
+    const [androidMenuPosition, setAndroidMenuPosition] = useState({ top: 130, right: 14 });
+    const useAndroidModalMenu = Platform.OS === 'android' && mobile;
+
+    const toggleMenu = () => {
+        if (openLanguageMenu) {
+            setOpenLanguageMenu(false);
+        } else {
+            setOpenLanguageMenu(true);
+        }
+    };
+
+    const selectLanguage = async (languageCode: string) => {
+        try {
+            await AsyncStorage.setItem('language', languageCode);
+            await i18n.changeLanguage(languageCode);
+            setOpenLanguageMenu(false);
+        } catch (error) {
+            console.log('Language saving error:', error);
+        }
+    };
 
     useEffect(() => {
         const loadLanguage = async () => {
@@ -69,7 +90,8 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                     boxShadow: '0px 6px 12px rgba(239, 68, 68, 0.25)',
                     elevation: 6,
                 }}
-                onPress={() => setOpenLanguageMenu(!openLanguageMenu)}
+                ref={buttonRef}
+                onPress={toggleMenu}
             >
                 {mobile ? (
                     <>
@@ -107,7 +129,41 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                 )}
             </Pressable>
 
-            {openLanguageMenu ? (
+            {openLanguageMenu && useAndroidModalMenu ? (
+                <Modal
+                    transparent
+                    visible={openLanguageMenu}
+                    animationType="none"
+                    onRequestClose={() => setOpenLanguageMenu(false)}
+                >
+                    <Pressable
+                        className="absolute inset-0"
+                        onPress={() => setOpenLanguageMenu(false)}
+                    />
+
+                    <View
+                        testID={`${testId}-language-menu`}
+                        className="absolute w-[64px] overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl"
+                        style={{
+                            top: androidMenuPosition.top,
+                            right: androidMenuPosition.right,
+                            elevation: 999999,
+                            zIndex: 999999,
+                        }}
+                    >
+                        {languages.map((lang) => (
+                            <Pressable
+                                testID={lang.code}
+                                key={lang.code}
+                                className="flex-row items-center justify-center py-2"
+                                onPress={() => selectLanguage(lang.code)}
+                            >
+                                <Text className="text-lg text-center">{lang.flag}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                </Modal>
+            ) : openLanguageMenu ? (
                 <View
                     testID={`${testId}-language-menu`}
                     className={`absolute top-full z-[999] mt-2 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl ${mobile ? 'w-[64px] right-0' : 'w-[172px] right-0'
@@ -118,17 +174,7 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                             testID={lang.code}
                             key={lang.code}
                             className="flex-row items-center justify-center py-2 transition-colors hover:bg-gray-100"
-                            onPress={() => {
-                                (async () => {
-                                    try {
-                                        await AsyncStorage.setItem('language', lang.code);
-                                        await i18n.changeLanguage(lang.code);
-                                        setOpenLanguageMenu(false);
-                                    } catch (error) {
-                                        console.log('Language saving error:', error);
-                                    }
-                                })();
-                            }}
+                            onPress={() => selectLanguage(lang.code)}
                         >
                             <Text className="text-lg text-center">{lang.flag}</Text>
                             {mobile ? null : (
