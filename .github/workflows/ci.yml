@@ -206,9 +206,20 @@ jobs:
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
 
-      - name: Build and install Android app
+      - name: Build Android app
         run: |
-          npx expo run:android
+          cd android
+          ./gradlew assembleDebug
+        working-directory: helphub-webapp
+
+      - name: Install Android app
+        run: |
+          adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+        working-directory: helphub-webapp
+
+      - name: Start Expo Metro
+        run: |
+          nohup npx expo start --dev-client > metro.log 2>&1 &
         working-directory: helphub-webapp
 
       - name: Run Android Maestro tests
