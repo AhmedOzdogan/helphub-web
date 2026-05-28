@@ -321,8 +321,32 @@ jobs:
           EXPO_NO_DOCTOR=1 \
           EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
           CI=true \
+          nohup npx expo start --dev-client --host localhost > metro-ios.log 2>&1 &
+
+          echo "Waiting for Metro bundler..."
+          for i in {1..60}; do
+            if curl -s http://127.0.0.1:8081/status | grep -q "packager-status:running"; then
+              echo "Metro is running"
+              break
+            fi
+
+            if [ "$i" -eq 60 ]; then
+              echo "Metro did not start"
+              cat metro-ios.log
+              exit 1
+            fi
+
+            echo "Waiting for Metro..."
+            sleep 2
+          done
+
+          EXPO_NO_DOCTOR=1 \
+          EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
+          CI=true \
           npx expo run:ios \
-            --device "$IOS_SIMULATOR_UDID"
+            --device "$IOS_SIMULATOR_UDID" \
+            --no-install \
+            --no-bundler
 
           sleep 10
 
