@@ -48,6 +48,12 @@ jobs:
         run: npm ci
         working-directory: helphub-webapp
 
+      - name: Verify Expo Router setup
+        run: |
+          node -e "const pkg=require('./package.json'); console.log('main=',pkg.main)"
+          test -f babel.config.js && cat babel.config.js
+        working-directory: helphub-webapp
+
       # Backend setup
       - name: Create backend .env file
         run: |
@@ -299,27 +305,17 @@ jobs:
           pkill -f "expo" || true
           pkill -f "node.*8081" || true
 
-          nohup npx expo start --dev-client --clear --host localhost > metro-ios.log 2>&1 &
-
-          echo "Waiting for Metro bundler..."
-          for i in {1..60}; do
-            if curl -s http://127.0.0.1:8081/status | grep -q "packager-status:running"; then
-              echo "Metro is running"
-              break
-            fi
-
-            echo "Waiting for Metro..."
-            sleep 2
-          done
-
-          sleep 10
+          rm -rf .expo
+          rm -rf node_modules/.cache
 
           NODE_ENV=test npx expo run:ios \
-            --device "iPhone 17 Pro"
+            --device "iPhone 17 Pro" \
+            --no-install
         working-directory: helphub-webapp
         env:
           CI: true
           NODE_ENV: test
+          EXPO_USE_METRO_WORKSPACE_ROOT: 1
 
       - name: Wait for iOS app to open
         run: |
