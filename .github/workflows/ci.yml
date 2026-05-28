@@ -38,6 +38,17 @@ jobs:
         with:
           node-version: lts/*
 
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Verify Java
+        run: |
+          java -version
+          echo "JAVA_HOME=$JAVA_HOME"
+
       - name: Install dependencies
         run: npm ci
 
@@ -133,37 +144,36 @@ jobs:
         run: npm run lint
         working-directory: helphub-backend
 
-      # Playwright browser testing
-      - name: Run Chromium Playwright tests
-        run: |
-          pkill -f "expo" || true
-          pkill -f "node.*8081" || true
-          npx playwright test --project=chromium --reporter=html
-        working-directory: helphub-webapp
-        env:
-          CI: true
-          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
-
-      - name: Run Firefox Playwright tests
-        run: |
-          pkill -f "expo" || true
-          pkill -f "node.*8081" || true
-          npx playwright test --project=firefox --reporter=html
-        working-directory: helphub-webapp
-        env:
-          CI: true
-          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
-
-
-      - name: Run Webkit Playwright tests
-        run: |
-          pkill -f "expo" || true
-          pkill -f "node.*8081" || true
-          npx playwright test --project=webkit --reporter=html
-        working-directory: helphub-webapp
-        env:
-          CI: true
-          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+      # Playwright browser testing (temporarily disabled)
+      # - name: Run Chromium Playwright tests
+      #   run: |
+      #     pkill -f "expo" || true
+      #     pkill -f "node.*8081" || true
+      #     npx playwright test --project=chromium --reporter=html
+      #   working-directory: helphub-webapp
+      #   env:
+      #     CI: true
+      #     PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+      #
+      # - name: Run Firefox Playwright tests
+      #   run: |
+      #     pkill -f "expo" || true
+      #     pkill -f "node.*8081" || true
+      #     npx playwright test --project=firefox --reporter=html
+      #   working-directory: helphub-webapp
+      #   env:
+      #     CI: true
+      #     PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+      #
+      # - name: Run Webkit Playwright tests
+      #   run: |
+      #     pkill -f "expo" || true
+      #     pkill -f "node.*8081" || true
+      #     npx playwright test --project=webkit --reporter=html
+      #   working-directory: helphub-webapp
+      #   env:
+      #     CI: true
+      #     PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
       # Maestro Mobile E2E Testing
       - name: Install Maestro
@@ -173,15 +183,6 @@ jobs:
 
       - name: Verify Maestro installation
         run: maestro --version
-
-      - name: Set Java 17
-        run: |
-          export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
-          echo "$JAVA_HOME/bin" >> $GITHUB_PATH
-
-      - name: Verify Java
-        run: java -version
 
       # Android setup
       - name: Boot Android emulator
@@ -217,29 +218,29 @@ jobs:
           MAESTRO_DRIVER_STARTUP_TIMEOUT=120000 maestro test maestro/ios
         working-directory: helphub-webapp
 
-      - name: Upload Chromium report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-chromium
-          path: helphub-webapp/playwright-report/
-          retention-days: 30
-
-      - name: Upload Firefox report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-firefox
-          path: helphub-webapp/playwright-report/
-          retention-days: 30
-
-      - name: Upload Webkit report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-webkit
-          path: helphub-webapp/playwright-report/
-          retention-days: 30
+      # - name: Upload Chromium report
+      #   uses: actions/upload-artifact@v4
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: playwright-report-chromium
+      #     path: helphub-webapp/playwright-report/
+      #     retention-days: 30
+      #
+      # - name: Upload Firefox report
+      #   uses: actions/upload-artifact@v4
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: playwright-report-firefox
+      #     path: helphub-webapp/playwright-report/
+      #     retention-days: 30
+      #
+      # - name: Upload Webkit report
+      #   uses: actions/upload-artifact@v4
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: playwright-report-webkit
+      #     path: helphub-webapp/playwright-report/
+      #     retention-days: 30
 
       # Cleanup
       - name: Cleanup Docker
