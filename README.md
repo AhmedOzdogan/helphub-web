@@ -129,33 +129,52 @@ npm run seed
 
 ### CI/CD Pipeline
 
-The project includes a **GitHub Actions workflow** (`.github/workflows/ci.yml`) that automatically:
+The project includes a **GitHub Actions workflow** (`.github/workflows/ci.yml`) that automatically validates the full stack and mobile test suite.
 
-The CI/CD pipeline runs on a **self-hosted macOS GitHub Actions runner** for improved Playwright stability, browser consistency, Docker caching, and faster end-to-end test execution.
+The CI workflow runs on a **self-hosted runner** and currently performs the following steps:
 
-1. **Installs dependencies** for both frontend and backend
-2. **Sets up the environment** with PostgreSQL database via Docker
-3. **Runs database migrations** using Prisma
-4. **Seeds the database** with test data
-5. **Starts the backend** server and verifies health check
-6. **Runs Jest tests** for the frontend components
-7. **Runs Playwright tests** across multiple browsers:
-   - Chromium
-   - Firefox
-   - WebKit
-8. **Uploads test reports** as artifacts for each browser
-9. **Cleans up Docker resources** after completion
+1. Checkout repository and install Node.js LTS
+2. Install frontend dependencies in `helphub-webapp`
+3. Create backend `.env` and install backend dependencies in `helphub-backend`
+4. Start PostgreSQL using Docker Compose and wait until it is ready
+5. Generate Prisma client, deploy migrations, and seed the database
+6. Start the backend service and verify the `/health` endpoint
+7. Run frontend Jest tests in `helphub-webapp`
+8. Run frontend ESLint in `helphub-webapp`
+9. Run backend ESLint in `helphub-backend`
+10. Install Playwright browsers and execute browser E2E tests on three browsers:
+    - Chromium
+    - Firefox
+    - WebKit
+11. Upload Playwright HTML report artifacts
+12. Install Maestro mobile test tooling
+13. Build and boot Android emulator, install the Android app, and run Android Maestro tests
+14. Build and boot iOS simulator, install the iOS app via Expo dev client, and run iOS Maestro tests
+15. Clean up Docker resources after completion
 
-The CI pipeline runs on:
-- **Push to main** branch
-- **Pull requests** to main branch
-- **Manual trigger** via workflow_dispatch
+The workflow is triggered by:
+- `push` to `main`
+- `pull_request` targeting `main`
+- manual trigger via `workflow_dispatch`
 
-**Triggers:** The workflow uses a self-hosted runner with Node.js LTS and requires these GitHub secrets:
-- `testUsername` and `testPassword` for E2E testing
-- `PLAYWRIGHT_TEST_BASE_URL` for test environment URL
-- `DATABASE_URL` for PostgreSQL connection
-- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` for database setup
+Required secrets for CI execution include:
+- `PLAYWRIGHT_TEST_BASE_URL`
+- `DATABASE_URL`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+- `POSTGRES_DB`
+- `testUsername`
+- `testPassword`
+
+### New CI Features
+
+- **Full-stack pipeline** covering frontend, backend, database, browser E2E, and mobile E2E
+- **Playwright cross-browser testing** on Chromium, Firefox, and WebKit
+- **Maestro mobile E2E testing** for both Android and iOS
+- **Backend database boot and migration flow** using Docker Compose and Prisma
+- **Automated frontend and backend lint checks** as part of the pipeline
+- **Artifact upload** for Playwright test reports
+- **Self-hosted runner support** for simulator/emulator stability and native build requirements
 
 ### Next Steps
 
@@ -165,10 +184,10 @@ The CI pipeline runs on:
 4. Add availability and time-slot management
 5. Implement user profile management endpoints
 6. Add API tests with Jest and Supertest
-7. Create Saved consultants / favorites functionality
-8. Implement Contact/help messages system
+7. Create saved consultants / favorites functionality
+8. Implement contact/help messages system
 9. Deploy to production (backend and database)
-10. Add linting (ESLint) and type checks to CI pipeline
+10. Expand CI with type checking and additional security scans
 11. Add Redis caching for frequently accessed data
 12. Implement rate limiting and API security middleware
 13. Add email notifications and password reset flows
