@@ -142,48 +142,48 @@ jobs:
         run: npm run lint
         working-directory: helphub-backend
 
-      # Playwright browser testing (temporarily disabled)
-      # - name: Install Playwright Browsers
-      #   run: npx playwright install --with-deps
-      #   working-directory: helphub-webapp
+      # Playwright browser testing
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        working-directory: helphub-webapp
 
-      # - name: Run Chromium Playwright tests
-      #   run: |
-      #     pkill -f "expo" || true
-      #     pkill -f "node.*8081" || true
-      #     npx playwright test --project=chromium --reporter=html
-      #   working-directory: helphub-webapp
-      #   env:
-      #     CI: true
-      #     PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+      - name: Run Chromium Playwright tests
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=chromium --reporter=html
+        working-directory: helphub-webapp
+        env:
+          CI: true
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
-      # - name: Run Firefox Playwright tests
-      #   run: |
-      #     pkill -f "expo" || true
-      #     pkill -f "node.*8081" || true
-      #     npx playwright test --project=firefox --reporter=html
-      #   working-directory: helphub-webapp
-      #   env:
-      #     CI: true
-      #     PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+      - name: Run Firefox Playwright tests
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=firefox --reporter=html
+        working-directory: helphub-webapp
+        env:
+          CI: true
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
-      # - name: Run Webkit Playwright tests
-      #   run: |
-      #     pkill -f "expo" || true
-      #     pkill -f "node.*8081" || true
-      #     npx playwright test --project=webkit --reporter=html
-      #   working-directory: helphub-webapp
-      #   env:
-      #     CI: true
-      #     PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
+      - name: Run Webkit Playwright tests
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=webkit --reporter=html
+        working-directory: helphub-webapp
+        env:
+          CI: true
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
-      # - name: Upload Playwright report
-      #   uses: actions/upload-artifact@v4
-      #   if: ${{ !cancelled() }}
-      #   with:
-      #     name: playwright-report
-      #     path: helphub-webapp/playwright-report/
-      #     retention-days: 30
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: helphub-webapp/playwright-report/
+          retention-days: 30
 
       # Maestro Mobile E2E Testing
       - name: Install Maestro
@@ -194,92 +194,92 @@ jobs:
       - name: Verify Maestro installation
         run: maestro --version
 
-# Android setup
-# - name: Setup Android SDK
-#   run: |
-#     echo "ANDROID_HOME=$HOME/Library/Android/sdk" >> $GITHUB_ENV
-#     echo "ANDROID_SDK_ROOT=$HOME/Library/Android/sdk" >> $GITHUB_ENV
-#     echo "$HOME/Library/Android/sdk/platform-tools" >> $GITHUB_PATH
-#     echo "$HOME/Library/Android/sdk/emulator" >> $GITHUB_PATH
-#     echo "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+      # Android setup
+      - name: Setup Android SDK
+        run: |
+          echo "ANDROID_HOME=$HOME/Library/Android/sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$HOME/Library/Android/sdk" >> $GITHUB_ENV
+          echo "$HOME/Library/Android/sdk/platform-tools" >> $GITHUB_PATH
+          echo "$HOME/Library/Android/sdk/emulator" >> $GITHUB_PATH
+          echo "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
 
-# - name: Verify Android SDK
-#   run: |
-#     echo "ANDROID_HOME=$ANDROID_HOME"
-#     adb version
+      - name: Verify Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          adb version
 
-# - name: Generate Android project
-#   run: npx expo prebuild --platform android --no-install
-#   working-directory: helphub-webapp
+      - name: Generate Android project
+        run: npx expo prebuild --platform android --no-install
+        working-directory: helphub-webapp
 
-# - name: Create Android local.properties
-#   run: echo "sdk.dir=$HOME/Library/Android/sdk" > android/local.properties
-#   working-directory: helphub-webapp
+      - name: Create Android local.properties
+        run: echo "sdk.dir=$HOME/Library/Android/sdk" > android/local.properties
+        working-directory: helphub-webapp
 
-# - name: Boot Android emulator
-#   run: |
-#     export ANDROID_AVD_HOME="$HOME/.android/avd"
+      - name: Boot Android emulator
+        run: |
+          export ANDROID_AVD_HOME="$HOME/.android/avd"
 
-#     adb kill-server || true
-#     pkill -9 -f qemu-system || true
-#     pkill -9 -f "emulator.*Pixel_10_Pro_XL" || true
-#     pkill -9 -f "Pixel_10_Pro_XL" || true
-#     sleep 15
+          adb kill-server || true
+          pkill -9 -f qemu-system || true
+          pkill -9 -f "emulator.*Pixel_10_Pro_XL" || true
+          pkill -9 -f "Pixel_10_Pro_XL" || true
+          sleep 15
 
-#     nohup "$ANDROID_HOME/emulator/emulator" \
-#       -avd Pixel_10_Pro_XL \
-#       -no-window \
-#       -no-audio \
-#       -gpu swiftshader_indirect \
-#       -no-snapshot \
-#       -wipe-data \
-#       -no-boot-anim > emulator.log 2>&1 &
+          nohup "$ANDROID_HOME/emulator/emulator" \
+            -avd Pixel_10_Pro_XL \
+            -no-window \
+            -no-audio \
+            -gpu swiftshader_indirect \
+            -no-snapshot \
+            -wipe-data \
+            -no-boot-anim > emulator.log 2>&1 &
 
-#     adb start-server
+          adb start-server
 
-#     echo "Waiting for emulator device..."
-#     for i in {1..60}; do
-#       if adb devices | grep -w "device"; then
-#         echo "Emulator detected"
-#         break
-#       fi
+          echo "Waiting for emulator device..."
+          for i in {1..60}; do
+            if adb devices | grep -w "device"; then
+              echo "Emulator detected"
+              break
+            fi
 
-#       echo "Waiting for emulator..."
-#       sleep 5
-#     done
+            echo "Waiting for emulator..."
+            sleep 5
+          done
 
-#     echo "Waiting for Android boot completion..."
-#     until adb shell getprop sys.boot_completed 2>/dev/null | grep -m 1 '1'; do
-#       sleep 5
-#     done
+          echo "Waiting for Android boot completion..."
+          until adb shell getprop sys.boot_completed 2>/dev/null | grep -m 1 '1'; do
+            sleep 5
+          done
 
-#     sleep 15
+          sleep 15
 
-#     adb shell settings put global window_animation_scale 0 || true
-#     adb shell settings put global transition_animation_scale 0 || true
-#     adb shell settings put global animator_duration_scale 0 || true
+          adb shell settings put global window_animation_scale 0 || true
+          adb shell settings put global transition_animation_scale 0 || true
+          adb shell settings put global animator_duration_scale 0 || true
 
-#     adb devices
+          adb devices
 
-# - name: Build Android app
-#   run: ./gradlew assembleDebug
-#   working-directory: helphub-webapp/android
+      - name: Build Android app
+        run: ./gradlew assembleDebug
+        working-directory: helphub-webapp/android
 
-# - name: Install Android app
-#   run: |
-#     adb uninstall com.helphubwebapp || true
-#     adb install -r android/app/build/outputs/apk/debug/app-debug.apk
-#   working-directory: helphub-webapp
+      - name: Install Android app
+        run: |
+          adb uninstall com.helphubwebapp || true
+          adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+        working-directory: helphub-webapp
 
-# - name: Start Expo Metro
-#   run: |
-#     pkill -f "expo" || true
-#     pkill -f "node.*8081" || true
+      - name: Start Expo Metro
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
 
-#     nohup npx expo start --dev-client --clear > metro.log 2>&1 &
+          nohup npx expo start --dev-client --clear > metro.log 2>&1 &
 
-#     sleep 25
-#   working-directory: helphub-webapp
+          sleep 25
+        working-directory: helphub-webapp
 
       # iOS setup
       - name: Boot iOS simulator
@@ -367,9 +367,9 @@ jobs:
           MAESTRO_DISABLE_ANIMATIONS: true
           MAESTRO_PLATFORM: ios
 
-      # - name: Run Android Maestro tests
-      #   run: maestro test maestro/android
-      #   working-directory: helphub-webapp
+      - name: Run Android Maestro tests
+        run: maestro test maestro/android
+        working-directory: helphub-webapp
 
       # Cleanup
       - name: Cleanup Docker
