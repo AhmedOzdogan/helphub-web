@@ -334,7 +334,7 @@ jobs:
       - name: Wait for iOS app to open
         run: |
           xcrun simctl bootstatus "iPhone 17 Pro" -b
-          sleep 30
+          sleep 10
 
       - name: Launch iOS app manually
         run: |
@@ -343,14 +343,11 @@ jobs:
           xcrun simctl launch booted com.anonymous.helphub-webapp
 
           echo "Waiting for app startup..."
-          sleep 30
+          sleep 10
 
       - name: Run iOS Maestro tests
         run: |
-          maestro test \
-            --device "iPhone 17 Pro" \
-            maestro/ios \
-            --format junit
+          maestro test maestro/ios --format junit
         working-directory: helphub-webapp
         env:
           MAESTRO_DRIVER_STARTUP_TIMEOUT: 180000
