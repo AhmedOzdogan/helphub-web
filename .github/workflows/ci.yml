@@ -338,12 +338,12 @@ jobs:
 
       - name: Launch iOS app manually
         run: |
-          xcrun simctl terminate booted com.anonymous.helphub-webapp || true
+          echo "Opening Expo development client..."
 
-          xcrun simctl launch booted com.anonymous.helphub-webapp
+          xcrun simctl openurl booted "com.anonymous.helphub-webapp://expo-development-client/?url=http://127.0.0.1:8081"
 
-          echo "Waiting for app startup..."
-          sleep 10
+          echo "Waiting for Expo app startup..."
+          sleep 60
 
       - name: Run iOS Maestro tests
         run: |
