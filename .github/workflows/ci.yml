@@ -308,25 +308,10 @@ jobs:
           rm -rf .expo
           rm -rf node_modules/.cache
 
-          nohup npx expo start --dev-client --host localhost > metro-ios.log 2>&1 &
-
-          echo "Waiting for Metro bundler..."
-          for i in {1..60}; do
-            if curl -s http://127.0.0.1:8081/status | grep -q "packager-status:running"; then
-              echo "Metro is running"
-              break
-            fi
-
-            echo "Waiting for Metro..."
-            sleep 2
-          done
-
-          sleep 10
-
-          EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
+          EXPO_NO_DOCTOR=1 \
+          CI=true \
           npx expo run:ios \
-            --device "iPhone 17 Pro" \
-            --no-bundler
+            --device "iPhone 17 Pro"
 
           sleep 10
 
