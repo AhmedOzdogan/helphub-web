@@ -22,7 +22,7 @@ type LanguageMenuProps = {
 function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }: LanguageMenuProps) {
     const { i18n } = useTranslation();
     const buttonRef = useRef<View>(null);
-    const [androidMenuPosition, setAndroidMenuPosition] = useState({ top: 130, right: 14 });
+    const [androidMenuPosition] = useState({ top: 130, right: 14 });
     const useAndroidModalMenu = Platform.OS === 'android' && mobile;
 
     const toggleMenu = () => {

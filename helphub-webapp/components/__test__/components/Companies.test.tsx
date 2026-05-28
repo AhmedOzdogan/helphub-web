@@ -1,17 +1,22 @@
 import { render, screen } from '@testing-library/react-native';
 import React from 'react';
 import Companies from '../../Companies';
-import { Text, Pressable } from 'react-native';
+import { } from 'react-native';
 
 jest.mock('../../../assets/companies.webp', () => 1);
 
 jest.mock('../../ui/RedButton', () => {
+    const React = require('react');
 
     return function MockRedButton({ ButtonText }: { ButtonText: string }) {
-        return (
-            <Pressable accessibilityRole="button" accessibilityLabel={ButtonText} testID="companies-contact-button">
-                <Text>{ButtonText}</Text>
-            </Pressable>
+        return React.createElement(
+            'Button',
+            {
+                accessibilityRole: 'button',
+                accessibilityLabel: ButtonText,
+                testID: 'companies-contact-button',
+            },
+            ButtonText
         );
     };
 });
