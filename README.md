@@ -221,7 +221,7 @@ curl http://localhost:4000/health
 curl -X POST http://localhost:4000/auth/signup -H "Content-Type: application/json" -d '{"email":"user@example.com","password":"password123","name":"User"}'
 ```
 
-Tests with Jest and Supertest coming soon.
+Tests with Jest and Playwright are available, and mobile end-to-end testing uses Maestro for Android and iOS.
 
 ### Automated CI/CD Testing
 
@@ -247,7 +247,7 @@ Express.js / TypeScript Backend API
         ↓ (Prisma ORM)
 PostgreSQL Database
         ↓
-Automated Testing (Jest, Playwright, Supertest)
+Automated Testing (Jest, Playwright, Maestro)
 ```
 
 The project showcases:
@@ -267,7 +267,7 @@ The project showcases:
 | Frontend | Expo, React Native, TypeScript, NativeWind, TailwindCSS, i18next |
 | Backend | Express.js, TypeScript, Node.js |
 | Database | PostgreSQL, Prisma ORM |
-| Testing | Jest, React Native Testing Library, Playwright, Supertest |
+| Testing | Jest, React Native Testing Library, Playwright, Maestro |
 | DevOps | Docker, Docker Compose |
 | Language | TypeScript, JavaScript |
 
