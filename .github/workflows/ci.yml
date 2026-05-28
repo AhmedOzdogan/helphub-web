@@ -26,10 +26,6 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
 
-    defaults:
-      run:
-        working-directory: helphub-webapp
-
     steps:
       - uses: actions/checkout@v4
 
@@ -194,15 +190,19 @@ jobs:
           echo "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
 
       - name: Verify Android SDK
+        working-directory: helphub-webapp
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
           adb version
 
       - name: Create Android local.properties
+        working-directory: helphub-webapp
         run: |
+          mkdir -p android
           echo "sdk.dir=$HOME/Library/Android/sdk" > android/local.properties
 
       - name: Boot Android emulator
+        working-directory: helphub-webapp
         run: |
           adb devices
           adb emu kill || true
@@ -216,11 +216,13 @@ jobs:
           adb shell settings put global animator_duration_scale 0
 
       - name: Build Android app
+        working-directory: helphub-webapp
         run: |
           cd android
           ./gradlew assembleDebug
 
       - name: Install Android app
+        working-directory: helphub-webapp
         run: adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Start Expo Metro
