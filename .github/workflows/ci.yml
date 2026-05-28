@@ -323,6 +323,7 @@ jobs:
 
           sleep 10
 
+          EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
           npx expo run:ios \
             --device "iPhone 17 Pro" \
             --no-install \
