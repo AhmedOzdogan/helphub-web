@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react-native';
 import React from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform } from 'react-native';
 import Footer from '../../Footer';
 
 jest.mock('expo-router', () => {
+    const React = require('react');
     return {
         Link: ({ children, href }: { children: React.ReactElement; href: string }) =>
             React.cloneElement(React.Children.only(children), {
@@ -14,12 +15,16 @@ jest.mock('expo-router', () => {
 });
 
 jest.mock('@expo/vector-icons/Ionicons', () => {
+    const React = require('react');
+    const { Text } = require('react-native');
     return function MockIonicons({ name }: { name: string }) {
         return <Text>{name}</Text>;
     };
 });
 
 jest.mock('../../ui/GooglePlayDownload', () => {
+    const React = require('react');
+    const { View, Text } = require('react-native');
     return function MockGooglePlayDownload() {
         return (
             <View testID="google-play-download">
@@ -30,7 +35,8 @@ jest.mock('../../ui/GooglePlayDownload', () => {
 });
 
 jest.mock('../../ui/AppStoreDownload', () => {
-
+    const React = require('react');
+    const { View, Text } = require('react-native');
     return function MockAppStoreDownload() {
         return (
             <View testID="app-store-download">

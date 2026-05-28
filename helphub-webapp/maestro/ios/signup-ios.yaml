@@ -1,11 +1,14 @@
-
-
-appId: org.name.helphubwebapp
+appId: com.anonymous.helphub-webapp
 
 ---
 
-- launchApp
+- openLink: "com.anonymous.helphub-webapp://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081"
 
+- runFlow:
+    label : "Check app is running"
+    commands: 
+        - assertVisible: "HelpHub"
+        - assertVisible: "Search..."
 
 - runFlow:
     label: "Navigate To Signup"

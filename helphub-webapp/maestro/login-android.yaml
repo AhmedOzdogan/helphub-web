@@ -1,30 +1,40 @@
-appId: org.name.helphubwebapp
-
+appId: com.anonymous.helphubwebapp
 ---
 
-- launchApp
+- launchApp:
+    clearState: true
+
+- runFlow:
+    label: "Check app is running"
+    commands:
+        - assertVisible: "HelpHub"
+        - assertVisible: "Search..."
 
 - runFlow:
     label: "Navigate To Login"
     commands:
       - tapOn: "Toggle account menu"
-      - tapOn: "\uf3ce, Log In"
+      - tapOn:
+          id: "mobileLoginButton"
+
 
 
 - runFlow:
     label: "Invalid Login Attempt"
     commands:
-      - tapOn: "Write your email"
+      - tapOn:
+          id: "login-email-input"
+
       - inputText: "Ahmed123@gmail.com"
 
-      - tapOn:
-          point: 0%,23%
+      - hideKeyboard
 
-      - tapOn: "Write your password"
+      - tapOn:
+          id: "login-password-input"
+
       - inputText: "1234567"
 
-      - tapOn:
-          point: 0%,23%
+      - hideKeyboard
 
       - tapOn:
           id: "login-button"
@@ -37,8 +47,7 @@ appId: org.name.helphubwebapp
       - tapOn: "Write your password"
       - eraseText
       - inputText: "123456"
-      - tapOn:
-          point: 2%,27%
+      - hideKeyboard
 
       - tapOn:
           id: "login-button"

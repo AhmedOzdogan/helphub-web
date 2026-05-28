@@ -15,26 +15,24 @@
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.helphubwebapp"
     },
     "web": {
       "output": "static"
     },
     "plugins": [
       "expo-router",
+      "expo-splash-screen",
+      "expo-localization",
       [
-        "expo-splash-screen",
+        "expo-build-properties",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
+          "ios": {
+            "deploymentTarget": "15.1"
           }
         }
-      ],
-      "expo-localization"
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

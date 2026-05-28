@@ -13,8 +13,7 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 60
-
+    timeout-minutes: 90
     runs-on: self-hosted
 
     env:
@@ -26,28 +25,39 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
 
-    defaults:
-      run:
-        working-directory: helphub-webapp
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Fix workspace permissions
-        run: sudo chown -R $USER:staff .
 
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
+      - name: Verify Java
+        run: |
+          java -version
+          echo "JAVA_HOME=$JAVA_HOME"
+
+      # Frontend setup
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: helphub-webapp
+
+      - name: Verify Expo Router setup
+        run: |
+          node -e "const pkg=require('./package.json'); console.log('main=',pkg.main)"
+          test -f babel.config.js && cat babel.config.js
+        working-directory: helphub-webapp
 
       # Backend setup
       - name: Create backend .env file
         run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
           echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
           echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
           echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
@@ -76,7 +86,6 @@ jobs:
           echo "Postgres did not start"
           exit 1
         working-directory: helphub-backend
-
 
       - name: Generate Prisma client
         run: npx prisma generate
@@ -113,16 +122,14 @@ jobs:
 
           echo "Backend did not start"
           exit 1
+        working-directory: helphub-backend
 
       - name: Show docker logs on failure
         if: failure()
-        run: docker compose -f docker-compose.yml logs
+        run: docker compose logs
         working-directory: helphub-backend
 
-      # Frontend testing
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
+      # Frontend checks
       - name: Run Jest tests
         run: npm test
         working-directory: helphub-webapp
@@ -136,55 +143,236 @@ jobs:
         working-directory: helphub-backend
 
       # Playwright browser testing
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        working-directory: helphub-webapp
+
       - name: Run Chromium Playwright tests
-        run: npx playwright test --project=chromium --reporter=html
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=chromium --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
       - name: Run Firefox Playwright tests
-        run: npx playwright test --project=firefox --reporter=html
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=firefox --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
       - name: Run Webkit Playwright tests
-        run: npx playwright test --project=webkit --reporter=html
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=webkit --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
-      - name: Upload Chromium report
+      - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-chromium
+          name: playwright-report
           path: helphub-webapp/playwright-report/
           retention-days: 30
 
-      - name: Upload Firefox report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-firefox
-          path: helphub-webapp/playwright-report/
-          retention-days: 30
+      # Maestro Mobile E2E Testing
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
-      - name: Upload Webkit report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-webkit
-          path: helphub-webapp/playwright-report/
-          retention-days: 30
+      - name: Verify Maestro installation
+        run: maestro --version
+
+      # Android setup
+      - name: Setup Android SDK
+        run: |
+          echo "ANDROID_HOME=$HOME/Library/Android/sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$HOME/Library/Android/sdk" >> $GITHUB_ENV
+          echo "$HOME/Library/Android/sdk/platform-tools" >> $GITHUB_PATH
+          echo "$HOME/Library/Android/sdk/emulator" >> $GITHUB_PATH
+          echo "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+
+      - name: Verify Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          adb version
+
+      - name: Generate Android project
+        run: npx expo prebuild --platform android --no-install
+        working-directory: helphub-webapp
+
+      - name: Create Android local.properties
+        run: echo "sdk.dir=$HOME/Library/Android/sdk" > android/local.properties
+        working-directory: helphub-webapp
+
+      - name: Boot Android emulator
+        run: |
+          export ANDROID_AVD_HOME="$HOME/.android/avd"
+
+          adb kill-server || true
+          pkill -9 -f qemu-system || true
+          pkill -9 -f "emulator.*Pixel_10_Pro_XL" || true
+          pkill -9 -f "Pixel_10_Pro_XL" || true
+          sleep 15
+
+          nohup "$ANDROID_HOME/emulator/emulator" \
+            -avd Pixel_10_Pro_XL \
+            -no-window \
+            -no-audio \
+            -gpu swiftshader_indirect \
+            -no-snapshot \
+            -wipe-data \
+            -no-boot-anim > emulator.log 2>&1 &
+
+          adb start-server
+
+          echo "Waiting for emulator device..."
+          for i in {1..60}; do
+            if adb devices | grep -w "device"; then
+              echo "Emulator detected"
+              break
+            fi
+
+            echo "Waiting for emulator..."
+            sleep 5
+          done
+
+          echo "Waiting for Android boot completion..."
+          until adb shell getprop sys.boot_completed 2>/dev/null | grep -m 1 '1'; do
+            sleep 5
+          done
+
+          sleep 15
+
+          adb shell settings put global window_animation_scale 0 || true
+          adb shell settings put global transition_animation_scale 0 || true
+          adb shell settings put global animator_duration_scale 0 || true
+
+          adb devices
+
+      - name: Build Android app
+        run: ./gradlew assembleDebug
+        working-directory: helphub-webapp/android
+
+      - name: Install Android app
+        run: |
+          adb uninstall com.helphubwebapp || true
+          adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+        working-directory: helphub-webapp
+
+      - name: Start Expo Metro
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+
+          nohup npx expo start --dev-client --clear > metro.log 2>&1 &
+
+          sleep 25
+        working-directory: helphub-webapp
+
+      # iOS setup
+      - name: Boot iOS simulator
+        run: |
+          SIMULATOR_NAME="iPhone 17 Pro"
+          IOS_SIMULATOR_UDID=$(xcrun simctl list devices available | awk -F '[()]' -v name="$SIMULATOR_NAME" '$0 ~ name { print $2; exit }')
+
+          if [ -z "$IOS_SIMULATOR_UDID" ]; then
+            echo "Could not find simulator: $SIMULATOR_NAME"
+            xcrun simctl list devices available
+            exit 1
+          fi
+
+          echo "IOS_SIMULATOR_UDID=$IOS_SIMULATOR_UDID" >> "$GITHUB_ENV"
+          xcrun simctl shutdown all || true
+          xcrun simctl boot "$IOS_SIMULATOR_UDID" || true
+          xcrun simctl bootstatus "$IOS_SIMULATOR_UDID" -b
+          open -a Simulator --args -CurrentDeviceUDID "$IOS_SIMULATOR_UDID"
+          sleep 15
+
+      - name: Generate iOS native project
+        run: npx expo prebuild --platform ios --no-install
+        working-directory: helphub-webapp
+
+      - name: Install CocoaPods
+        run: |
+          pod repo update
+          pod install
+        working-directory: helphub-webapp/ios
+
+      - name: Build and install iOS app
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+
+          rm -rf .expo
+          rm -rf node_modules/.cache
+
+          EXPO_NO_DOCTOR=1 \
+          EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
+          CI=true \
+          nohup npx expo start --dev-client --host localhost > metro-ios.log 2>&1 &
+
+          echo "Waiting for Metro bundler..."
+          for i in {1..60}; do
+            if curl -s http://127.0.0.1:8081/status | grep -q "packager-status:running"; then
+              echo "Metro is running"
+              break
+            fi
+
+            if [ "$i" -eq 60 ]; then
+              echo "Metro did not start"
+              cat metro-ios.log
+              exit 1
+            fi
+
+            echo "Waiting for Metro..."
+            sleep 2
+          done
+
+          EXPO_NO_DOCTOR=1 \
+          EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
+          CI=true \
+          npx expo run:ios \
+            --device "$IOS_SIMULATOR_UDID" \
+            --no-install \
+            --no-bundler
+
+          sleep 10
+
+          xcrun simctl get_app_container "$IOS_SIMULATOR_UDID" com.anonymous.helphub-webapp
+          xcrun simctl openurl "$IOS_SIMULATOR_UDID" "com.anonymous.helphub-webapp://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081"
+          sleep 15
+        working-directory: helphub-webapp
+        env:
+          CI: true
+          
+      - name: Run iOS Maestro tests
+        run: |
+          maestro --device "$IOS_SIMULATOR_UDID" test maestro/ios --format junit
+        working-directory: helphub-webapp
+        env:
+          MAESTRO_DRIVER_STARTUP_TIMEOUT: 180000
+          MAESTRO_CLI_NO_ANALYTICS: true
+          MAESTRO_DISABLE_ANIMATIONS: true
+          MAESTRO_PLATFORM: ios
+
+      - name: Run Android Maestro tests
+        run: maestro test maestro/android
+        working-directory: helphub-webapp
 
       # Cleanup
       - name: Cleanup Docker
         if: always()
-        run: |
-          docker compose down -v
-          sudo chown -R $USER:staff .
+        run: docker compose down -v
         working-directory: helphub-backend

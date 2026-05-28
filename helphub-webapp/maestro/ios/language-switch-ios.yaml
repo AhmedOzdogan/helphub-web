@@ -1,0 +1,38 @@
+appId: com.anonymous.helphub-webapp
+---
+- openLink: "com.anonymous.helphub-webapp://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081"
+
+- runFlow: 
+    label: "Check navbar is visible"
+    commands: 
+        - assertVisible: "Open mobile menu"
+        - assertVisible: "HelpHub"
+        - assertVisible: "Toggle account menu"
+        - assertVisible: "Open language menu"
+
+
+- runFlow: 
+    label: "Check language menu is working"
+    commands: 
+        - tapOn: "Open language menu"
+        - assertVisible:
+            id: "en"
+        - assertVisible:
+            id: "it"
+        - tapOn:
+            id: "it"
+        - assertVisible: "Cerca..."
+
+        - tapOn: "Open language menu"
+        - tapOn:
+            id: "de"
+        - assertVisible: "Suchen..."
+        
+        - tapOn: "Open language menu"
+        - tapOn:
+            id: "en"
+
+
+
+
+

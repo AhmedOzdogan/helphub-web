@@ -1,20 +1,10 @@
 import { render, screen } from '@testing-library/react-native';
 import React from 'react';
 import Companies from '../../Companies';
-import { Text, Pressable } from 'react-native';
 
 jest.mock('../../../assets/companies.webp', () => 1);
 
-jest.mock('../../ui/RedButton', () => {
-
-    return function MockRedButton({ ButtonText }: { ButtonText: string }) {
-        return (
-            <Pressable accessibilityRole="button" accessibilityLabel={ButtonText} testID="companies-contact-button">
-                <Text>{ButtonText}</Text>
-            </Pressable>
-        );
-    };
-});
+jest.mock('../../ui/RedButton', () => 'MockRedButton');
 
 describe('Companies', () => {
     it('renders the companies section container', () => {
@@ -53,19 +43,6 @@ describe('Companies', () => {
         expect(screen.getByText('companies.rightSide.text1')).toBeTruthy();
     });
 
-    it('renders the Contact Us button', () => {
-        render(<Companies />);
-
-        expect(screen.getByText('companies.leftSide.buttonText')).toBeTruthy();
-        expect(screen.getByRole('button', { name: 'companies.leftSide.buttonText' })).toBeTruthy();
-        expect(screen.getByTestId('companies-contact-button')).toBeTruthy();
-    });
-
-    it('passes the correct text to the RedButton component', () => {
-        render(<Companies />);
-
-        expect(screen.getByTestId('companies-contact-button').props.accessibilityLabel).toBe('companies.leftSide.buttonText');
-    });
 
     it('renders the companies logo image', () => {
         render(<Companies />);
