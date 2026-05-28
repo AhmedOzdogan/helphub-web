@@ -135,14 +135,20 @@ jobs:
 
       # Playwright browser testing
       - name: Run Chromium Playwright tests
-        run: npx playwright test --project=chromium --reporter=html
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=chromium --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:8081
 
       - name: Run Firefox Playwright tests
-        run: npx playwright test --project=firefox --reporter=html
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=firefox --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
@@ -150,7 +156,10 @@ jobs:
 
 
       - name: Run Webkit Playwright tests
-        run: npx playwright test --project=webkit --reporter=html
+        run: |
+          pkill -f "expo" || true
+          pkill -f "node.*8081" || true
+          npx playwright test --project=webkit --reporter=html
         working-directory: helphub-webapp
         env:
           CI: true
