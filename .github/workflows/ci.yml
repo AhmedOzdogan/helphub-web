@@ -301,7 +301,18 @@ jobs:
 
           nohup npx expo start --dev-client --clear --host localhost > metro-ios.log 2>&1 &
 
-          sleep 40
+          echo "Waiting for Metro bundler..."
+          for i in {1..60}; do
+            if curl -s http://127.0.0.1:8081/status | grep -q "packager-status:running"; then
+              echo "Metro is running"
+              break
+            fi
+
+            echo "Waiting for Metro..."
+            sleep 2
+          done
+
+          sleep 10
 
           npx expo run:ios \
             --device "iPhone 17 Pro"
@@ -309,6 +320,7 @@ jobs:
         env:
           CI: true
           NODE_ENV: test
+          EXPO_ROUTER_APP_ROOT: app
 
       - name: Wait for iOS app to open
         run: |
