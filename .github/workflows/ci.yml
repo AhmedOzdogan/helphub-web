@@ -232,7 +232,15 @@ jobs:
           adb start-server
 
           echo "Waiting for emulator device..."
-          timeout 300 adb wait-for-device
+          for i in {1..60}; do
+            if adb devices | grep -w "device"; then
+              echo "Emulator detected"
+              break
+            fi
+
+            echo "Waiting for emulator..."
+            sleep 5
+          done
 
           echo "Waiting for Android boot completion..."
           until adb shell getprop sys.boot_completed 2>/dev/null | grep -m 1 '1'; do
