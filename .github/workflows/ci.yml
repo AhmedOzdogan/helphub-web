@@ -296,9 +296,8 @@ jobs:
 
       - name: Install CocoaPods
         run: |
-          cd ios
           pod install --repo-update
-        working-directory: helphub-webapp
+        working-directory: helphub-webapp/ios
 
       - name: Build and install iOS app
         run: |
