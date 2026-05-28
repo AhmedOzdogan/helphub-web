@@ -347,12 +347,16 @@ jobs:
 
       - name: Run iOS Maestro tests
         run: |
-          maestro test maestro/ios --format junit
+          maestro test \
+            --device "iPhone 17 Pro" \
+            maestro/ios \
+            --format junit
         working-directory: helphub-webapp
         env:
           MAESTRO_DRIVER_STARTUP_TIMEOUT: 180000
           MAESTRO_CLI_NO_ANALYTICS: true
           MAESTRO_DISABLE_ANIMATIONS: true
+          MAESTRO_PLATFORM: ios
 
       # - name: Run Android Maestro tests
       #   run: maestro test maestro/android
