@@ -200,22 +200,15 @@ jobs:
 
       - name: Boot Android emulator
         run: |
-          $ANDROID_HOME/emulator/emulator -avd Pixel_10_Pro_XL -no-window -no-audio &
-          adb wait-for-device
-          adb shell settings put global window_animation_scale 0
-          adb shell settings put global transition_animation_scale 0
-          adb shell settings put global animator_duration_scale 0
+          adb devices
+          pkill -f emulator || true
+          $ANDROID_HOME/emulator/emulator -avd Pixel_10_Pro_XL -no-window -no-audio -wipe-data &
 
       - name: Build Android app
-        run: |
-          cd android
-          ./gradlew assembleDebug
-        working-directory: helphub-webapp
+        run: ./android/gradlew assembleDebug
 
       - name: Install Android app
-        run: |
-          adb install -r android/app/build/outputs/apk/debug/app-debug.apk
-        working-directory: helphub-webapp
+        run: adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Start Expo Metro
         run: |
