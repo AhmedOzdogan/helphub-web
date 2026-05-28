@@ -201,11 +201,20 @@ jobs:
       - name: Boot Android emulator
         run: |
           adb devices
-          pkill -f emulator || true
+          adb emu kill || true
+          pkill -9 -f qemu-system || true
+          pkill -9 -f emulator || true
+          sleep 5
           $ANDROID_HOME/emulator/emulator -avd Pixel_10_Pro_XL -no-window -no-audio -wipe-data &
+          adb wait-for-device
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
 
       - name: Build Android app
-        run: ./android/gradlew assembleDebug
+        run: |
+          cd helphub-webapp/android
+          ./gradlew assembleDebug
 
       - name: Install Android app
         run: adb install -r android/app/build/outputs/apk/debug/app-debug.apk
