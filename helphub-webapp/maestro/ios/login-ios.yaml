@@ -54,4 +54,3 @@ appId: com.anonymous.helphub-webapp
     label: "Dismiss Save Password Dialog"
     commands:
       - tapOn: "Not Now"
-      - sleep: 1
