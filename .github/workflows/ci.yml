@@ -299,12 +299,12 @@ jobs:
           pkill -f "expo" || true
           pkill -f "node.*8081" || true
 
-          nohup npx expo start --dev-client --clear > metro-ios.log 2>&1 &
+          nohup npx expo start --dev-client --clear --host localhost > metro-ios.log 2>&1 &
 
-          sleep 20
+          sleep 40
 
           npx expo run:ios \
-            --device "iPhone 17 Pro"
+            --simulator "iPhone 17 Pro"
         working-directory: helphub-webapp
         env:
           CI: true
