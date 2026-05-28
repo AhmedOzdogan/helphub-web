@@ -198,6 +198,10 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME"
           adb version
 
+      - name: Create Android local.properties
+        run: |
+          echo "sdk.dir=$HOME/Library/Android/sdk" > android/local.properties
+
       - name: Boot Android emulator
         run: |
           adb devices
