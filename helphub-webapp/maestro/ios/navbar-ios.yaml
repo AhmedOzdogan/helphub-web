@@ -1,8 +1,3 @@
-appId: com.anonymous.helphub-webapp
----
-- launchApp:
-    clearState: true
-
 - runFlow: 
     label: "Check navbar is visible"
     commands: 

@@ -1,9 +1,3 @@
-appId: com.anonymous.helphub-webapp
----
-
-- launchApp:
-    clearState: true
-
 - runFlow:
     label : "Check app is running"
     commands: 
