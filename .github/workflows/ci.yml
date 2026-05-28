@@ -284,10 +284,20 @@ jobs:
       # iOS setup
       - name: Boot iOS simulator
         run: |
+          SIMULATOR_NAME="iPhone 17 Pro"
+          IOS_SIMULATOR_UDID=$(xcrun simctl list devices available | awk -F '[()]' -v name="$SIMULATOR_NAME" '$0 ~ name { print $2; exit }')
+
+          if [ -z "$IOS_SIMULATOR_UDID" ]; then
+            echo "Could not find simulator: $SIMULATOR_NAME"
+            xcrun simctl list devices available
+            exit 1
+          fi
+
+          echo "IOS_SIMULATOR_UDID=$IOS_SIMULATOR_UDID" >> "$GITHUB_ENV"
           xcrun simctl shutdown all || true
-          xcrun simctl boot "iPhone 17 Pro" || true
-          xcrun simctl bootstatus "iPhone 17 Pro" -b
-          open -a Simulator
+          xcrun simctl boot "$IOS_SIMULATOR_UDID" || true
+          xcrun simctl bootstatus "$IOS_SIMULATOR_UDID" -b
+          open -a Simulator --args -CurrentDeviceUDID "$IOS_SIMULATOR_UDID"
           sleep 15
 
       - name: Generate iOS native project
@@ -309,20 +319,23 @@ jobs:
           rm -rf node_modules/.cache
 
           EXPO_NO_DOCTOR=1 \
+          EXPO_PACKAGER_HOSTNAME=127.0.0.1 \
           CI=true \
           npx expo run:ios \
-            --device "iPhone 17 Pro"
+            --device "$IOS_SIMULATOR_UDID"
 
           sleep 10
 
-          xcrun simctl launch booted com.anonymous.helphub-webapp || true
+          xcrun simctl get_app_container "$IOS_SIMULATOR_UDID" com.anonymous.helphub-webapp
+          xcrun simctl openurl "$IOS_SIMULATOR_UDID" "com.anonymous.helphub-webapp://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081"
+          sleep 15
         working-directory: helphub-webapp
         env:
           CI: true
           
       - name: Run iOS Maestro tests
         run: |
-          maestro test maestro/ios --format junit
+          maestro --device "$IOS_SIMULATOR_UDID" test maestro/ios --format junit
         working-directory: helphub-webapp
         env:
           MAESTRO_DRIVER_STARTUP_TIMEOUT: 180000

@@ -1,7 +1,6 @@
 appId: com.anonymous.helphub-webapp
 ---
-- launchApp:
-    clearState: true
+- openLink: "com.anonymous.helphub-webapp://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081"
 
 - runFlow: 
     label: "Check navbar is visible"
@@ -21,6 +20,5 @@ appId: com.anonymous.helphub-webapp
         - assertVisible: "Psychology"
         - tapOn: "Close mobile menu"
         - assertNotVisible: "Main Menu"
-
 
 
