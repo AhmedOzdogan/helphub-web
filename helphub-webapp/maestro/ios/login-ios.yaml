@@ -49,3 +49,9 @@ appId: com.anonymous.helphub-webapp
           id: "login-button"
 
       - assertVisible: "Login successful. Redirecting..."
+
+- runFlow:
+    label: "Dismiss Save Password Dialog"
+    commands:
+      - tapOn: "Not Now"
+      - sleep: 1
