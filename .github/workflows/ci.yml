@@ -304,7 +304,7 @@ jobs:
           sleep 40
 
           npx expo run:ios \
-            --simulator "iPhone 17 Pro"
+            --device "iPhone 17 Pro"
         working-directory: helphub-webapp
         env:
           CI: true
