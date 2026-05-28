@@ -33,8 +33,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fix workspace permissions
-        run: sudo chown -R $USER:staff .
 
       - uses: actions/setup-node@v4
         with:
@@ -230,5 +228,4 @@ jobs:
         if: always()
         run: |
           docker compose down -v
-          sudo chown -R $USER:staff .
         working-directory: helphub-backend
