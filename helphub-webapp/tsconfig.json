@@ -4,7 +4,13 @@
     "strict": true,
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
-    "types": ["jest", "react", "react-native", "expo"],
+    "types": ["jest", 
+    "react", 
+    "react-native", 
+    "expo",
+    "node",
+    "@wdio/globals/types",
+    "@wdio/mocha-framework"],
     "paths": {
       "@/*": ["./*"]
     }
