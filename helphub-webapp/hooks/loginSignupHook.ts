@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Platform } from 'react-native';
+
 type LoginResponse = {
     message: string;
     user?: {
@@ -8,6 +10,14 @@ type LoginResponse = {
         email: string;
     };
 };
+
+const API_URL =
+
+    Platform.OS === 'android'
+
+        ? 'http://10.0.2.2:4000'
+
+        : 'http://localhost:4000';
 
 export function useLogin() {
     const [loading, setLoading] = useState(false);
@@ -22,7 +32,7 @@ export function useLogin() {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         try {
-            const response = await fetch('http://localhost:4000/auth/login', {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,7 +74,7 @@ export const useSignUp = () => {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         try {
-            const response = await fetch('http://localhost:4000/auth/signup', {
+            const response = await fetch(`${API_URL}/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

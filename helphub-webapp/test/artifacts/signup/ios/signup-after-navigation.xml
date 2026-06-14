@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AppiumAUT>
+  <XCUIElementTypeApplication type="XCUIElementTypeApplication" name="helphub-webapp" label="helphub-webapp" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="" processId="83875" bundleId="com.anonymous.helphub-webapp">
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+              <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                  <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                              <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="56" width="402" height="874" index="0" traits="">
+                                <XCUIElementTypeScrollView type="XCUIElementTypeScrollView" enabled="true" visible="true" accessible="false" x="0" y="56" width="402" height="874" index="0" traits="">
+                                  <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="56" width="402" height="1627" index="0" traits="">
+                                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="56" width="402" height="1627" index="0" traits="">
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="56" width="402" height="162" index="0" traits=""/>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="56" width="402" height="163" index="1" traits=""/>
+                                      <XCUIElementTypeButton type="XCUIElementTypeButton" name="MobileMenuHamburgerButton" label="Open mobile menu" enabled="true" visible="true" accessible="true" x="17" y="73" width="49" height="50" index="2" traits="Button"/>
+                                      <XCUIElementTypeButton type="XCUIElementTypeButton" name="Toggle account menu" label="Toggle account menu" enabled="true" visible="true" accessible="true" x="211" y="75" width="45" height="46" index="3" traits="Button"/>
+                                      <XCUIElementTypeLink type="XCUIElementTypeLink" name="" label="" enabled="true" visible="true" accessible="true" x="269" y="75" width="45" height="46" index="4" traits="Link"/>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="327" y="76" width="58" height="45" index="5" traits="">
+                                        <XCUIElementTypeButton type="XCUIElementTypeButton" name="mobile-language-button" label="Open language menu" enabled="true" visible="true" accessible="true" x="327" y="76" width="58" height="45" index="0" traits="Button">
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" name="mobile-en-language-button" enabled="true" visible="true" accessible="false" x="339" y="84" width="35" height="29" index="0" traits=""/>
+                                        </XCUIElementTypeButton>
+                                      </XCUIElementTypeOther>
+                                      <XCUIElementTypeLink type="XCUIElementTypeLink" name="HelpHub" label="HelpHub" enabled="true" visible="true" accessible="true" x="72" y="84" width="133" height="29" index="6" traits="Link">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="HelpHub" name="helphub-logo-text-mobile" label="HelpHub" enabled="true" visible="true" accessible="false" x="72" y="84" width="133" height="29" index="0" traits="StaticText">
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="HelpHub" name="HelpHub" label="HelpHub" enabled="true" visible="true" accessible="false" x="72" y="84" width="133" height="29" index="0" traits="StaticText"/>
+                                        </XCUIElementTypeStaticText>
+                                      </XCUIElementTypeLink>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="17" y="143" width="368" height="54" index="7" traits=""/>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="157" width="332" height="26" index="8" traits="">
+                                        <XCUIElementTypeTextField type="XCUIElementTypeTextField" value="Search..." name="mobile-search-input" label="" enabled="true" visible="true" accessible="true" x="35" y="157" width="332" height="26" index="0" placeholderValue="Search..." traits=""/>
+                                      </XCUIElementTypeOther>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="339" y="157" width="29" height="30" index="9" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="339" y="157" width="29" height="30" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="218" width="402" height="748" index="10" traits="">
+                                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="7" y="253" width="388" height="668" index="0" traits="">
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="169" y="271" width="64" height="65" index="0" traits=""/>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="187" y="289" width="28" height="30" index="1" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="187" y="289" width="28" height="30" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Sign Up" name="signup-header" label="Sign Up" enabled="true" visible="true" accessible="false" x="164" y="346" width="74" height="29" index="2" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Sign Up" name="Sign Up" label="Sign Up" enabled="true" visible="true" accessible="true" x="164" y="346" width="74" height="29" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Full Name" name="Full Name" label="Full Name" enabled="true" visible="true" accessible="false" x="43" y="392" width="316" height="25" index="3" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Full Name" name="Full Name" label="Full Name" enabled="true" visible="true" accessible="true" x="43" y="392" width="316" height="25" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="43" y="423" width="316" height="54" index="4" traits=""/>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="87" y="432" width="260" height="36" index="5" traits="">
+                                            <XCUIElementTypeTextField type="XCUIElementTypeTextField" value="Write your full name" name="signup-name-input" label="" enabled="true" visible="true" accessible="true" x="87" y="432" width="260" height="36" index="0" placeholderValue="Write your full name" traits=""/>
+                                          </XCUIElementTypeOther>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="55" y="440" width="19" height="20" index="6" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="55" y="440" width="19" height="20" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Email Address" name="Email Address" label="Email Address" enabled="true" visible="true" accessible="false" x="43" y="494" width="316" height="25" index="7" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Email Address" name="Email Address" label="Email Address" enabled="true" visible="true" accessible="true" x="43" y="494" width="316" height="25" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="43" y="526" width="316" height="53" index="8" traits=""/>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="87" y="535" width="260" height="35" index="9" traits="">
+                                            <XCUIElementTypeTextField type="XCUIElementTypeTextField" value="Write your email" name="signup-email-input" label="" enabled="true" visible="true" accessible="true" x="87" y="535" width="260" height="35" index="0" placeholderValue="Write your email" traits=""/>
+                                          </XCUIElementTypeOther>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="55" y="543" width="19" height="19" index="10" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="55" y="543" width="19" height="19" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Password" name="Password" label="Password" enabled="true" visible="true" accessible="false" x="43" y="596" width="316" height="26" index="11" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Password" name="Password" label="Password" enabled="true" visible="true" accessible="true" x="43" y="596" width="316" height="26" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="43" y="628" width="316" height="53" index="12" traits=""/>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="87" y="637" width="242" height="35" index="13" traits="">
+                                            <XCUIElementTypeSecureTextField type="XCUIElementTypeSecureTextField" value="Write your password" name="signup-password-input" label="" enabled="true" visible="true" accessible="true" x="87" y="637" width="242" height="35" index="0" placeholderValue="Write your password" traits=""/>
+                                          </XCUIElementTypeOther>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="55" y="645" width="19" height="19" index="14" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="55" y="645" width="19" height="19" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="328" y="645" width="19" height="19" index="15" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="328" y="645" width="19" height="19" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Confirm Password" name="Confirm Password" label="Confirm Password" enabled="true" visible="true" accessible="false" x="43" y="698" width="316" height="26" index="16" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Confirm Password" name="Confirm Password" label="Confirm Password" enabled="true" visible="true" accessible="true" x="43" y="698" width="316" height="26" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="43" y="730" width="316" height="54" index="17" traits=""/>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="87" y="739" width="242" height="36" index="18" traits="">
+                                            <XCUIElementTypeSecureTextField type="XCUIElementTypeSecureTextField" value="Write your password again" name="signup-confirm-password-input" label="" enabled="true" visible="true" accessible="true" x="87" y="739" width="242" height="36" index="0" placeholderValue="Write your password again" traits=""/>
+                                          </XCUIElementTypeOther>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="55" y="747" width="19" height="20" index="19" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="55" y="747" width="19" height="20" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="false" x="328" y="747" width="19" height="20" index="20" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="328" y="747" width="19" height="20" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeOther type="XCUIElementTypeOther" name="signup-button" label="Sign Up" enabled="true" visible="true" accessible="true" x="43" y="804" width="316" height="43" index="21" traits=""/>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Already have an account?" name="Already have an account?" label="Already have an account?" enabled="true" visible="false" accessible="false" x="94" y="881" width="170" height="22" index="22" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Already have an account?" name="Already have an account?" label="Already have an account?" enabled="true" visible="false" accessible="true" x="94" y="881" width="170" height="22" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Login" name="Login" label="Login" enabled="true" visible="false" accessible="false" x="271" y="881" width="37" height="22" index="23" traits="StaticText">
+                                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Login" name="Login" label="Login" enabled="true" visible="false" accessible="true" x="271" y="881" width="37" height="22" index="0" traits="StaticText"/>
+                                          </XCUIElementTypeStaticText>
+                                        </XCUIElementTypeOther>
+                                      </XCUIElementTypeOther>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="footer-section" enabled="true" visible="false" accessible="false" x="0" y="965" width="402" height="718" index="11" traits=""/>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="footer-main-content" enabled="true" visible="false" accessible="false" x="14" y="993" width="374" height="526" index="12" traits=""/>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="HelpHub" name="HelpHub" label="HelpHub" enabled="true" visible="false" accessible="false" x="164" y="993" width="74" height="26" index="13" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="HelpHub" name="HelpHub" label="HelpHub" enabled="true" visible="false" accessible="true" x="164" y="993" width="74" height="26" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="How it works?" name="How it works?" label="How it works?" enabled="true" visible="false" accessible="false" x="159" y="1046" width="84" height="18" index="14" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="How it works?" name="How it works?" label="How it works?" enabled="true" visible="false" accessible="true" x="159" y="1046" width="84" height="18" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="footer-company-links" enabled="true" visible="false" accessible="false" x="159" y="1046" width="84" height="103" index="15" traits=""/>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="About Us" name="About Us" label="About Us" enabled="true" visible="false" accessible="false" x="174" y="1074" width="54" height="18" index="16" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="About Us" name="About Us" label="About Us" enabled="true" visible="false" accessible="true" x="174" y="1074" width="54" height="18" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Contact" name="Contact" label="Contact" enabled="true" visible="false" accessible="false" x="178" y="1102" width="46" height="19" index="17" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Contact" name="Contact" label="Contact" enabled="true" visible="false" accessible="true" x="178" y="1102" width="46" height="19" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Blog" name="Blog" label="Blog" enabled="true" visible="false" accessible="false" x="188" y="1130" width="26" height="19" index="18" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Blog" name="Blog" label="Blog" enabled="true" visible="false" accessible="true" x="188" y="1130" width="26" height="19" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="footer-legal-links" enabled="true" visible="false" accessible="false" x="125" y="1176" width="152" height="131" index="19" traits=""/>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Terms of Use" name="Terms of Use" label="Terms of Use" enabled="true" visible="false" accessible="false" x="162" y="1176" width="77" height="18" index="20" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Terms of Use" name="Terms of Use" label="Terms of Use" enabled="true" visible="false" accessible="true" x="162" y="1176" width="77" height="18" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Privacy Policy &amp; GDPR" name="Privacy Policy &amp; GDPR" label="Privacy Policy &amp; GDPR" enabled="true" visible="false" accessible="false" x="136" y="1204" width="130" height="19" index="21" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Privacy Policy &amp; GDPR" name="Privacy Policy &amp; GDPR" label="Privacy Policy &amp; GDPR" enabled="true" visible="false" accessible="true" x="136" y="1204" width="130" height="19" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Distance Sales Agreement" name="Distance Sales Agreement" label="Distance Sales Agreement" enabled="true" visible="false" accessible="false" x="125" y="1232" width="152" height="19" index="22" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Distance Sales Agreement" name="Distance Sales Agreement" label="Distance Sales Agreement" enabled="true" visible="false" accessible="true" x="125" y="1232" width="152" height="19" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Refund Policy" name="Refund Policy" label="Refund Policy" enabled="true" visible="false" accessible="false" x="161" y="1260" width="80" height="19" index="23" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Refund Policy" name="Refund Policy" label="Refund Policy" enabled="true" visible="false" accessible="true" x="161" y="1260" width="80" height="19" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Cookie Policy" name="Cookie Policy" label="Cookie Policy" enabled="true" visible="false" accessible="false" x="162" y="1289" width="78" height="18" index="24" traits="Link, StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Cookie Policy" name="Cookie Policy" label="Cookie Policy" enabled="true" visible="false" accessible="true" x="162" y="1289" width="78" height="18" index="0" traits="Link, StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="footer-social-downloads" enabled="true" visible="false" accessible="false" x="128" y="1334" width="146" height="185" index="25" traits=""/>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Follow Us" name="Follow Us" label="Follow Us" enabled="true" visible="false" accessible="false" x="171" y="1334" width="59" height="19" index="26" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Follow Us" name="Follow Us" label="Follow Us" enabled="true" visible="false" accessible="true" x="171" y="1334" width="59" height="19" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="footer-social-icons" enabled="true" visible="false" accessible="false" x="138" y="1366" width="127" height="36" index="27" traits=""/>
+                                      <XCUIElementTypeLink type="XCUIElementTypeLink" enabled="true" visible="false" accessible="false" x="138" y="1366" width="36" height="36" index="28" traits="Link"/>
+                                      <XCUIElementTypeLink type="XCUIElementTypeLink" enabled="true" visible="false" accessible="false" x="183" y="1366" width="36" height="36" index="29" traits="Link"/>
+                                      <XCUIElementTypeLink type="XCUIElementTypeLink" enabled="true" visible="false" accessible="false" x="229" y="1366" width="36" height="36" index="30" traits="Link"/>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="false" accessible="false" x="146" y="1374" width="19" height="20" index="31" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="false" accessible="true" x="146" y="1374" width="19" height="20" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="false" accessible="false" x="192" y="1374" width="19" height="20" index="32" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="false" accessible="true" x="192" y="1374" width="19" height="20" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="false" accessible="false" x="237" y="1374" width="19" height="20" index="33" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="false" accessible="true" x="237" y="1374" width="19" height="20" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name=", GET IT ON, Google Play" label=", GET IT ON, Google Play" enabled="true" visible="false" accessible="true" x="128" y="1422" width="146" height="44" index="34" traits=""/>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name=", DOWNLOAD ON THE, App Store" label=", DOWNLOAD ON THE, App Store" enabled="true" visible="false" accessible="true" x="128" y="1476" width="146" height="44" index="35" traits=""/>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services." name="Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services." label="Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services." enabled="true" visible="false" accessible="false" x="14" y="1533" width="374" height="80" index="36" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services." name="Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services." label="Disclaimer – Online counseling services are not suitable for everyone. If you are experiencing thoughts of self-harm or suicide, these services may not be appropriate for you. In such cases, we strongly recommend contacting local emergency support services." enabled="true" visible="false" accessible="true" x="14" y="1533" width="374" height="80" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="footer-disclaimer-content" enabled="true" visible="false" accessible="false" x="14" y="1533" width="374" height="122" index="37" traits=""/>
+                                      <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191" name="Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191" label="Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191" enabled="true" visible="false" accessible="false" x="14" y="1627" width="374" height="28" index="38" traits="StaticText">
+                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191" name="Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191" label="Emergency Hotline: 112, Police: 155, Domestic Violence Support: 183, Substance Abuse Support: 191" enabled="true" visible="false" accessible="true" x="14" y="1627" width="374" height="28" index="0" traits="StaticText"/>
+                                      </XCUIElementTypeStaticText>
+                                    </XCUIElementTypeOther>
+                                  </XCUIElementTypeOther>
+                                  <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Vertical scroll bar, 2 pages" label="Vertical scroll bar, 2 pages" enabled="true" visible="true" accessible="false" x="369" y="62" width="30" height="806" index="1" traits="Adjustable">
+                                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="396" y="65" width="3" height="445" index="0" traits=""/>
+                                  </XCUIElementTypeOther>
+                                  <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Horizontal scroll bar, 1 page" label="Horizontal scroll bar, 1 page" enabled="true" visible="true" accessible="false" x="62" y="863" width="278" height="30" index="2" traits="Adjustable">
+                                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="3" y="890" width="393" height="3" index="0" traits=""/>
+                                  </XCUIElementTypeOther>
+                                  <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Vertical scroll bar, 2 pages" label="Vertical scroll bar, 2 pages" enabled="true" visible="true" accessible="false" x="369" y="62" width="30" height="806" index="3" traits="Adjustable">
+                                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="396" y="65" width="3" height="445" index="0" traits=""/>
+                                  </XCUIElementTypeOther>
+                                  <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Horizontal scroll bar, 1 page" label="Horizontal scroll bar, 1 page" enabled="true" visible="true" accessible="false" x="62" y="863" width="278" height="30" index="4" traits="Adjustable">
+                                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="3" y="890" width="393" height="3" index="0" traits=""/>
+                                  </XCUIElementTypeOther>
+                                </XCUIElementTypeScrollView>
+                              </XCUIElementTypeOther>
+                            </XCUIElementTypeOther>
+                          </XCUIElementTypeOther>
+                        </XCUIElementTypeOther>
+                      </XCUIElementTypeOther>
+                      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="402" height="874" index="1" traits="">
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="402" height="874" index="0" traits=""/>
+                      </XCUIElementTypeOther>
+                    </XCUIElementTypeOther>
+                  </XCUIElementTypeOther>
+                </XCUIElementTypeOther>
+                <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="1" traits="">
+                  <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="402" height="874" index="0" traits=""/>
+                  </XCUIElementTypeOther>
+                </XCUIElementTypeOther>
+              </XCUIElementTypeOther>
+            </XCUIElementTypeOther>
+          </XCUIElementTypeOther>
+        </XCUIElementTypeOther>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="false" accessible="false" x="0" y="0" width="402" height="874" index="1" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="402" height="874" index="0" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="402" height="874" index="0" traits=""/>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+  </XCUIElementTypeApplication>
+</AppiumAUT>

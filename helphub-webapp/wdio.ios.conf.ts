@@ -62,7 +62,9 @@ export const config: Options.Testrunner & { capabilities: any } = {
         'appium:deviceName': 'iPhone 17 Pro',
         'appium:platformVersion': '26.5',
         'appium:bundleId': 'com.anonymous.helphub-webapp',
-        'appium:noReset': true
+        'appium:noReset': true,
+        'appium:AutoDismissAlerts': true,
+        'appium:AutoAcceptAlerts': true,
     }],
 
     //

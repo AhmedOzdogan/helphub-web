@@ -154,6 +154,9 @@ function LanguageMenu({ openLanguageMenu, setOpenLanguageMenu, mobile, testId }:
                         {languages.map((lang) => (
                             <Pressable
                                 testID={lang.code}
+                                accessibilityLabel={lang.label}
+                                accessibilityRole="button"
+                                accessible={true}
                                 key={lang.code}
                                 className="flex-row items-center justify-center py-2"
                                 onPress={() => selectLanguage(lang.code)}

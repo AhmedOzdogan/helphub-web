@@ -1,24 +1,31 @@
 import { expect } from '@wdio/globals'
 import fs from 'fs'
 
+import HomePage from './pageobjects/home.page'
+
 describe('HelpHub Mobile Navbar', () => {
     it('should display navbar elements and open/close the mobile menu', async () => {
 
         // Pause to allow the app to load and stabilize before interacting with elements
-        await driver.pause(5000)
+        await driver.pause(2000)
+
+
+        await HomePage.navigateHome()
 
         // Check if the platform is iOS or Android to use appropriate selectors and actions
         const isIOS = driver.isIOS
 
         // Create artifacts directory if it doesn't exist to store page source snapshots
-        fs.mkdirSync('./test/artifacts', { recursive: true })
+        fs.mkdirSync('./test/artifacts/navbar', { recursive: true })
+        fs.mkdirSync('./test/artifacts/navbar/ios', { recursive: true })
+        fs.mkdirSync('./test/artifacts/navbar/android', { recursive: true })
 
         // Capture the page source before interacting with the menu for debugging purposes
         const source = await driver.getPageSource()
         fs.writeFileSync(
             isIOS
-                ? './test/ios/artifacts/ios-before-menu-open.xml'
-                : './test/android/artifacts/android-before-menu-open.xml',
+                ? './test/artifacts/navbar/ios/ios-before-menu-open.xml'
+                : './test/artifacts/navbar/android/android-before-menu-open.xml',
             source,
             'utf8'
         )
@@ -58,8 +65,8 @@ describe('HelpHub Mobile Navbar', () => {
         const afterOpenSource = await driver.getPageSource()
         fs.writeFileSync(
             isIOS
-                ? './test/ios/artifacts/ios-after-menu-open.xml'
-                : './test/android/artifacts/android-after-menu-open.xml',
+                ? './test/artifacts/navbar/ios/ios-after-menu-open.xml'
+                : './test/artifacts/navbar/android/android-after-menu-open.xml',
             afterOpenSource,
             'utf8'
         )
@@ -77,10 +84,11 @@ describe('HelpHub Mobile Navbar', () => {
         await expect(forMyselfToggle).toBeDisplayed()
 
         await forMyselfToggle.click()
+        await driver.pause(1000)
 
         const psychologyItem = isIOS
             ? await $('//*[@name="Psychology" or @label="Psychology"]')
-            : await $('//*[@text="Psychology"]')
+            : await $('~Psychology')
         // Assert that the "Psychology" item is displayed after clicking the "FOR MYSELF" toggle
         await expect(psychologyItem).toBeDisplayed()
 
